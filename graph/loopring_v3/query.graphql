@@ -1,0 +1,75 @@
+{
+    exchanges (first: 1000) {
+        id
+        internalId
+        proxyAddress
+        implementationAddress
+        addressWhitelist
+        owner
+        operator
+        onChainDataAvailability
+        takerFeeBips
+        makerFeeBips
+        accountCreationFee
+        accountUpdateFee
+        depositFee
+        withdrawalFee
+        exchangeStake
+        exchangeStakeRaw
+        protocolStake
+        protocolStakeRaw
+        totalExchangeStakeBurned
+        totalExchangeStakeBurnedRaw
+        totalExchangeStakeDeposited
+        totalExchangeStakeDepositedRaw
+        totalExchangeStakeWithdrawn
+        totalExchangeStakeWithdrawnRaw
+        totalProtocolStakeDeposited
+        totalProtocolStakeDepositedRaw
+        totalProtocolStakeWithdrawn
+        totalProtocolStakeWithdrawnRaw
+        accounts (first: 1000) {
+            id
+            internalId
+            pubKeyX
+            pubKeyY
+            owner {
+                id
+                lrcBalanceRaw
+                lrcBalance
+                lrcBurnedRaw
+                lrcBurned
+            }
+            balances {
+                id
+                totalDeposited
+                totalDepositedRaw
+                totalWithdrawn
+                totalWithdrawnRaw
+            }
+        }
+        tokens (first: 1000) {
+            id
+            internalId
+            address
+            decimals
+            name
+            symbol
+        }
+        blocks (first: 1000) {
+            id
+            status
+            publicDataHash
+            feesWithdrawn
+            merkleRoot
+            blockType
+            blockTypeRaw
+            blockSize
+            timestamp
+            numDepositRequestsCommitted
+            numWithdrawalRequestsCommitted
+            blockFeeWithdrawn
+            numWithdrawalsDistributed
+        }
+    }
+}

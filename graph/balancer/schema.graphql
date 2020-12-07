@@ -1,0 +1,1267 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    subscription: Subscription
+}
+
+type Balancer {
+    color: String!
+    crpCount: Int!
+    finalizedPoolCount: Int!
+    id: ID!
+    poolCount: Int!
+    pools(first: Int = 100, orderBy: Pool_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Pool_filter): [Pool!]
+    totalLiquidity: BigDecimal!
+    totalSwapFee: BigDecimal!
+    totalSwapVolume: BigDecimal!
+    txCount: BigInt!
+}
+
+type Pool {
+    active: Boolean!
+    cap: BigInt
+    controller: Bytes!
+    createTime: Int!
+    crp: Boolean!
+    crpController: Bytes
+    exitsCount: BigInt!
+    factoryID: Balancer!
+    finalized: Boolean!
+    holdersCount: BigInt!
+    id: ID!
+    joinsCount: BigInt!
+    liquidity: BigDecimal!
+    name: String
+    publicSwap: Boolean!
+    rights: [String!]!
+    shares(first: Int = 100, orderBy: PoolShare_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: PoolShare_filter): [PoolShare!]
+    swapFee: BigDecimal!
+    swaps(first: Int = 100, orderBy: Swap_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Swap_filter): [Swap!]
+    swapsCount: BigInt!
+    symbol: String
+    tokens(first: Int = 100, orderBy: PoolToken_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: PoolToken_filter): [PoolToken!]
+    tokensCount: BigInt!
+    tokensList: [Bytes!]!
+    totalShares: BigDecimal!
+    totalSwapFee: BigDecimal!
+    totalSwapVolume: BigDecimal!
+    totalWeight: BigDecimal!
+    tx: Bytes
+}
+
+type PoolShare {
+    balance: BigDecimal!
+    id: ID!
+    poolId: Pool!
+    userAddress: User!
+}
+
+type PoolToken {
+    address: String!
+    balance: BigDecimal!
+    decimals: Int!
+    denormWeight: BigDecimal!
+    id: ID!
+    name: String
+    poolId: Pool!
+    symbol: String
+}
+
+type Query {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
+    balancer(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Balancer
+    balancers(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Balancer_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Balancer_filter
+    ): [Balancer!]!
+    pool(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Pool
+    poolShare(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): PoolShare
+    poolShares(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: PoolShare_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: PoolShare_filter
+    ): [PoolShare!]!
+    poolToken(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): PoolToken
+    poolTokens(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: PoolToken_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: PoolToken_filter
+    ): [PoolToken!]!
+    pools(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Pool_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Pool_filter
+    ): [Pool!]!
+    swap(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Swap
+    swaps(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Swap_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Swap_filter
+    ): [Swap!]!
+    tokenPrice(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): TokenPrice
+    tokenPrices(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: TokenPrice_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: TokenPrice_filter
+    ): [TokenPrice!]!
+    transaction(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Transaction
+    transactions(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Transaction_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Transaction_filter
+    ): [Transaction!]!
+    user(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): User
+    users(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: User_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: User_filter
+    ): [User!]!
+}
+
+type Subscription {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
+    balancer(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Balancer
+    balancers(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Balancer_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Balancer_filter
+    ): [Balancer!]!
+    pool(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Pool
+    poolShare(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): PoolShare
+    poolShares(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: PoolShare_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: PoolShare_filter
+    ): [PoolShare!]!
+    poolToken(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): PoolToken
+    poolTokens(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: PoolToken_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: PoolToken_filter
+    ): [PoolToken!]!
+    pools(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Pool_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Pool_filter
+    ): [Pool!]!
+    swap(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Swap
+    swaps(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Swap_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Swap_filter
+    ): [Swap!]!
+    tokenPrice(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): TokenPrice
+    tokenPrices(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: TokenPrice_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: TokenPrice_filter
+    ): [TokenPrice!]!
+    transaction(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Transaction
+    transactions(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Transaction_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Transaction_filter
+    ): [Transaction!]!
+    user(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): User
+    users(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: User_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: User_filter
+    ): [User!]!
+}
+
+type Swap {
+    caller: Bytes!
+    feeValue: BigDecimal!
+    id: ID!
+    poolAddress: Pool
+    poolLiquidity: BigDecimal!
+    poolTotalSwapFee: BigDecimal!
+    poolTotalSwapVolume: BigDecimal!
+    timestamp: Int!
+    tokenAmountIn: BigDecimal!
+    tokenAmountOut: BigDecimal!
+    tokenIn: Bytes!
+    tokenInSym: String!
+    tokenOut: Bytes!
+    tokenOutSym: String!
+    userAddress: User
+    value: BigDecimal!
+}
+
+type TokenPrice {
+    decimals: Int!
+    id: ID!
+    name: String
+    poolLiquidity: BigDecimal!
+    poolTokenId: String
+    price: BigDecimal!
+    symbol: String
+}
+
+type Transaction {
+    action: SwapType
+    block: Int!
+    event: String
+    gasPrice: BigDecimal!
+    gasUsed: BigDecimal!
+    id: ID!
+    poolAddress: Pool
+    sender: Bytes
+    timestamp: Int!
+    tx: Bytes!
+    userAddress: User
+}
+
+type User {
+    id: ID!
+    sharesOwned(first: Int = 100, orderBy: PoolShare_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: PoolShare_filter): [PoolShare!]
+    swaps(first: Int = 100, orderBy: Swap_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Swap_filter): [Swap!]
+    txs(first: Int = 100, orderBy: Transaction_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Transaction_filter): [Transaction!]
+}
+
+type _Block_ {
+    "The hash of the block"
+    hash: Bytes
+    "The block number"
+    number: Int!
+}
+
+"The type for the top-level _meta field"
+type _Meta_ {
+    """
+
+    Information about a specific subgraph block. The hash of the block
+    will be null if the _meta field has a block constraint that asks for
+    a block number. It will be filled if the _meta field has no block constraint
+    and therefore asks for the latest  block
+    """
+    block: _Block_!
+    "The deployment ID"
+    deployment: String!
+}
+
+enum Balancer_orderBy {
+    color
+    crpCount
+    finalizedPoolCount
+    id
+    poolCount
+    pools
+    totalLiquidity
+    totalSwapFee
+    totalSwapVolume
+    txCount
+}
+
+enum OrderDirection {
+    asc
+    desc
+}
+
+enum PoolShare_orderBy {
+    balance
+    id
+    poolId
+    userAddress
+}
+
+enum PoolToken_orderBy {
+    address
+    balance
+    decimals
+    denormWeight
+    id
+    name
+    poolId
+    symbol
+}
+
+enum Pool_orderBy {
+    active
+    cap
+    controller
+    createTime
+    crp
+    crpController
+    exitsCount
+    factoryID
+    finalized
+    holdersCount
+    id
+    joinsCount
+    liquidity
+    name
+    publicSwap
+    rights
+    shares
+    swapFee
+    swaps
+    swapsCount
+    symbol
+    tokens
+    tokensCount
+    tokensList
+    totalShares
+    totalSwapFee
+    totalSwapVolume
+    totalWeight
+    tx
+}
+
+enum SwapType {
+    exitswapExternAmountOut
+    exitswapPoolAmountIn
+    joinswapExternAmountIn
+    joinswapPoolAmountOut
+    swapExactAmountIn
+    swapExactAmountOut
+}
+
+enum Swap_orderBy {
+    caller
+    feeValue
+    id
+    poolAddress
+    poolLiquidity
+    poolTotalSwapFee
+    poolTotalSwapVolume
+    timestamp
+    tokenAmountIn
+    tokenAmountOut
+    tokenIn
+    tokenInSym
+    tokenOut
+    tokenOutSym
+    userAddress
+    value
+}
+
+enum TokenPrice_orderBy {
+    decimals
+    id
+    name
+    poolLiquidity
+    poolTokenId
+    price
+    symbol
+}
+
+enum Transaction_orderBy {
+    action
+    block
+    event
+    gasPrice
+    gasUsed
+    id
+    poolAddress
+    sender
+    timestamp
+    tx
+    userAddress
+}
+
+enum User_orderBy {
+    id
+    sharesOwned
+    swaps
+    txs
+}
+
+input Balancer_filter {
+    color: String
+    color_contains: String
+    color_ends_with: String
+    color_gt: String
+    color_gte: String
+    color_in: [String!]
+    color_lt: String
+    color_lte: String
+    color_not: String
+    color_not_contains: String
+    color_not_ends_with: String
+    color_not_in: [String!]
+    color_not_starts_with: String
+    color_starts_with: String
+    crpCount: Int
+    crpCount_gt: Int
+    crpCount_gte: Int
+    crpCount_in: [Int!]
+    crpCount_lt: Int
+    crpCount_lte: Int
+    crpCount_not: Int
+    crpCount_not_in: [Int!]
+    finalizedPoolCount: Int
+    finalizedPoolCount_gt: Int
+    finalizedPoolCount_gte: Int
+    finalizedPoolCount_in: [Int!]
+    finalizedPoolCount_lt: Int
+    finalizedPoolCount_lte: Int
+    finalizedPoolCount_not: Int
+    finalizedPoolCount_not_in: [Int!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    poolCount: Int
+    poolCount_gt: Int
+    poolCount_gte: Int
+    poolCount_in: [Int!]
+    poolCount_lt: Int
+    poolCount_lte: Int
+    poolCount_not: Int
+    poolCount_not_in: [Int!]
+    totalLiquidity: BigDecimal
+    totalLiquidity_gt: BigDecimal
+    totalLiquidity_gte: BigDecimal
+    totalLiquidity_in: [BigDecimal!]
+    totalLiquidity_lt: BigDecimal
+    totalLiquidity_lte: BigDecimal
+    totalLiquidity_not: BigDecimal
+    totalLiquidity_not_in: [BigDecimal!]
+    totalSwapFee: BigDecimal
+    totalSwapFee_gt: BigDecimal
+    totalSwapFee_gte: BigDecimal
+    totalSwapFee_in: [BigDecimal!]
+    totalSwapFee_lt: BigDecimal
+    totalSwapFee_lte: BigDecimal
+    totalSwapFee_not: BigDecimal
+    totalSwapFee_not_in: [BigDecimal!]
+    totalSwapVolume: BigDecimal
+    totalSwapVolume_gt: BigDecimal
+    totalSwapVolume_gte: BigDecimal
+    totalSwapVolume_in: [BigDecimal!]
+    totalSwapVolume_lt: BigDecimal
+    totalSwapVolume_lte: BigDecimal
+    totalSwapVolume_not: BigDecimal
+    totalSwapVolume_not_in: [BigDecimal!]
+    txCount: BigInt
+    txCount_gt: BigInt
+    txCount_gte: BigInt
+    txCount_in: [BigInt!]
+    txCount_lt: BigInt
+    txCount_lte: BigInt
+    txCount_not: BigInt
+    txCount_not_in: [BigInt!]
+}
+
+input Block_height {
+    hash: Bytes
+    number: Int
+}
+
+input PoolShare_filter {
+    balance: BigDecimal
+    balance_gt: BigDecimal
+    balance_gte: BigDecimal
+    balance_in: [BigDecimal!]
+    balance_lt: BigDecimal
+    balance_lte: BigDecimal
+    balance_not: BigDecimal
+    balance_not_in: [BigDecimal!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    poolId: String
+    poolId_contains: String
+    poolId_ends_with: String
+    poolId_gt: String
+    poolId_gte: String
+    poolId_in: [String!]
+    poolId_lt: String
+    poolId_lte: String
+    poolId_not: String
+    poolId_not_contains: String
+    poolId_not_ends_with: String
+    poolId_not_in: [String!]
+    poolId_not_starts_with: String
+    poolId_starts_with: String
+    userAddress: String
+    userAddress_contains: String
+    userAddress_ends_with: String
+    userAddress_gt: String
+    userAddress_gte: String
+    userAddress_in: [String!]
+    userAddress_lt: String
+    userAddress_lte: String
+    userAddress_not: String
+    userAddress_not_contains: String
+    userAddress_not_ends_with: String
+    userAddress_not_in: [String!]
+    userAddress_not_starts_with: String
+    userAddress_starts_with: String
+}
+
+input PoolToken_filter {
+    address: String
+    address_contains: String
+    address_ends_with: String
+    address_gt: String
+    address_gte: String
+    address_in: [String!]
+    address_lt: String
+    address_lte: String
+    address_not: String
+    address_not_contains: String
+    address_not_ends_with: String
+    address_not_in: [String!]
+    address_not_starts_with: String
+    address_starts_with: String
+    balance: BigDecimal
+    balance_gt: BigDecimal
+    balance_gte: BigDecimal
+    balance_in: [BigDecimal!]
+    balance_lt: BigDecimal
+    balance_lte: BigDecimal
+    balance_not: BigDecimal
+    balance_not_in: [BigDecimal!]
+    decimals: Int
+    decimals_gt: Int
+    decimals_gte: Int
+    decimals_in: [Int!]
+    decimals_lt: Int
+    decimals_lte: Int
+    decimals_not: Int
+    decimals_not_in: [Int!]
+    denormWeight: BigDecimal
+    denormWeight_gt: BigDecimal
+    denormWeight_gte: BigDecimal
+    denormWeight_in: [BigDecimal!]
+    denormWeight_lt: BigDecimal
+    denormWeight_lte: BigDecimal
+    denormWeight_not: BigDecimal
+    denormWeight_not_in: [BigDecimal!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    name: String
+    name_contains: String
+    name_ends_with: String
+    name_gt: String
+    name_gte: String
+    name_in: [String!]
+    name_lt: String
+    name_lte: String
+    name_not: String
+    name_not_contains: String
+    name_not_ends_with: String
+    name_not_in: [String!]
+    name_not_starts_with: String
+    name_starts_with: String
+    poolId: String
+    poolId_contains: String
+    poolId_ends_with: String
+    poolId_gt: String
+    poolId_gte: String
+    poolId_in: [String!]
+    poolId_lt: String
+    poolId_lte: String
+    poolId_not: String
+    poolId_not_contains: String
+    poolId_not_ends_with: String
+    poolId_not_in: [String!]
+    poolId_not_starts_with: String
+    poolId_starts_with: String
+    symbol: String
+    symbol_contains: String
+    symbol_ends_with: String
+    symbol_gt: String
+    symbol_gte: String
+    symbol_in: [String!]
+    symbol_lt: String
+    symbol_lte: String
+    symbol_not: String
+    symbol_not_contains: String
+    symbol_not_ends_with: String
+    symbol_not_in: [String!]
+    symbol_not_starts_with: String
+    symbol_starts_with: String
+}
+
+input Pool_filter {
+    active: Boolean
+    active_in: [Boolean!]
+    active_not: Boolean
+    active_not_in: [Boolean!]
+    cap: BigInt
+    cap_gt: BigInt
+    cap_gte: BigInt
+    cap_in: [BigInt!]
+    cap_lt: BigInt
+    cap_lte: BigInt
+    cap_not: BigInt
+    cap_not_in: [BigInt!]
+    controller: Bytes
+    controller_contains: Bytes
+    controller_in: [Bytes!]
+    controller_not: Bytes
+    controller_not_contains: Bytes
+    controller_not_in: [Bytes!]
+    createTime: Int
+    createTime_gt: Int
+    createTime_gte: Int
+    createTime_in: [Int!]
+    createTime_lt: Int
+    createTime_lte: Int
+    createTime_not: Int
+    createTime_not_in: [Int!]
+    crp: Boolean
+    crpController: Bytes
+    crpController_contains: Bytes
+    crpController_in: [Bytes!]
+    crpController_not: Bytes
+    crpController_not_contains: Bytes
+    crpController_not_in: [Bytes!]
+    crp_in: [Boolean!]
+    crp_not: Boolean
+    crp_not_in: [Boolean!]
+    exitsCount: BigInt
+    exitsCount_gt: BigInt
+    exitsCount_gte: BigInt
+    exitsCount_in: [BigInt!]
+    exitsCount_lt: BigInt
+    exitsCount_lte: BigInt
+    exitsCount_not: BigInt
+    exitsCount_not_in: [BigInt!]
+    factoryID: String
+    factoryID_contains: String
+    factoryID_ends_with: String
+    factoryID_gt: String
+    factoryID_gte: String
+    factoryID_in: [String!]
+    factoryID_lt: String
+    factoryID_lte: String
+    factoryID_not: String
+    factoryID_not_contains: String
+    factoryID_not_ends_with: String
+    factoryID_not_in: [String!]
+    factoryID_not_starts_with: String
+    factoryID_starts_with: String
+    finalized: Boolean
+    finalized_in: [Boolean!]
+    finalized_not: Boolean
+    finalized_not_in: [Boolean!]
+    holdersCount: BigInt
+    holdersCount_gt: BigInt
+    holdersCount_gte: BigInt
+    holdersCount_in: [BigInt!]
+    holdersCount_lt: BigInt
+    holdersCount_lte: BigInt
+    holdersCount_not: BigInt
+    holdersCount_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    joinsCount: BigInt
+    joinsCount_gt: BigInt
+    joinsCount_gte: BigInt
+    joinsCount_in: [BigInt!]
+    joinsCount_lt: BigInt
+    joinsCount_lte: BigInt
+    joinsCount_not: BigInt
+    joinsCount_not_in: [BigInt!]
+    liquidity: BigDecimal
+    liquidity_gt: BigDecimal
+    liquidity_gte: BigDecimal
+    liquidity_in: [BigDecimal!]
+    liquidity_lt: BigDecimal
+    liquidity_lte: BigDecimal
+    liquidity_not: BigDecimal
+    liquidity_not_in: [BigDecimal!]
+    name: String
+    name_contains: String
+    name_ends_with: String
+    name_gt: String
+    name_gte: String
+    name_in: [String!]
+    name_lt: String
+    name_lte: String
+    name_not: String
+    name_not_contains: String
+    name_not_ends_with: String
+    name_not_in: [String!]
+    name_not_starts_with: String
+    name_starts_with: String
+    publicSwap: Boolean
+    publicSwap_in: [Boolean!]
+    publicSwap_not: Boolean
+    publicSwap_not_in: [Boolean!]
+    rights: [String!]
+    rights_contains: [String!]
+    rights_not: [String!]
+    rights_not_contains: [String!]
+    swapFee: BigDecimal
+    swapFee_gt: BigDecimal
+    swapFee_gte: BigDecimal
+    swapFee_in: [BigDecimal!]
+    swapFee_lt: BigDecimal
+    swapFee_lte: BigDecimal
+    swapFee_not: BigDecimal
+    swapFee_not_in: [BigDecimal!]
+    swapsCount: BigInt
+    swapsCount_gt: BigInt
+    swapsCount_gte: BigInt
+    swapsCount_in: [BigInt!]
+    swapsCount_lt: BigInt
+    swapsCount_lte: BigInt
+    swapsCount_not: BigInt
+    swapsCount_not_in: [BigInt!]
+    symbol: String
+    symbol_contains: String
+    symbol_ends_with: String
+    symbol_gt: String
+    symbol_gte: String
+    symbol_in: [String!]
+    symbol_lt: String
+    symbol_lte: String
+    symbol_not: String
+    symbol_not_contains: String
+    symbol_not_ends_with: String
+    symbol_not_in: [String!]
+    symbol_not_starts_with: String
+    symbol_starts_with: String
+    tokensCount: BigInt
+    tokensCount_gt: BigInt
+    tokensCount_gte: BigInt
+    tokensCount_in: [BigInt!]
+    tokensCount_lt: BigInt
+    tokensCount_lte: BigInt
+    tokensCount_not: BigInt
+    tokensCount_not_in: [BigInt!]
+    tokensList: [Bytes!]
+    tokensList_contains: [Bytes!]
+    tokensList_not: [Bytes!]
+    tokensList_not_contains: [Bytes!]
+    totalShares: BigDecimal
+    totalShares_gt: BigDecimal
+    totalShares_gte: BigDecimal
+    totalShares_in: [BigDecimal!]
+    totalShares_lt: BigDecimal
+    totalShares_lte: BigDecimal
+    totalShares_not: BigDecimal
+    totalShares_not_in: [BigDecimal!]
+    totalSwapFee: BigDecimal
+    totalSwapFee_gt: BigDecimal
+    totalSwapFee_gte: BigDecimal
+    totalSwapFee_in: [BigDecimal!]
+    totalSwapFee_lt: BigDecimal
+    totalSwapFee_lte: BigDecimal
+    totalSwapFee_not: BigDecimal
+    totalSwapFee_not_in: [BigDecimal!]
+    totalSwapVolume: BigDecimal
+    totalSwapVolume_gt: BigDecimal
+    totalSwapVolume_gte: BigDecimal
+    totalSwapVolume_in: [BigDecimal!]
+    totalSwapVolume_lt: BigDecimal
+    totalSwapVolume_lte: BigDecimal
+    totalSwapVolume_not: BigDecimal
+    totalSwapVolume_not_in: [BigDecimal!]
+    totalWeight: BigDecimal
+    totalWeight_gt: BigDecimal
+    totalWeight_gte: BigDecimal
+    totalWeight_in: [BigDecimal!]
+    totalWeight_lt: BigDecimal
+    totalWeight_lte: BigDecimal
+    totalWeight_not: BigDecimal
+    totalWeight_not_in: [BigDecimal!]
+    tx: Bytes
+    tx_contains: Bytes
+    tx_in: [Bytes!]
+    tx_not: Bytes
+    tx_not_contains: Bytes
+    tx_not_in: [Bytes!]
+}
+
+input Swap_filter {
+    caller: Bytes
+    caller_contains: Bytes
+    caller_in: [Bytes!]
+    caller_not: Bytes
+    caller_not_contains: Bytes
+    caller_not_in: [Bytes!]
+    feeValue: BigDecimal
+    feeValue_gt: BigDecimal
+    feeValue_gte: BigDecimal
+    feeValue_in: [BigDecimal!]
+    feeValue_lt: BigDecimal
+    feeValue_lte: BigDecimal
+    feeValue_not: BigDecimal
+    feeValue_not_in: [BigDecimal!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    poolAddress: String
+    poolAddress_contains: String
+    poolAddress_ends_with: String
+    poolAddress_gt: String
+    poolAddress_gte: String
+    poolAddress_in: [String!]
+    poolAddress_lt: String
+    poolAddress_lte: String
+    poolAddress_not: String
+    poolAddress_not_contains: String
+    poolAddress_not_ends_with: String
+    poolAddress_not_in: [String!]
+    poolAddress_not_starts_with: String
+    poolAddress_starts_with: String
+    poolLiquidity: BigDecimal
+    poolLiquidity_gt: BigDecimal
+    poolLiquidity_gte: BigDecimal
+    poolLiquidity_in: [BigDecimal!]
+    poolLiquidity_lt: BigDecimal
+    poolLiquidity_lte: BigDecimal
+    poolLiquidity_not: BigDecimal
+    poolLiquidity_not_in: [BigDecimal!]
+    poolTotalSwapFee: BigDecimal
+    poolTotalSwapFee_gt: BigDecimal
+    poolTotalSwapFee_gte: BigDecimal
+    poolTotalSwapFee_in: [BigDecimal!]
+    poolTotalSwapFee_lt: BigDecimal
+    poolTotalSwapFee_lte: BigDecimal
+    poolTotalSwapFee_not: BigDecimal
+    poolTotalSwapFee_not_in: [BigDecimal!]
+    poolTotalSwapVolume: BigDecimal
+    poolTotalSwapVolume_gt: BigDecimal
+    poolTotalSwapVolume_gte: BigDecimal
+    poolTotalSwapVolume_in: [BigDecimal!]
+    poolTotalSwapVolume_lt: BigDecimal
+    poolTotalSwapVolume_lte: BigDecimal
+    poolTotalSwapVolume_not: BigDecimal
+    poolTotalSwapVolume_not_in: [BigDecimal!]
+    timestamp: Int
+    timestamp_gt: Int
+    timestamp_gte: Int
+    timestamp_in: [Int!]
+    timestamp_lt: Int
+    timestamp_lte: Int
+    timestamp_not: Int
+    timestamp_not_in: [Int!]
+    tokenAmountIn: BigDecimal
+    tokenAmountIn_gt: BigDecimal
+    tokenAmountIn_gte: BigDecimal
+    tokenAmountIn_in: [BigDecimal!]
+    tokenAmountIn_lt: BigDecimal
+    tokenAmountIn_lte: BigDecimal
+    tokenAmountIn_not: BigDecimal
+    tokenAmountIn_not_in: [BigDecimal!]
+    tokenAmountOut: BigDecimal
+    tokenAmountOut_gt: BigDecimal
+    tokenAmountOut_gte: BigDecimal
+    tokenAmountOut_in: [BigDecimal!]
+    tokenAmountOut_lt: BigDecimal
+    tokenAmountOut_lte: BigDecimal
+    tokenAmountOut_not: BigDecimal
+    tokenAmountOut_not_in: [BigDecimal!]
+    tokenIn: Bytes
+    tokenInSym: String
+    tokenInSym_contains: String
+    tokenInSym_ends_with: String
+    tokenInSym_gt: String
+    tokenInSym_gte: String
+    tokenInSym_in: [String!]
+    tokenInSym_lt: String
+    tokenInSym_lte: String
+    tokenInSym_not: String
+    tokenInSym_not_contains: String
+    tokenInSym_not_ends_with: String
+    tokenInSym_not_in: [String!]
+    tokenInSym_not_starts_with: String
+    tokenInSym_starts_with: String
+    tokenIn_contains: Bytes
+    tokenIn_in: [Bytes!]
+    tokenIn_not: Bytes
+    tokenIn_not_contains: Bytes
+    tokenIn_not_in: [Bytes!]
+    tokenOut: Bytes
+    tokenOutSym: String
+    tokenOutSym_contains: String
+    tokenOutSym_ends_with: String
+    tokenOutSym_gt: String
+    tokenOutSym_gte: String
+    tokenOutSym_in: [String!]
+    tokenOutSym_lt: String
+    tokenOutSym_lte: String
+    tokenOutSym_not: String
+    tokenOutSym_not_contains: String
+    tokenOutSym_not_ends_with: String
+    tokenOutSym_not_in: [String!]
+    tokenOutSym_not_starts_with: String
+    tokenOutSym_starts_with: String
+    tokenOut_contains: Bytes
+    tokenOut_in: [Bytes!]
+    tokenOut_not: Bytes
+    tokenOut_not_contains: Bytes
+    tokenOut_not_in: [Bytes!]
+    userAddress: String
+    userAddress_contains: String
+    userAddress_ends_with: String
+    userAddress_gt: String
+    userAddress_gte: String
+    userAddress_in: [String!]
+    userAddress_lt: String
+    userAddress_lte: String
+    userAddress_not: String
+    userAddress_not_contains: String
+    userAddress_not_ends_with: String
+    userAddress_not_in: [String!]
+    userAddress_not_starts_with: String
+    userAddress_starts_with: String
+    value: BigDecimal
+    value_gt: BigDecimal
+    value_gte: BigDecimal
+    value_in: [BigDecimal!]
+    value_lt: BigDecimal
+    value_lte: BigDecimal
+    value_not: BigDecimal
+    value_not_in: [BigDecimal!]
+}
+
+input TokenPrice_filter {
+    decimals: Int
+    decimals_gt: Int
+    decimals_gte: Int
+    decimals_in: [Int!]
+    decimals_lt: Int
+    decimals_lte: Int
+    decimals_not: Int
+    decimals_not_in: [Int!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    name: String
+    name_contains: String
+    name_ends_with: String
+    name_gt: String
+    name_gte: String
+    name_in: [String!]
+    name_lt: String
+    name_lte: String
+    name_not: String
+    name_not_contains: String
+    name_not_ends_with: String
+    name_not_in: [String!]
+    name_not_starts_with: String
+    name_starts_with: String
+    poolLiquidity: BigDecimal
+    poolLiquidity_gt: BigDecimal
+    poolLiquidity_gte: BigDecimal
+    poolLiquidity_in: [BigDecimal!]
+    poolLiquidity_lt: BigDecimal
+    poolLiquidity_lte: BigDecimal
+    poolLiquidity_not: BigDecimal
+    poolLiquidity_not_in: [BigDecimal!]
+    poolTokenId: String
+    poolTokenId_contains: String
+    poolTokenId_ends_with: String
+    poolTokenId_gt: String
+    poolTokenId_gte: String
+    poolTokenId_in: [String!]
+    poolTokenId_lt: String
+    poolTokenId_lte: String
+    poolTokenId_not: String
+    poolTokenId_not_contains: String
+    poolTokenId_not_ends_with: String
+    poolTokenId_not_in: [String!]
+    poolTokenId_not_starts_with: String
+    poolTokenId_starts_with: String
+    price: BigDecimal
+    price_gt: BigDecimal
+    price_gte: BigDecimal
+    price_in: [BigDecimal!]
+    price_lt: BigDecimal
+    price_lte: BigDecimal
+    price_not: BigDecimal
+    price_not_in: [BigDecimal!]
+    symbol: String
+    symbol_contains: String
+    symbol_ends_with: String
+    symbol_gt: String
+    symbol_gte: String
+    symbol_in: [String!]
+    symbol_lt: String
+    symbol_lte: String
+    symbol_not: String
+    symbol_not_contains: String
+    symbol_not_ends_with: String
+    symbol_not_in: [String!]
+    symbol_not_starts_with: String
+    symbol_starts_with: String
+}
+
+input Transaction_filter {
+    action: SwapType
+    action_not: SwapType
+    block: Int
+    block_gt: Int
+    block_gte: Int
+    block_in: [Int!]
+    block_lt: Int
+    block_lte: Int
+    block_not: Int
+    block_not_in: [Int!]
+    event: String
+    event_contains: String
+    event_ends_with: String
+    event_gt: String
+    event_gte: String
+    event_in: [String!]
+    event_lt: String
+    event_lte: String
+    event_not: String
+    event_not_contains: String
+    event_not_ends_with: String
+    event_not_in: [String!]
+    event_not_starts_with: String
+    event_starts_with: String
+    gasPrice: BigDecimal
+    gasPrice_gt: BigDecimal
+    gasPrice_gte: BigDecimal
+    gasPrice_in: [BigDecimal!]
+    gasPrice_lt: BigDecimal
+    gasPrice_lte: BigDecimal
+    gasPrice_not: BigDecimal
+    gasPrice_not_in: [BigDecimal!]
+    gasUsed: BigDecimal
+    gasUsed_gt: BigDecimal
+    gasUsed_gte: BigDecimal
+    gasUsed_in: [BigDecimal!]
+    gasUsed_lt: BigDecimal
+    gasUsed_lte: BigDecimal
+    gasUsed_not: BigDecimal
+    gasUsed_not_in: [BigDecimal!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    poolAddress: String
+    poolAddress_contains: String
+    poolAddress_ends_with: String
+    poolAddress_gt: String
+    poolAddress_gte: String
+    poolAddress_in: [String!]
+    poolAddress_lt: String
+    poolAddress_lte: String
+    poolAddress_not: String
+    poolAddress_not_contains: String
+    poolAddress_not_ends_with: String
+    poolAddress_not_in: [String!]
+    poolAddress_not_starts_with: String
+    poolAddress_starts_with: String
+    sender: Bytes
+    sender_contains: Bytes
+    sender_in: [Bytes!]
+    sender_not: Bytes
+    sender_not_contains: Bytes
+    sender_not_in: [Bytes!]
+    timestamp: Int
+    timestamp_gt: Int
+    timestamp_gte: Int
+    timestamp_in: [Int!]
+    timestamp_lt: Int
+    timestamp_lte: Int
+    timestamp_not: Int
+    timestamp_not_in: [Int!]
+    tx: Bytes
+    tx_contains: Bytes
+    tx_in: [Bytes!]
+    tx_not: Bytes
+    tx_not_contains: Bytes
+    tx_not_in: [Bytes!]
+    userAddress: String
+    userAddress_contains: String
+    userAddress_ends_with: String
+    userAddress_gt: String
+    userAddress_gte: String
+    userAddress_in: [String!]
+    userAddress_lt: String
+    userAddress_lte: String
+    userAddress_not: String
+    userAddress_not_contains: String
+    userAddress_not_ends_with: String
+    userAddress_not_in: [String!]
+    userAddress_not_starts_with: String
+    userAddress_starts_with: String
+}
+
+input User_filter {
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+}
+
+
+scalar BigDecimal
+
+scalar BigInt
+
+scalar Bytes

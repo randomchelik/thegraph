@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    .block-header
+        .row.clearfix
+            .col-md-6.col-sm-12
+                h1 Synthetix
+                nav(aria-label='breadcrumb')
+                    ol.breadcrumb
+                        li.breadcrumb-item
+                            a(href='/')
+                                i.fa.fa-cube
+                        li.breadcrumb-item.active(aria-current='page') Dashboard
+
+        .row.clearfix
+            .col-lg-12.col-md-12
+                pre #{JSON.stringify(data, (k, v) => typeof v === 'bigint' ? v.toString() : v, 2)}

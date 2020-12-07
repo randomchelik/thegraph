@@ -1,0 +1,10 @@
+{
+    dailyExchangePartners (first: 1000) {
+        dayID
+        id
+        partner
+        trades
+        usdFees
+        usdVolume
+    }
+}

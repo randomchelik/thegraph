@@ -1,0 +1,137 @@
+{
+    balancers (first: 100) {
+        color
+        crpCount
+        finalizedPoolCount
+        id
+        poolCount
+        pools (first: 5) {
+            active
+            cap
+            controller
+            createTime
+            crp
+            crpController
+            exitsCount
+            finalized
+            holdersCount
+            id
+            joinsCount
+            liquidity
+            name
+            publicSwap
+            rights
+            shares (first: 500) {
+                id
+                balance
+                userAddress {
+                    id
+                }
+            }
+            swapFee
+            swaps (first: 500) {
+                caller
+                feeValue
+                id
+                poolLiquidity
+                poolTotalSwapFee
+                poolTotalSwapVolume
+                timestamp
+                tokenAmountIn
+                tokenAmountOut
+                tokenIn
+                tokenInSym
+                tokenOut
+                tokenOutSym
+                userAddress {
+                    id
+                }
+                value
+            }
+            swapsCount
+            symbol
+            tokens (first: 500) {
+                address
+                balance
+                decimals
+                denormWeight
+                id
+                name
+                symbol
+            }
+            tokensCount
+            tokensList
+            totalShares
+            totalSwapFee
+            totalSwapVolume
+            totalWeight
+            tx
+        }
+        totalLiquidity
+        totalSwapFee
+        totalSwapVolume
+        txCount
+    }
+    pools (first: 100) {
+        active
+        cap
+        controller
+        createTime
+        crp
+        crpController
+        exitsCount
+        finalized
+        holdersCount
+        id
+        joinsCount
+        liquidity
+        name
+        publicSwap
+        rights
+        shares (first: 100) {
+            id
+            balance
+            userAddress {
+                id
+            }
+        }
+        swapFee
+        swaps (first: 100) {
+            caller
+            feeValue
+            id
+            poolLiquidity
+            poolTotalSwapFee
+            poolTotalSwapVolume
+            timestamp
+            tokenAmountIn
+            tokenAmountOut
+            tokenIn
+            tokenInSym
+            tokenOut
+            tokenOutSym
+            userAddress {
+                id
+            }
+            value
+        }
+        swapsCount
+        symbol
+        tokens (first: 100) {
+            address
+            balance
+            decimals
+            denormWeight
+            id
+            name
+            symbol
+        }
+        tokensCount
+        tokensList
+        totalShares
+        totalSwapFee
+        totalSwapVolume
+        totalWeight
+        tx
+    }
+}

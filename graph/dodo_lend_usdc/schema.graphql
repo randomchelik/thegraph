@@ -1,0 +1,342 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    subscription: Subscription
+}
+
+type Pair {
+    baseToken: Token!
+    createdAtBlockNumber: BigInt!
+    createdAtTimestamp: BigInt!
+    fee: BigDecimal!
+    id: ID!
+    midPrice: BigDecimal!
+    quoteToken: Token!
+    txCount: BigInt!
+    volumeBaseToken: BigDecimal!
+    volumeQuoteToken: BigDecimal!
+}
+
+type Query {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
+    pair(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Pair
+    pairs(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Pair_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Pair_filter
+    ): [Pair!]!
+    token(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Token
+    tokens(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Token_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Token_filter
+    ): [Token!]!
+}
+
+type Subscription {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
+    pair(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Pair
+    pairs(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Pair_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Pair_filter
+    ): [Pair!]!
+    token(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Token
+    tokens(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Token_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Token_filter
+    ): [Token!]!
+}
+
+type Token {
+    decimals: BigInt!
+    id: ID!
+    name: String!
+    symbol: String!
+    totalLiquidity: BigDecimal!
+    totalSupply: BigInt!
+    tradeVolume: BigDecimal!
+    tradeVolumeUSD: BigDecimal!
+    txCount: BigInt!
+}
+
+type _Block_ {
+    "The hash of the block"
+    hash: Bytes
+    "The block number"
+    number: Int!
+}
+
+"The type for the top-level _meta field"
+type _Meta_ {
+    """
+
+    Information about a specific subgraph block. The hash of the block
+    will be null if the _meta field has a block constraint that asks for
+    a block number. It will be filled if the _meta field has no block constraint
+    and therefore asks for the latest  block
+    """
+    block: _Block_!
+    "The deployment ID"
+    deployment: String!
+}
+
+enum OrderDirection {
+    asc
+    desc
+}
+
+enum Pair_orderBy {
+    baseToken
+    createdAtBlockNumber
+    createdAtTimestamp
+    fee
+    id
+    midPrice
+    quoteToken
+    txCount
+    volumeBaseToken
+    volumeQuoteToken
+}
+
+enum Token_orderBy {
+    decimals
+    id
+    name
+    symbol
+    totalLiquidity
+    totalSupply
+    tradeVolume
+    tradeVolumeUSD
+    txCount
+}
+
+input Block_height {
+    hash: Bytes
+    number: Int
+}
+
+input Pair_filter {
+    baseToken: String
+    baseToken_contains: String
+    baseToken_ends_with: String
+    baseToken_gt: String
+    baseToken_gte: String
+    baseToken_in: [String!]
+    baseToken_lt: String
+    baseToken_lte: String
+    baseToken_not: String
+    baseToken_not_contains: String
+    baseToken_not_ends_with: String
+    baseToken_not_in: [String!]
+    baseToken_not_starts_with: String
+    baseToken_starts_with: String
+    createdAtBlockNumber: BigInt
+    createdAtBlockNumber_gt: BigInt
+    createdAtBlockNumber_gte: BigInt
+    createdAtBlockNumber_in: [BigInt!]
+    createdAtBlockNumber_lt: BigInt
+    createdAtBlockNumber_lte: BigInt
+    createdAtBlockNumber_not: BigInt
+    createdAtBlockNumber_not_in: [BigInt!]
+    createdAtTimestamp: BigInt
+    createdAtTimestamp_gt: BigInt
+    createdAtTimestamp_gte: BigInt
+    createdAtTimestamp_in: [BigInt!]
+    createdAtTimestamp_lt: BigInt
+    createdAtTimestamp_lte: BigInt
+    createdAtTimestamp_not: BigInt
+    createdAtTimestamp_not_in: [BigInt!]
+    fee: BigDecimal
+    fee_gt: BigDecimal
+    fee_gte: BigDecimal
+    fee_in: [BigDecimal!]
+    fee_lt: BigDecimal
+    fee_lte: BigDecimal
+    fee_not: BigDecimal
+    fee_not_in: [BigDecimal!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    midPrice: BigDecimal
+    midPrice_gt: BigDecimal
+    midPrice_gte: BigDecimal
+    midPrice_in: [BigDecimal!]
+    midPrice_lt: BigDecimal
+    midPrice_lte: BigDecimal
+    midPrice_not: BigDecimal
+    midPrice_not_in: [BigDecimal!]
+    quoteToken: String
+    quoteToken_contains: String
+    quoteToken_ends_with: String
+    quoteToken_gt: String
+    quoteToken_gte: String
+    quoteToken_in: [String!]
+    quoteToken_lt: String
+    quoteToken_lte: String
+    quoteToken_not: String
+    quoteToken_not_contains: String
+    quoteToken_not_ends_with: String
+    quoteToken_not_in: [String!]
+    quoteToken_not_starts_with: String
+    quoteToken_starts_with: String
+    txCount: BigInt
+    txCount_gt: BigInt
+    txCount_gte: BigInt
+    txCount_in: [BigInt!]
+    txCount_lt: BigInt
+    txCount_lte: BigInt
+    txCount_not: BigInt
+    txCount_not_in: [BigInt!]
+    volumeBaseToken: BigDecimal
+    volumeBaseToken_gt: BigDecimal
+    volumeBaseToken_gte: BigDecimal
+    volumeBaseToken_in: [BigDecimal!]
+    volumeBaseToken_lt: BigDecimal
+    volumeBaseToken_lte: BigDecimal
+    volumeBaseToken_not: BigDecimal
+    volumeBaseToken_not_in: [BigDecimal!]
+    volumeQuoteToken: BigDecimal
+    volumeQuoteToken_gt: BigDecimal
+    volumeQuoteToken_gte: BigDecimal
+    volumeQuoteToken_in: [BigDecimal!]
+    volumeQuoteToken_lt: BigDecimal
+    volumeQuoteToken_lte: BigDecimal
+    volumeQuoteToken_not: BigDecimal
+    volumeQuoteToken_not_in: [BigDecimal!]
+}
+
+input Token_filter {
+    decimals: BigInt
+    decimals_gt: BigInt
+    decimals_gte: BigInt
+    decimals_in: [BigInt!]
+    decimals_lt: BigInt
+    decimals_lte: BigInt
+    decimals_not: BigInt
+    decimals_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    name: String
+    name_contains: String
+    name_ends_with: String
+    name_gt: String
+    name_gte: String
+    name_in: [String!]
+    name_lt: String
+    name_lte: String
+    name_not: String
+    name_not_contains: String
+    name_not_ends_with: String
+    name_not_in: [String!]
+    name_not_starts_with: String
+    name_starts_with: String
+    symbol: String
+    symbol_contains: String
+    symbol_ends_with: String
+    symbol_gt: String
+    symbol_gte: String
+    symbol_in: [String!]
+    symbol_lt: String
+    symbol_lte: String
+    symbol_not: String
+    symbol_not_contains: String
+    symbol_not_ends_with: String
+    symbol_not_in: [String!]
+    symbol_not_starts_with: String
+    symbol_starts_with: String
+    totalLiquidity: BigDecimal
+    totalLiquidity_gt: BigDecimal
+    totalLiquidity_gte: BigDecimal
+    totalLiquidity_in: [BigDecimal!]
+    totalLiquidity_lt: BigDecimal
+    totalLiquidity_lte: BigDecimal
+    totalLiquidity_not: BigDecimal
+    totalLiquidity_not_in: [BigDecimal!]
+    totalSupply: BigInt
+    totalSupply_gt: BigInt
+    totalSupply_gte: BigInt
+    totalSupply_in: [BigInt!]
+    totalSupply_lt: BigInt
+    totalSupply_lte: BigInt
+    totalSupply_not: BigInt
+    totalSupply_not_in: [BigInt!]
+    tradeVolume: BigDecimal
+    tradeVolumeUSD: BigDecimal
+    tradeVolumeUSD_gt: BigDecimal
+    tradeVolumeUSD_gte: BigDecimal
+    tradeVolumeUSD_in: [BigDecimal!]
+    tradeVolumeUSD_lt: BigDecimal
+    tradeVolumeUSD_lte: BigDecimal
+    tradeVolumeUSD_not: BigDecimal
+    tradeVolumeUSD_not_in: [BigDecimal!]
+    tradeVolume_gt: BigDecimal
+    tradeVolume_gte: BigDecimal
+    tradeVolume_in: [BigDecimal!]
+    tradeVolume_lt: BigDecimal
+    tradeVolume_lte: BigDecimal
+    tradeVolume_not: BigDecimal
+    tradeVolume_not_in: [BigDecimal!]
+    txCount: BigInt
+    txCount_gt: BigInt
+    txCount_gte: BigInt
+    txCount_in: [BigInt!]
+    txCount_lt: BigInt
+    txCount_lte: BigInt
+    txCount_not: BigInt
+    txCount_not_in: [BigInt!]
+}
+
+
+scalar BigDecimal
+
+scalar BigInt
+
+scalar Bytes

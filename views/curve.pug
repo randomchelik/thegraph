@@ -1,0 +1,57 @@
+extends layout
+
+block content
+    .block-header
+        .row.clearfix
+            .col-md-6.col-sm-12
+                h1 Curve
+                nav(aria-label='breadcrumb')
+                    ol.breadcrumb
+                        li.breadcrumb-item
+                            a(href='/')
+                                i.fa.fa-cube
+                        li.breadcrumb-item.active(aria-current='page') Dashboard
+
+        .container-fluid
+            .row.clearfix
+                .col-lg-4.col-md-4
+                    .card
+                        .body
+                            div Unique tokens
+                            .py-4.m-0.text-center.h1.text-success #{data.unique_tokens}
+                .col-lg-8.col-md-8
+                    .card
+                        .body
+                            div Total sold
+                            .py-4.m-0.text-center.h1.text-warning #{data.total_sold}
+
+        .container-fluid
+            .row.clearfix
+                .col-lg-4.col-md-4
+                    .card
+                        .body
+                            div Total pools
+                            .py-4.m-0.text-center.h1.text-info #{data.total_pools}
+                .col-lg-8.col-md-8
+                    .card
+                        .body
+                            div Total bought
+                            .py-4.m-0.text-center.h1.text-danger #{data.total_bought}
+
+        .row.clearfix
+            .col-12.col-lg-12.col-md-12
+                .card
+                    .header
+                        h2 Events
+                    .table-responsive
+                        table.table.table-custom.spacing5.mb-0
+                            thead
+                                tr
+                                    th Event
+                                    th Count
+
+                            tbody
+                            for event in data.events
+                                tr
+                                    td #{event.event}
+                                    td #{event.count}

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+
+  for pair in data.pairs
+    h1 Pair #{pair.baseToken.symbol}/#{pair.quoteToken.symbol}
+    p mid price: #{pair.midPrice}
+    p fee: #{pair.fee}
+  hr
+  for token in data.tokens
+    p #{token.symbol} / #{token.name}
+    p total liquidity: #{token.totalLiquidity}
+    hr

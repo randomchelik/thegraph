@@ -1,0 +1,1429 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    subscription: Subscription
+}
+
+type Batch {
+    endEpoch: BigInt
+    firstSolutionEpoch: BigInt!
+    "Batch executed. Every batch will contain at least solution with the a set of trades that are executed in it"
+    id: ID!
+    lastRevertEpoch: BigInt
+    solution: Solution!
+    solutions(first: Int = 100, orderBy: Solution_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Solution_filter): [Solution!]!
+    startEpoch: BigInt!
+    txHash: Bytes!
+}
+
+type Deposit {
+    amount: BigInt!
+    batchId: BigInt!
+    createEpoch: BigInt!
+    "Deposit of an user"
+    id: ID!
+    tokenAddress: Bytes!
+    txHash: Bytes!
+    user: User!
+}
+
+type Order {
+    boughtVolume: BigInt!
+    buyToken: Token!
+    cancelEpoch: BigInt
+    createEpoch: BigInt!
+    deleteEpoch: BigInt
+    fromBatchId: BigInt!
+    fromEpoch: BigInt!
+    "Order submitted by an user. It has a validity (dates) so they can only be executed from/until some given batches. Partial executions of this trades must respect the limit price."
+    id: ID!
+    maxSellAmount: BigInt!
+    minReceiveAmount: BigInt!
+    orderId: Int!
+    owner: User!
+    priceDenominator: BigInt!
+    priceNumerator: BigInt!
+    sellToken: Token!
+    soldVolume: BigInt!
+    trades(first: Int = 100, orderBy: Trade_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Trade_filter): [Trade!]!
+    txHash: Bytes!
+    txLogIndex: BigInt!
+    untilBatchId: BigInt!
+    untilEpoch: BigInt!
+}
+
+type Price {
+    batchId: BigInt!
+    createEpoch: BigInt!
+    "Price for a token and batchId"
+    id: ID!
+    priceInOwlDenominator: BigInt!
+    priceInOwlNumerator: BigInt!
+    token: Token!
+    txHash: Bytes!
+    volume: BigInt!
+}
+
+type Query {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
+    batch(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Batch
+    batches(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Batch_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Batch_filter
+    ): [Batch!]!
+    deposit(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Deposit
+    deposits(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Deposit_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Deposit_filter
+    ): [Deposit!]!
+    order(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Order
+    orders(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Order_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Order_filter
+    ): [Order!]!
+    price(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Price
+    prices(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Price_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Price_filter
+    ): [Price!]!
+    solution(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Solution
+    solutions(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Solution_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Solution_filter
+    ): [Solution!]!
+    token(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Token
+    tokens(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Token_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Token_filter
+    ): [Token!]!
+    trade(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Trade
+    trades(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Trade_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Trade_filter
+    ): [Trade!]!
+    user(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): User
+    users(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: User_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: User_filter
+    ): [User!]!
+    withdraw(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Withdraw
+    withdrawRequest(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): WithdrawRequest
+    withdrawRequests(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: WithdrawRequest_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: WithdrawRequest_filter
+    ): [WithdrawRequest!]!
+    withdraws(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Withdraw_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Withdraw_filter
+    ): [Withdraw!]!
+}
+
+type Solution {
+    batch: Batch!
+    createEpoch: BigInt!
+    feeReward: BigInt
+    id: ID!
+    objectiveValue: BigInt
+    revertEpoch: BigInt
+    solver: User
+    trades(first: Int = 100, orderBy: Trade_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Trade_filter): [Trade!]!
+    txHash: Bytes!
+    txLogIndex: BigInt!
+}
+
+type Subscription {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
+    batch(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Batch
+    batches(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Batch_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Batch_filter
+    ): [Batch!]!
+    deposit(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Deposit
+    deposits(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Deposit_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Deposit_filter
+    ): [Deposit!]!
+    order(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Order
+    orders(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Order_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Order_filter
+    ): [Order!]!
+    price(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Price
+    prices(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Price_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Price_filter
+    ): [Price!]!
+    solution(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Solution
+    solutions(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Solution_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Solution_filter
+    ): [Solution!]!
+    token(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Token
+    tokens(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Token_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Token_filter
+    ): [Token!]!
+    trade(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Trade
+    trades(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Trade_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Trade_filter
+    ): [Trade!]!
+    user(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): User
+    users(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: User_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: User_filter
+    ): [User!]!
+    withdraw(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Withdraw
+    withdrawRequest(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): WithdrawRequest
+    withdrawRequests(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: WithdrawRequest_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: WithdrawRequest_filter
+    ): [WithdrawRequest!]!
+    withdraws(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Withdraw_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Withdraw_filter
+    ): [Withdraw!]!
+}
+
+type Token  {
+    address: Bytes!
+    createEpoch: BigInt!
+    decimals: BigInt
+    fromBatchId: BigInt!
+    "Registered token"
+    id: ID!
+    name: String
+    symbol: String
+    txHash: Bytes!
+}
+
+type Trade {
+    buyToken: Token!
+    buyVolume: BigInt!
+    createEpoch: BigInt!
+    "Trade for a single user, as part of a ring trade. It's part of the solution submitted by a solver for a given batch"
+    id: ID!
+    order: Order!
+    owner: User!
+    revertEpoch: BigInt
+    sellToken: Token!
+    sellVolume: BigInt!
+    tradeBatchId: BigInt!
+    tradeEpoch: BigInt!
+    txHash: Bytes!
+    txLogIndex: BigInt!
+}
+
+type User {
+    createEpoch: BigInt!
+    deposits(first: Int = 100, orderBy: Deposit_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Deposit_filter): [Deposit!]!
+    fromBatchId: BigInt!
+    "User of the protocol. Any ethereum account that deposited tokens or traded"
+    id: ID!
+    orders(first: Int = 100, orderBy: Order_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Order_filter): [Order!]!
+    txHash: Bytes!
+    withdrawRequests(first: Int = 100, orderBy: WithdrawRequest_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: WithdrawRequest_filter): [WithdrawRequest!]!
+    withdrawals(first: Int = 100, orderBy: Withdraw_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Withdraw_filter): [Withdraw!]!
+}
+
+type Withdraw {
+    amount: BigInt!
+    createBatchId: BigInt!
+    createEpoch: BigInt!
+    "Withdraw of an user"
+    id: ID!
+    tokenAddress: Bytes!
+    txHash: Bytes!
+    user: User!
+}
+
+type WithdrawRequest {
+    amount: BigInt!
+    createBatchId: BigInt!
+    createEpoch: BigInt!
+    "Withdraw request of an user"
+    id: ID!
+    tokenAddress: Bytes!
+    txHash: Bytes!
+    user: User!
+    withdrawableFromBatchId: BigInt!
+}
+
+type _Block_ {
+    "The hash of the block"
+    hash: Bytes
+    "The block number"
+    number: Int!
+}
+
+"The type for the top-level _meta field"
+type _Meta_ {
+    """
+
+    Information about a specific subgraph block. The hash of the block
+    will be null if the _meta field has a block constraint that asks for
+    a block number. It will be filled if the _meta field has no block constraint
+    and therefore asks for the latest  block
+    """
+    block: _Block_!
+    "The deployment ID"
+    deployment: String!
+}
+
+enum Batch_orderBy {
+    endEpoch
+    firstSolutionEpoch
+    id
+    lastRevertEpoch
+    solution
+    solutions
+    startEpoch
+    txHash
+}
+
+enum Deposit_orderBy {
+    amount
+    batchId
+    createEpoch
+    id
+    tokenAddress
+    txHash
+    user
+}
+
+enum OrderDirection {
+    asc
+    desc
+}
+
+enum Order_orderBy {
+    boughtVolume
+    buyToken
+    cancelEpoch
+    createEpoch
+    deleteEpoch
+    fromBatchId
+    fromEpoch
+    id
+    maxSellAmount
+    minReceiveAmount
+    orderId
+    owner
+    priceDenominator
+    priceNumerator
+    sellToken
+    soldVolume
+    trades
+    txHash
+    txLogIndex
+    untilBatchId
+    untilEpoch
+}
+
+enum Price_orderBy {
+    batchId
+    createEpoch
+    id
+    priceInOwlDenominator
+    priceInOwlNumerator
+    token
+    txHash
+    volume
+}
+
+enum Solution_orderBy {
+    batch
+    createEpoch
+    feeReward
+    id
+    objectiveValue
+    revertEpoch
+    solver
+    trades
+    txHash
+    txLogIndex
+}
+
+enum Token_orderBy {
+    address
+    createEpoch
+    decimals
+    fromBatchId
+    id
+    name
+    symbol
+    txHash
+}
+
+enum Trade_orderBy {
+    buyToken
+    buyVolume
+    createEpoch
+    id
+    order
+    owner
+    revertEpoch
+    sellToken
+    sellVolume
+    tradeBatchId
+    tradeEpoch
+    txHash
+    txLogIndex
+}
+
+enum User_orderBy {
+    createEpoch
+    deposits
+    fromBatchId
+    id
+    orders
+    txHash
+    withdrawRequests
+    withdrawals
+}
+
+enum WithdrawRequest_orderBy {
+    amount
+    createBatchId
+    createEpoch
+    id
+    tokenAddress
+    txHash
+    user
+    withdrawableFromBatchId
+}
+
+enum Withdraw_orderBy {
+    amount
+    createBatchId
+    createEpoch
+    id
+    tokenAddress
+    txHash
+    user
+}
+
+input Batch_filter {
+    endEpoch: BigInt
+    endEpoch_gt: BigInt
+    endEpoch_gte: BigInt
+    endEpoch_in: [BigInt!]
+    endEpoch_lt: BigInt
+    endEpoch_lte: BigInt
+    endEpoch_not: BigInt
+    endEpoch_not_in: [BigInt!]
+    firstSolutionEpoch: BigInt
+    firstSolutionEpoch_gt: BigInt
+    firstSolutionEpoch_gte: BigInt
+    firstSolutionEpoch_in: [BigInt!]
+    firstSolutionEpoch_lt: BigInt
+    firstSolutionEpoch_lte: BigInt
+    firstSolutionEpoch_not: BigInt
+    firstSolutionEpoch_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    lastRevertEpoch: BigInt
+    lastRevertEpoch_gt: BigInt
+    lastRevertEpoch_gte: BigInt
+    lastRevertEpoch_in: [BigInt!]
+    lastRevertEpoch_lt: BigInt
+    lastRevertEpoch_lte: BigInt
+    lastRevertEpoch_not: BigInt
+    lastRevertEpoch_not_in: [BigInt!]
+    solution: String
+    solution_contains: String
+    solution_ends_with: String
+    solution_gt: String
+    solution_gte: String
+    solution_in: [String!]
+    solution_lt: String
+    solution_lte: String
+    solution_not: String
+    solution_not_contains: String
+    solution_not_ends_with: String
+    solution_not_in: [String!]
+    solution_not_starts_with: String
+    solution_starts_with: String
+    startEpoch: BigInt
+    startEpoch_gt: BigInt
+    startEpoch_gte: BigInt
+    startEpoch_in: [BigInt!]
+    startEpoch_lt: BigInt
+    startEpoch_lte: BigInt
+    startEpoch_not: BigInt
+    startEpoch_not_in: [BigInt!]
+    txHash: Bytes
+    txHash_contains: Bytes
+    txHash_in: [Bytes!]
+    txHash_not: Bytes
+    txHash_not_contains: Bytes
+    txHash_not_in: [Bytes!]
+}
+
+input Block_height {
+    hash: Bytes
+    number: Int
+}
+
+input Deposit_filter {
+    amount: BigInt
+    amount_gt: BigInt
+    amount_gte: BigInt
+    amount_in: [BigInt!]
+    amount_lt: BigInt
+    amount_lte: BigInt
+    amount_not: BigInt
+    amount_not_in: [BigInt!]
+    batchId: BigInt
+    batchId_gt: BigInt
+    batchId_gte: BigInt
+    batchId_in: [BigInt!]
+    batchId_lt: BigInt
+    batchId_lte: BigInt
+    batchId_not: BigInt
+    batchId_not_in: [BigInt!]
+    createEpoch: BigInt
+    createEpoch_gt: BigInt
+    createEpoch_gte: BigInt
+    createEpoch_in: [BigInt!]
+    createEpoch_lt: BigInt
+    createEpoch_lte: BigInt
+    createEpoch_not: BigInt
+    createEpoch_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    tokenAddress: Bytes
+    tokenAddress_contains: Bytes
+    tokenAddress_in: [Bytes!]
+    tokenAddress_not: Bytes
+    tokenAddress_not_contains: Bytes
+    tokenAddress_not_in: [Bytes!]
+    txHash: Bytes
+    txHash_contains: Bytes
+    txHash_in: [Bytes!]
+    txHash_not: Bytes
+    txHash_not_contains: Bytes
+    txHash_not_in: [Bytes!]
+    user: String
+    user_contains: String
+    user_ends_with: String
+    user_gt: String
+    user_gte: String
+    user_in: [String!]
+    user_lt: String
+    user_lte: String
+    user_not: String
+    user_not_contains: String
+    user_not_ends_with: String
+    user_not_in: [String!]
+    user_not_starts_with: String
+    user_starts_with: String
+}
+
+input Order_filter {
+    boughtVolume: BigInt
+    boughtVolume_gt: BigInt
+    boughtVolume_gte: BigInt
+    boughtVolume_in: [BigInt!]
+    boughtVolume_lt: BigInt
+    boughtVolume_lte: BigInt
+    boughtVolume_not: BigInt
+    boughtVolume_not_in: [BigInt!]
+    buyToken: String
+    buyToken_contains: String
+    buyToken_ends_with: String
+    buyToken_gt: String
+    buyToken_gte: String
+    buyToken_in: [String!]
+    buyToken_lt: String
+    buyToken_lte: String
+    buyToken_not: String
+    buyToken_not_contains: String
+    buyToken_not_ends_with: String
+    buyToken_not_in: [String!]
+    buyToken_not_starts_with: String
+    buyToken_starts_with: String
+    cancelEpoch: BigInt
+    cancelEpoch_gt: BigInt
+    cancelEpoch_gte: BigInt
+    cancelEpoch_in: [BigInt!]
+    cancelEpoch_lt: BigInt
+    cancelEpoch_lte: BigInt
+    cancelEpoch_not: BigInt
+    cancelEpoch_not_in: [BigInt!]
+    createEpoch: BigInt
+    createEpoch_gt: BigInt
+    createEpoch_gte: BigInt
+    createEpoch_in: [BigInt!]
+    createEpoch_lt: BigInt
+    createEpoch_lte: BigInt
+    createEpoch_not: BigInt
+    createEpoch_not_in: [BigInt!]
+    deleteEpoch: BigInt
+    deleteEpoch_gt: BigInt
+    deleteEpoch_gte: BigInt
+    deleteEpoch_in: [BigInt!]
+    deleteEpoch_lt: BigInt
+    deleteEpoch_lte: BigInt
+    deleteEpoch_not: BigInt
+    deleteEpoch_not_in: [BigInt!]
+    fromBatchId: BigInt
+    fromBatchId_gt: BigInt
+    fromBatchId_gte: BigInt
+    fromBatchId_in: [BigInt!]
+    fromBatchId_lt: BigInt
+    fromBatchId_lte: BigInt
+    fromBatchId_not: BigInt
+    fromBatchId_not_in: [BigInt!]
+    fromEpoch: BigInt
+    fromEpoch_gt: BigInt
+    fromEpoch_gte: BigInt
+    fromEpoch_in: [BigInt!]
+    fromEpoch_lt: BigInt
+    fromEpoch_lte: BigInt
+    fromEpoch_not: BigInt
+    fromEpoch_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    maxSellAmount: BigInt
+    maxSellAmount_gt: BigInt
+    maxSellAmount_gte: BigInt
+    maxSellAmount_in: [BigInt!]
+    maxSellAmount_lt: BigInt
+    maxSellAmount_lte: BigInt
+    maxSellAmount_not: BigInt
+    maxSellAmount_not_in: [BigInt!]
+    minReceiveAmount: BigInt
+    minReceiveAmount_gt: BigInt
+    minReceiveAmount_gte: BigInt
+    minReceiveAmount_in: [BigInt!]
+    minReceiveAmount_lt: BigInt
+    minReceiveAmount_lte: BigInt
+    minReceiveAmount_not: BigInt
+    minReceiveAmount_not_in: [BigInt!]
+    orderId: Int
+    orderId_gt: Int
+    orderId_gte: Int
+    orderId_in: [Int!]
+    orderId_lt: Int
+    orderId_lte: Int
+    orderId_not: Int
+    orderId_not_in: [Int!]
+    owner: String
+    owner_contains: String
+    owner_ends_with: String
+    owner_gt: String
+    owner_gte: String
+    owner_in: [String!]
+    owner_lt: String
+    owner_lte: String
+    owner_not: String
+    owner_not_contains: String
+    owner_not_ends_with: String
+    owner_not_in: [String!]
+    owner_not_starts_with: String
+    owner_starts_with: String
+    priceDenominator: BigInt
+    priceDenominator_gt: BigInt
+    priceDenominator_gte: BigInt
+    priceDenominator_in: [BigInt!]
+    priceDenominator_lt: BigInt
+    priceDenominator_lte: BigInt
+    priceDenominator_not: BigInt
+    priceDenominator_not_in: [BigInt!]
+    priceNumerator: BigInt
+    priceNumerator_gt: BigInt
+    priceNumerator_gte: BigInt
+    priceNumerator_in: [BigInt!]
+    priceNumerator_lt: BigInt
+    priceNumerator_lte: BigInt
+    priceNumerator_not: BigInt
+    priceNumerator_not_in: [BigInt!]
+    sellToken: String
+    sellToken_contains: String
+    sellToken_ends_with: String
+    sellToken_gt: String
+    sellToken_gte: String
+    sellToken_in: [String!]
+    sellToken_lt: String
+    sellToken_lte: String
+    sellToken_not: String
+    sellToken_not_contains: String
+    sellToken_not_ends_with: String
+    sellToken_not_in: [String!]
+    sellToken_not_starts_with: String
+    sellToken_starts_with: String
+    soldVolume: BigInt
+    soldVolume_gt: BigInt
+    soldVolume_gte: BigInt
+    soldVolume_in: [BigInt!]
+    soldVolume_lt: BigInt
+    soldVolume_lte: BigInt
+    soldVolume_not: BigInt
+    soldVolume_not_in: [BigInt!]
+    txHash: Bytes
+    txHash_contains: Bytes
+    txHash_in: [Bytes!]
+    txHash_not: Bytes
+    txHash_not_contains: Bytes
+    txHash_not_in: [Bytes!]
+    txLogIndex: BigInt
+    txLogIndex_gt: BigInt
+    txLogIndex_gte: BigInt
+    txLogIndex_in: [BigInt!]
+    txLogIndex_lt: BigInt
+    txLogIndex_lte: BigInt
+    txLogIndex_not: BigInt
+    txLogIndex_not_in: [BigInt!]
+    untilBatchId: BigInt
+    untilBatchId_gt: BigInt
+    untilBatchId_gte: BigInt
+    untilBatchId_in: [BigInt!]
+    untilBatchId_lt: BigInt
+    untilBatchId_lte: BigInt
+    untilBatchId_not: BigInt
+    untilBatchId_not_in: [BigInt!]
+    untilEpoch: BigInt
+    untilEpoch_gt: BigInt
+    untilEpoch_gte: BigInt
+    untilEpoch_in: [BigInt!]
+    untilEpoch_lt: BigInt
+    untilEpoch_lte: BigInt
+    untilEpoch_not: BigInt
+    untilEpoch_not_in: [BigInt!]
+}
+
+input Price_filter {
+    batchId: BigInt
+    batchId_gt: BigInt
+    batchId_gte: BigInt
+    batchId_in: [BigInt!]
+    batchId_lt: BigInt
+    batchId_lte: BigInt
+    batchId_not: BigInt
+    batchId_not_in: [BigInt!]
+    createEpoch: BigInt
+    createEpoch_gt: BigInt
+    createEpoch_gte: BigInt
+    createEpoch_in: [BigInt!]
+    createEpoch_lt: BigInt
+    createEpoch_lte: BigInt
+    createEpoch_not: BigInt
+    createEpoch_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    priceInOwlDenominator: BigInt
+    priceInOwlDenominator_gt: BigInt
+    priceInOwlDenominator_gte: BigInt
+    priceInOwlDenominator_in: [BigInt!]
+    priceInOwlDenominator_lt: BigInt
+    priceInOwlDenominator_lte: BigInt
+    priceInOwlDenominator_not: BigInt
+    priceInOwlDenominator_not_in: [BigInt!]
+    priceInOwlNumerator: BigInt
+    priceInOwlNumerator_gt: BigInt
+    priceInOwlNumerator_gte: BigInt
+    priceInOwlNumerator_in: [BigInt!]
+    priceInOwlNumerator_lt: BigInt
+    priceInOwlNumerator_lte: BigInt
+    priceInOwlNumerator_not: BigInt
+    priceInOwlNumerator_not_in: [BigInt!]
+    token: String
+    token_contains: String
+    token_ends_with: String
+    token_gt: String
+    token_gte: String
+    token_in: [String!]
+    token_lt: String
+    token_lte: String
+    token_not: String
+    token_not_contains: String
+    token_not_ends_with: String
+    token_not_in: [String!]
+    token_not_starts_with: String
+    token_starts_with: String
+    txHash: Bytes
+    txHash_contains: Bytes
+    txHash_in: [Bytes!]
+    txHash_not: Bytes
+    txHash_not_contains: Bytes
+    txHash_not_in: [Bytes!]
+    volume: BigInt
+    volume_gt: BigInt
+    volume_gte: BigInt
+    volume_in: [BigInt!]
+    volume_lt: BigInt
+    volume_lte: BigInt
+    volume_not: BigInt
+    volume_not_in: [BigInt!]
+}
+
+input Solution_filter {
+    batch: String
+    batch_contains: String
+    batch_ends_with: String
+    batch_gt: String
+    batch_gte: String
+    batch_in: [String!]
+    batch_lt: String
+    batch_lte: String
+    batch_not: String
+    batch_not_contains: String
+    batch_not_ends_with: String
+    batch_not_in: [String!]
+    batch_not_starts_with: String
+    batch_starts_with: String
+    createEpoch: BigInt
+    createEpoch_gt: BigInt
+    createEpoch_gte: BigInt
+    createEpoch_in: [BigInt!]
+    createEpoch_lt: BigInt
+    createEpoch_lte: BigInt
+    createEpoch_not: BigInt
+    createEpoch_not_in: [BigInt!]
+    feeReward: BigInt
+    feeReward_gt: BigInt
+    feeReward_gte: BigInt
+    feeReward_in: [BigInt!]
+    feeReward_lt: BigInt
+    feeReward_lte: BigInt
+    feeReward_not: BigInt
+    feeReward_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    objectiveValue: BigInt
+    objectiveValue_gt: BigInt
+    objectiveValue_gte: BigInt
+    objectiveValue_in: [BigInt!]
+    objectiveValue_lt: BigInt
+    objectiveValue_lte: BigInt
+    objectiveValue_not: BigInt
+    objectiveValue_not_in: [BigInt!]
+    revertEpoch: BigInt
+    revertEpoch_gt: BigInt
+    revertEpoch_gte: BigInt
+    revertEpoch_in: [BigInt!]
+    revertEpoch_lt: BigInt
+    revertEpoch_lte: BigInt
+    revertEpoch_not: BigInt
+    revertEpoch_not_in: [BigInt!]
+    solver: String
+    solver_contains: String
+    solver_ends_with: String
+    solver_gt: String
+    solver_gte: String
+    solver_in: [String!]
+    solver_lt: String
+    solver_lte: String
+    solver_not: String
+    solver_not_contains: String
+    solver_not_ends_with: String
+    solver_not_in: [String!]
+    solver_not_starts_with: String
+    solver_starts_with: String
+    trades: [String!]
+    trades_contains: [String!]
+    trades_not: [String!]
+    trades_not_contains: [String!]
+    txHash: Bytes
+    txHash_contains: Bytes
+    txHash_in: [Bytes!]
+    txHash_not: Bytes
+    txHash_not_contains: Bytes
+    txHash_not_in: [Bytes!]
+    txLogIndex: BigInt
+    txLogIndex_gt: BigInt
+    txLogIndex_gte: BigInt
+    txLogIndex_in: [BigInt!]
+    txLogIndex_lt: BigInt
+    txLogIndex_lte: BigInt
+    txLogIndex_not: BigInt
+    txLogIndex_not_in: [BigInt!]
+}
+
+input Token_filter {
+    address: Bytes
+    address_contains: Bytes
+    address_in: [Bytes!]
+    address_not: Bytes
+    address_not_contains: Bytes
+    address_not_in: [Bytes!]
+    createEpoch: BigInt
+    createEpoch_gt: BigInt
+    createEpoch_gte: BigInt
+    createEpoch_in: [BigInt!]
+    createEpoch_lt: BigInt
+    createEpoch_lte: BigInt
+    createEpoch_not: BigInt
+    createEpoch_not_in: [BigInt!]
+    decimals: BigInt
+    decimals_gt: BigInt
+    decimals_gte: BigInt
+    decimals_in: [BigInt!]
+    decimals_lt: BigInt
+    decimals_lte: BigInt
+    decimals_not: BigInt
+    decimals_not_in: [BigInt!]
+    fromBatchId: BigInt
+    fromBatchId_gt: BigInt
+    fromBatchId_gte: BigInt
+    fromBatchId_in: [BigInt!]
+    fromBatchId_lt: BigInt
+    fromBatchId_lte: BigInt
+    fromBatchId_not: BigInt
+    fromBatchId_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    name: String
+    name_contains: String
+    name_ends_with: String
+    name_gt: String
+    name_gte: String
+    name_in: [String!]
+    name_lt: String
+    name_lte: String
+    name_not: String
+    name_not_contains: String
+    name_not_ends_with: String
+    name_not_in: [String!]
+    name_not_starts_with: String
+    name_starts_with: String
+    symbol: String
+    symbol_contains: String
+    symbol_ends_with: String
+    symbol_gt: String
+    symbol_gte: String
+    symbol_in: [String!]
+    symbol_lt: String
+    symbol_lte: String
+    symbol_not: String
+    symbol_not_contains: String
+    symbol_not_ends_with: String
+    symbol_not_in: [String!]
+    symbol_not_starts_with: String
+    symbol_starts_with: String
+    txHash: Bytes
+    txHash_contains: Bytes
+    txHash_in: [Bytes!]
+    txHash_not: Bytes
+    txHash_not_contains: Bytes
+    txHash_not_in: [Bytes!]
+}
+
+input Trade_filter {
+    buyToken: String
+    buyToken_contains: String
+    buyToken_ends_with: String
+    buyToken_gt: String
+    buyToken_gte: String
+    buyToken_in: [String!]
+    buyToken_lt: String
+    buyToken_lte: String
+    buyToken_not: String
+    buyToken_not_contains: String
+    buyToken_not_ends_with: String
+    buyToken_not_in: [String!]
+    buyToken_not_starts_with: String
+    buyToken_starts_with: String
+    buyVolume: BigInt
+    buyVolume_gt: BigInt
+    buyVolume_gte: BigInt
+    buyVolume_in: [BigInt!]
+    buyVolume_lt: BigInt
+    buyVolume_lte: BigInt
+    buyVolume_not: BigInt
+    buyVolume_not_in: [BigInt!]
+    createEpoch: BigInt
+    createEpoch_gt: BigInt
+    createEpoch_gte: BigInt
+    createEpoch_in: [BigInt!]
+    createEpoch_lt: BigInt
+    createEpoch_lte: BigInt
+    createEpoch_not: BigInt
+    createEpoch_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    order: String
+    order_contains: String
+    order_ends_with: String
+    order_gt: String
+    order_gte: String
+    order_in: [String!]
+    order_lt: String
+    order_lte: String
+    order_not: String
+    order_not_contains: String
+    order_not_ends_with: String
+    order_not_in: [String!]
+    order_not_starts_with: String
+    order_starts_with: String
+    owner: String
+    owner_contains: String
+    owner_ends_with: String
+    owner_gt: String
+    owner_gte: String
+    owner_in: [String!]
+    owner_lt: String
+    owner_lte: String
+    owner_not: String
+    owner_not_contains: String
+    owner_not_ends_with: String
+    owner_not_in: [String!]
+    owner_not_starts_with: String
+    owner_starts_with: String
+    revertEpoch: BigInt
+    revertEpoch_gt: BigInt
+    revertEpoch_gte: BigInt
+    revertEpoch_in: [BigInt!]
+    revertEpoch_lt: BigInt
+    revertEpoch_lte: BigInt
+    revertEpoch_not: BigInt
+    revertEpoch_not_in: [BigInt!]
+    sellToken: String
+    sellToken_contains: String
+    sellToken_ends_with: String
+    sellToken_gt: String
+    sellToken_gte: String
+    sellToken_in: [String!]
+    sellToken_lt: String
+    sellToken_lte: String
+    sellToken_not: String
+    sellToken_not_contains: String
+    sellToken_not_ends_with: String
+    sellToken_not_in: [String!]
+    sellToken_not_starts_with: String
+    sellToken_starts_with: String
+    sellVolume: BigInt
+    sellVolume_gt: BigInt
+    sellVolume_gte: BigInt
+    sellVolume_in: [BigInt!]
+    sellVolume_lt: BigInt
+    sellVolume_lte: BigInt
+    sellVolume_not: BigInt
+    sellVolume_not_in: [BigInt!]
+    tradeBatchId: BigInt
+    tradeBatchId_gt: BigInt
+    tradeBatchId_gte: BigInt
+    tradeBatchId_in: [BigInt!]
+    tradeBatchId_lt: BigInt
+    tradeBatchId_lte: BigInt
+    tradeBatchId_not: BigInt
+    tradeBatchId_not_in: [BigInt!]
+    tradeEpoch: BigInt
+    tradeEpoch_gt: BigInt
+    tradeEpoch_gte: BigInt
+    tradeEpoch_in: [BigInt!]
+    tradeEpoch_lt: BigInt
+    tradeEpoch_lte: BigInt
+    tradeEpoch_not: BigInt
+    tradeEpoch_not_in: [BigInt!]
+    txHash: Bytes
+    txHash_contains: Bytes
+    txHash_in: [Bytes!]
+    txHash_not: Bytes
+    txHash_not_contains: Bytes
+    txHash_not_in: [Bytes!]
+    txLogIndex: BigInt
+    txLogIndex_gt: BigInt
+    txLogIndex_gte: BigInt
+    txLogIndex_in: [BigInt!]
+    txLogIndex_lt: BigInt
+    txLogIndex_lte: BigInt
+    txLogIndex_not: BigInt
+    txLogIndex_not_in: [BigInt!]
+}
+
+input User_filter {
+    createEpoch: BigInt
+    createEpoch_gt: BigInt
+    createEpoch_gte: BigInt
+    createEpoch_in: [BigInt!]
+    createEpoch_lt: BigInt
+    createEpoch_lte: BigInt
+    createEpoch_not: BigInt
+    createEpoch_not_in: [BigInt!]
+    fromBatchId: BigInt
+    fromBatchId_gt: BigInt
+    fromBatchId_gte: BigInt
+    fromBatchId_in: [BigInt!]
+    fromBatchId_lt: BigInt
+    fromBatchId_lte: BigInt
+    fromBatchId_not: BigInt
+    fromBatchId_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    txHash: Bytes
+    txHash_contains: Bytes
+    txHash_in: [Bytes!]
+    txHash_not: Bytes
+    txHash_not_contains: Bytes
+    txHash_not_in: [Bytes!]
+}
+
+input WithdrawRequest_filter {
+    amount: BigInt
+    amount_gt: BigInt
+    amount_gte: BigInt
+    amount_in: [BigInt!]
+    amount_lt: BigInt
+    amount_lte: BigInt
+    amount_not: BigInt
+    amount_not_in: [BigInt!]
+    createBatchId: BigInt
+    createBatchId_gt: BigInt
+    createBatchId_gte: BigInt
+    createBatchId_in: [BigInt!]
+    createBatchId_lt: BigInt
+    createBatchId_lte: BigInt
+    createBatchId_not: BigInt
+    createBatchId_not_in: [BigInt!]
+    createEpoch: BigInt
+    createEpoch_gt: BigInt
+    createEpoch_gte: BigInt
+    createEpoch_in: [BigInt!]
+    createEpoch_lt: BigInt
+    createEpoch_lte: BigInt
+    createEpoch_not: BigInt
+    createEpoch_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    tokenAddress: Bytes
+    tokenAddress_contains: Bytes
+    tokenAddress_in: [Bytes!]
+    tokenAddress_not: Bytes
+    tokenAddress_not_contains: Bytes
+    tokenAddress_not_in: [Bytes!]
+    txHash: Bytes
+    txHash_contains: Bytes
+    txHash_in: [Bytes!]
+    txHash_not: Bytes
+    txHash_not_contains: Bytes
+    txHash_not_in: [Bytes!]
+    user: String
+    user_contains: String
+    user_ends_with: String
+    user_gt: String
+    user_gte: String
+    user_in: [String!]
+    user_lt: String
+    user_lte: String
+    user_not: String
+    user_not_contains: String
+    user_not_ends_with: String
+    user_not_in: [String!]
+    user_not_starts_with: String
+    user_starts_with: String
+    withdrawableFromBatchId: BigInt
+    withdrawableFromBatchId_gt: BigInt
+    withdrawableFromBatchId_gte: BigInt
+    withdrawableFromBatchId_in: [BigInt!]
+    withdrawableFromBatchId_lt: BigInt
+    withdrawableFromBatchId_lte: BigInt
+    withdrawableFromBatchId_not: BigInt
+    withdrawableFromBatchId_not_in: [BigInt!]
+}
+
+input Withdraw_filter {
+    amount: BigInt
+    amount_gt: BigInt
+    amount_gte: BigInt
+    amount_in: [BigInt!]
+    amount_lt: BigInt
+    amount_lte: BigInt
+    amount_not: BigInt
+    amount_not_in: [BigInt!]
+    createBatchId: BigInt
+    createBatchId_gt: BigInt
+    createBatchId_gte: BigInt
+    createBatchId_in: [BigInt!]
+    createBatchId_lt: BigInt
+    createBatchId_lte: BigInt
+    createBatchId_not: BigInt
+    createBatchId_not_in: [BigInt!]
+    createEpoch: BigInt
+    createEpoch_gt: BigInt
+    createEpoch_gte: BigInt
+    createEpoch_in: [BigInt!]
+    createEpoch_lt: BigInt
+    createEpoch_lte: BigInt
+    createEpoch_not: BigInt
+    createEpoch_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    tokenAddress: Bytes
+    tokenAddress_contains: Bytes
+    tokenAddress_in: [Bytes!]
+    tokenAddress_not: Bytes
+    tokenAddress_not_contains: Bytes
+    tokenAddress_not_in: [Bytes!]
+    txHash: Bytes
+    txHash_contains: Bytes
+    txHash_in: [Bytes!]
+    txHash_not: Bytes
+    txHash_not_contains: Bytes
+    txHash_not_in: [Bytes!]
+    user: String
+    user_contains: String
+    user_ends_with: String
+    user_gt: String
+    user_gte: String
+    user_in: [String!]
+    user_lt: String
+    user_lte: String
+    user_not: String
+    user_not_contains: String
+    user_not_ends_with: String
+    user_not_in: [String!]
+    user_not_starts_with: String
+    user_starts_with: String
+}
+
+
+scalar BigDecimal
+
+scalar BigInt
+
+scalar Bytes

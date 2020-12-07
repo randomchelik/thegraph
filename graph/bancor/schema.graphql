@@ -1,0 +1,1973 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    subscription: Subscription
+}
+
+type BancorContract {
+    id: ID!
+    name: String
+    registry: ContractRegistry
+}
+
+type Connector {
+    connectorToken: Token
+    converter: Converter
+    id: ID!
+    isPurchaseEnabled: Boolean
+    isSet: Boolean
+    isVirtualBalanceEnabled: Boolean
+    virtualBalance: BigInt
+    weight: BigInt
+}
+
+type ContractRegistry {
+    contracts(first: Int = 100, orderBy: BancorContract_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: BancorContract_filter): [BancorContract!]
+    converterRegistries(first: Int = 100, orderBy: ConverterRegistry_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: ConverterRegistry_filter): [ConverterRegistry!]
+    id: ID!
+    owner: String
+}
+
+type Converter {
+    connectorTokens(first: Int = 100, orderBy: Token_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Token_filter): [Token!]
+    connectors(first: Int = 100, orderBy: Connector_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Connector_filter): [Connector!]
+    conversionFee: BigInt
+    currentContractRegistry: ContractRegistry
+    currentConverterRegistry: ConverterRegistry
+    firstAddedToRegistryBlockNumber: BigInt
+    firstAddedToRegistryBlockTimestamp: BigInt
+    id: ID!
+    lastResetBlockNumber: BigInt
+    lastResetTimestamp: BigInt
+    manager: String
+    maxConversionFee: BigInt
+    owner: String
+    quickBuyPath(first: Int = 100, orderBy: QuickBuyPathMember_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: QuickBuyPathMember_filter): [QuickBuyPathMember!]
+    quickBuyPathLength: Int
+    smartToken: Token
+    tokenBalances(first: Int = 100, orderBy: ConverterTokenBalance_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: ConverterTokenBalance_filter): [ConverterTokenBalance!]
+    tokenSwapTotals(first: Int = 100, orderBy: ConverterTokenSwapTotal_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: ConverterTokenSwapTotal_filter): [ConverterTokenSwapTotal!]
+    type: String
+    version: String
+    weight: BigInt
+}
+
+type ConverterRegistry {
+    addedToContractRegistryAtBlockNumber: BigInt
+    addedToContractRegistryAtBlockTimestamp: BigInt
+    addedToContractRegistryAtTransactionHash: String
+    connectorTokens(first: Int = 100, orderBy: Token_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Token_filter): [Token!]
+    converters(first: Int = 100, orderBy: Converter_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Converter_filter): [Converter!]
+    id: ID!
+    lastUsedAtBlockNumber: BigInt
+    lastUsedAtBlockTimestamp: BigInt
+    lastUsedAtTransactionHash: String
+    numConverters: BigInt
+    owner: String
+    smartTokens(first: Int = 100, orderBy: Token_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Token_filter): [Token!]
+}
+
+type ConverterTokenBalance {
+    balance: BigInt
+    converter: Converter
+    id: ID!
+    token: Token
+}
+
+type ConverterTokenSwapTotal {
+    converter: Converter!
+    fromToken: Token!
+    id: ID!
+    toToken: Token!
+    totalAmountPurchased: BigInt
+    totalAmountReturned: BigInt
+}
+
+type Query {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
+    bancorContract(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): BancorContract
+    bancorContracts(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: BancorContract_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: BancorContract_filter
+    ): [BancorContract!]!
+    connector(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Connector
+    connectors(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Connector_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Connector_filter
+    ): [Connector!]!
+    contractRegistries(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: ContractRegistry_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: ContractRegistry_filter
+    ): [ContractRegistry!]!
+    contractRegistry(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): ContractRegistry
+    converter(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Converter
+    converterRegistries(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: ConverterRegistry_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: ConverterRegistry_filter
+    ): [ConverterRegistry!]!
+    converterRegistry(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): ConverterRegistry
+    converterTokenBalance(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): ConverterTokenBalance
+    converterTokenBalances(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: ConverterTokenBalance_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: ConverterTokenBalance_filter
+    ): [ConverterTokenBalance!]!
+    converterTokenSwapTotal(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): ConverterTokenSwapTotal
+    converterTokenSwapTotals(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: ConverterTokenSwapTotal_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: ConverterTokenSwapTotal_filter
+    ): [ConverterTokenSwapTotal!]!
+    converters(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Converter_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Converter_filter
+    ): [Converter!]!
+    quickBuyPathMember(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): QuickBuyPathMember
+    quickBuyPathMembers(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: QuickBuyPathMember_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: QuickBuyPathMember_filter
+    ): [QuickBuyPathMember!]!
+    swap(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Swap
+    swaps(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Swap_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Swap_filter
+    ): [Swap!]!
+    token(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Token
+    tokenSwapTotal(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): TokenSwapTotal
+    tokenSwapTotals(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: TokenSwapTotal_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: TokenSwapTotal_filter
+    ): [TokenSwapTotal!]!
+    tokens(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Token_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Token_filter
+    ): [Token!]!
+    transaction(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Transaction
+    transactions(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Transaction_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Transaction_filter
+    ): [Transaction!]!
+    user(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): User
+    userSmartTokenBalance(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): UserSmartTokenBalance
+    userSmartTokenBalances(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: UserSmartTokenBalance_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: UserSmartTokenBalance_filter
+    ): [UserSmartTokenBalance!]!
+    userTokenSwapTotal(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): UserTokenSwapTotal
+    userTokenSwapTotals(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: UserTokenSwapTotal_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: UserTokenSwapTotal_filter
+    ): [UserTokenSwapTotal!]!
+    users(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: User_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: User_filter
+    ): [User!]!
+}
+
+type QuickBuyPathMember {
+    id: ID!
+    index: Int!
+    token: Token!
+}
+
+type Subscription {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
+    bancorContract(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): BancorContract
+    bancorContracts(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: BancorContract_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: BancorContract_filter
+    ): [BancorContract!]!
+    connector(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Connector
+    connectors(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Connector_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Connector_filter
+    ): [Connector!]!
+    contractRegistries(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: ContractRegistry_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: ContractRegistry_filter
+    ): [ContractRegistry!]!
+    contractRegistry(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): ContractRegistry
+    converter(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Converter
+    converterRegistries(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: ConverterRegistry_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: ConverterRegistry_filter
+    ): [ConverterRegistry!]!
+    converterRegistry(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): ConverterRegistry
+    converterTokenBalance(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): ConverterTokenBalance
+    converterTokenBalances(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: ConverterTokenBalance_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: ConverterTokenBalance_filter
+    ): [ConverterTokenBalance!]!
+    converterTokenSwapTotal(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): ConverterTokenSwapTotal
+    converterTokenSwapTotals(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: ConverterTokenSwapTotal_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: ConverterTokenSwapTotal_filter
+    ): [ConverterTokenSwapTotal!]!
+    converters(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Converter_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Converter_filter
+    ): [Converter!]!
+    quickBuyPathMember(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): QuickBuyPathMember
+    quickBuyPathMembers(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: QuickBuyPathMember_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: QuickBuyPathMember_filter
+    ): [QuickBuyPathMember!]!
+    swap(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Swap
+    swaps(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Swap_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Swap_filter
+    ): [Swap!]!
+    token(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Token
+    tokenSwapTotal(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): TokenSwapTotal
+    tokenSwapTotals(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: TokenSwapTotal_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: TokenSwapTotal_filter
+    ): [TokenSwapTotal!]!
+    tokens(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Token_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Token_filter
+    ): [Token!]!
+    transaction(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Transaction
+    transactions(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Transaction_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Transaction_filter
+    ): [Transaction!]!
+    user(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): User
+    userSmartTokenBalance(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): UserSmartTokenBalance
+    userSmartTokenBalances(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: UserSmartTokenBalance_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: UserSmartTokenBalance_filter
+    ): [UserSmartTokenBalance!]!
+    userTokenSwapTotal(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): UserTokenSwapTotal
+    userTokenSwapTotals(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: UserTokenSwapTotal_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: UserTokenSwapTotal_filter
+    ): [UserTokenSwapTotal!]!
+    users(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: User_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: User_filter
+    ): [User!]!
+}
+
+type Swap {
+    amountPurchased: BigInt
+    amountReturned: BigInt
+    conversionFee: BigInt
+    converterFromTokenBalanceAfterSwap: BigInt
+    converterFromTokenBalanceBeforeSwap: BigInt
+    converterToTokenBalanceAfterSwap: BigInt
+    converterToTokenBalanceBeforeSwap: BigInt
+    converterUsed: Converter
+    converterWeight: BigInt
+    fromToken: Token!
+    id: ID!
+    inversePrice: BigDecimal
+    logIndex: Int
+    price: BigDecimal
+    slippage: BigDecimal
+    timestamp: BigInt
+    toToken: Token!
+    trader: User
+    transaction: Transaction
+}
+
+type Token {
+    addedToRegistryBlockNumber: BigInt
+    addedToRegistryTransactionHash: String
+    connectorTokens(first: Int = 100, orderBy: Token_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Token_filter): [Token!]
+    converterWithShortestQuickBuyPath: Converter
+    converters(first: Int = 100, orderBy: Converter_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Converter_filter): [Converter!]
+    currentConverterRegistry: ConverterRegistry
+    decimals: Int
+    id: ID!
+    isSmartToken: Boolean
+    name: String
+    owner: String
+    shortestQuickBuyPath(first: Int = 100, orderBy: QuickBuyPathMember_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: QuickBuyPathMember_filter): [QuickBuyPathMember!]
+    smartTokenType: String
+    standard: String
+    symbol: String
+    tokenSwapTotals(first: Int = 100, orderBy: TokenSwapTotal_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: TokenSwapTotal_filter): [TokenSwapTotal!]
+    transfersEnabled: Boolean
+    version: String
+}
+
+type TokenSwapTotal {
+    fromToken: Token!
+    id: ID!
+    toToken: Token!
+    totalAmountPurchased: BigInt
+    totalAmountReturned: BigInt
+}
+
+type Transaction {
+    blockNumber: BigInt
+    blockTimestamp: BigInt
+    gasPrice: BigInt
+    gasUsed: BigInt
+    id: ID!
+    swaps(first: Int = 100, orderBy: Swap_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Swap_filter): [Swap!]
+}
+
+type User {
+    id: ID!
+    numSwaps: BigInt
+    smartTokenBalances(first: Int = 100, orderBy: UserSmartTokenBalance_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: UserSmartTokenBalance_filter): [UserSmartTokenBalance!]
+    swaps(first: Int = 100, orderBy: Swap_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Swap_filter): [Swap!]
+    tokenSwapTotals(first: Int = 100, orderBy: UserTokenSwapTotal_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: UserTokenSwapTotal_filter): [UserTokenSwapTotal!]
+}
+
+type UserSmartTokenBalance {
+    balance: BigInt
+    id: ID!
+    smartToken: Token
+    user: User!
+}
+
+type UserTokenSwapTotal {
+    fromToken: Token!
+    id: ID!
+    toToken: Token!
+    totalAmountPurchased: BigInt
+    totalAmountReturned: BigInt
+    user: User!
+}
+
+type _Block_ {
+    "The hash of the block"
+    hash: Bytes
+    "The block number"
+    number: Int!
+}
+
+"The type for the top-level _meta field"
+type _Meta_ {
+    """
+
+    Information about a specific subgraph block. The hash of the block
+    will be null if the _meta field has a block constraint that asks for
+    a block number. It will be filled if the _meta field has no block constraint
+    and therefore asks for the latest  block
+    """
+    block: _Block_!
+    "The deployment ID"
+    deployment: String!
+}
+
+enum BancorContract_orderBy {
+    id
+    name
+    registry
+}
+
+enum Connector_orderBy {
+    connectorToken
+    converter
+    id
+    isPurchaseEnabled
+    isSet
+    isVirtualBalanceEnabled
+    virtualBalance
+    weight
+}
+
+enum ContractRegistry_orderBy {
+    contracts
+    converterRegistries
+    id
+    owner
+}
+
+enum ConverterRegistry_orderBy {
+    addedToContractRegistryAtBlockNumber
+    addedToContractRegistryAtBlockTimestamp
+    addedToContractRegistryAtTransactionHash
+    connectorTokens
+    converters
+    id
+    lastUsedAtBlockNumber
+    lastUsedAtBlockTimestamp
+    lastUsedAtTransactionHash
+    numConverters
+    owner
+    smartTokens
+}
+
+enum ConverterTokenBalance_orderBy {
+    balance
+    converter
+    id
+    token
+}
+
+enum ConverterTokenSwapTotal_orderBy {
+    converter
+    fromToken
+    id
+    toToken
+    totalAmountPurchased
+    totalAmountReturned
+}
+
+enum Converter_orderBy {
+    connectorTokens
+    connectors
+    conversionFee
+    currentContractRegistry
+    currentConverterRegistry
+    firstAddedToRegistryBlockNumber
+    firstAddedToRegistryBlockTimestamp
+    id
+    lastResetBlockNumber
+    lastResetTimestamp
+    manager
+    maxConversionFee
+    owner
+    quickBuyPath
+    quickBuyPathLength
+    smartToken
+    tokenBalances
+    tokenSwapTotals
+    type
+    version
+    weight
+}
+
+enum OrderDirection {
+    asc
+    desc
+}
+
+enum QuickBuyPathMember_orderBy {
+    id
+    index
+    token
+}
+
+enum Swap_orderBy {
+    amountPurchased
+    amountReturned
+    conversionFee
+    converterFromTokenBalanceAfterSwap
+    converterFromTokenBalanceBeforeSwap
+    converterToTokenBalanceAfterSwap
+    converterToTokenBalanceBeforeSwap
+    converterUsed
+    converterWeight
+    fromToken
+    id
+    inversePrice
+    logIndex
+    price
+    slippage
+    timestamp
+    toToken
+    trader
+    transaction
+}
+
+enum TokenSwapTotal_orderBy {
+    fromToken
+    id
+    toToken
+    totalAmountPurchased
+    totalAmountReturned
+}
+
+enum Token_orderBy {
+    addedToRegistryBlockNumber
+    addedToRegistryTransactionHash
+    connectorTokens
+    converterWithShortestQuickBuyPath
+    converters
+    currentConverterRegistry
+    decimals
+    id
+    isSmartToken
+    name
+    owner
+    shortestQuickBuyPath
+    smartTokenType
+    standard
+    symbol
+    tokenSwapTotals
+    transfersEnabled
+    version
+}
+
+enum Transaction_orderBy {
+    blockNumber
+    blockTimestamp
+    gasPrice
+    gasUsed
+    id
+    swaps
+}
+
+enum UserSmartTokenBalance_orderBy {
+    balance
+    id
+    smartToken
+    user
+}
+
+enum UserTokenSwapTotal_orderBy {
+    fromToken
+    id
+    toToken
+    totalAmountPurchased
+    totalAmountReturned
+    user
+}
+
+enum User_orderBy {
+    id
+    numSwaps
+    smartTokenBalances
+    swaps
+    tokenSwapTotals
+}
+
+input BancorContract_filter {
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    name: String
+    name_contains: String
+    name_ends_with: String
+    name_gt: String
+    name_gte: String
+    name_in: [String!]
+    name_lt: String
+    name_lte: String
+    name_not: String
+    name_not_contains: String
+    name_not_ends_with: String
+    name_not_in: [String!]
+    name_not_starts_with: String
+    name_starts_with: String
+    registry: String
+    registry_contains: String
+    registry_ends_with: String
+    registry_gt: String
+    registry_gte: String
+    registry_in: [String!]
+    registry_lt: String
+    registry_lte: String
+    registry_not: String
+    registry_not_contains: String
+    registry_not_ends_with: String
+    registry_not_in: [String!]
+    registry_not_starts_with: String
+    registry_starts_with: String
+}
+
+input Block_height {
+    hash: Bytes
+    number: Int
+}
+
+input Connector_filter {
+    connectorToken: String
+    connectorToken_contains: String
+    connectorToken_ends_with: String
+    connectorToken_gt: String
+    connectorToken_gte: String
+    connectorToken_in: [String!]
+    connectorToken_lt: String
+    connectorToken_lte: String
+    connectorToken_not: String
+    connectorToken_not_contains: String
+    connectorToken_not_ends_with: String
+    connectorToken_not_in: [String!]
+    connectorToken_not_starts_with: String
+    connectorToken_starts_with: String
+    converter: String
+    converter_contains: String
+    converter_ends_with: String
+    converter_gt: String
+    converter_gte: String
+    converter_in: [String!]
+    converter_lt: String
+    converter_lte: String
+    converter_not: String
+    converter_not_contains: String
+    converter_not_ends_with: String
+    converter_not_in: [String!]
+    converter_not_starts_with: String
+    converter_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    isPurchaseEnabled: Boolean
+    isPurchaseEnabled_in: [Boolean!]
+    isPurchaseEnabled_not: Boolean
+    isPurchaseEnabled_not_in: [Boolean!]
+    isSet: Boolean
+    isSet_in: [Boolean!]
+    isSet_not: Boolean
+    isSet_not_in: [Boolean!]
+    isVirtualBalanceEnabled: Boolean
+    isVirtualBalanceEnabled_in: [Boolean!]
+    isVirtualBalanceEnabled_not: Boolean
+    isVirtualBalanceEnabled_not_in: [Boolean!]
+    virtualBalance: BigInt
+    virtualBalance_gt: BigInt
+    virtualBalance_gte: BigInt
+    virtualBalance_in: [BigInt!]
+    virtualBalance_lt: BigInt
+    virtualBalance_lte: BigInt
+    virtualBalance_not: BigInt
+    virtualBalance_not_in: [BigInt!]
+    weight: BigInt
+    weight_gt: BigInt
+    weight_gte: BigInt
+    weight_in: [BigInt!]
+    weight_lt: BigInt
+    weight_lte: BigInt
+    weight_not: BigInt
+    weight_not_in: [BigInt!]
+}
+
+input ContractRegistry_filter {
+    converterRegistries: [String!]
+    converterRegistries_contains: [String!]
+    converterRegistries_not: [String!]
+    converterRegistries_not_contains: [String!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    owner: String
+    owner_contains: String
+    owner_ends_with: String
+    owner_gt: String
+    owner_gte: String
+    owner_in: [String!]
+    owner_lt: String
+    owner_lte: String
+    owner_not: String
+    owner_not_contains: String
+    owner_not_ends_with: String
+    owner_not_in: [String!]
+    owner_not_starts_with: String
+    owner_starts_with: String
+}
+
+input ConverterRegistry_filter {
+    addedToContractRegistryAtBlockNumber: BigInt
+    addedToContractRegistryAtBlockNumber_gt: BigInt
+    addedToContractRegistryAtBlockNumber_gte: BigInt
+    addedToContractRegistryAtBlockNumber_in: [BigInt!]
+    addedToContractRegistryAtBlockNumber_lt: BigInt
+    addedToContractRegistryAtBlockNumber_lte: BigInt
+    addedToContractRegistryAtBlockNumber_not: BigInt
+    addedToContractRegistryAtBlockNumber_not_in: [BigInt!]
+    addedToContractRegistryAtBlockTimestamp: BigInt
+    addedToContractRegistryAtBlockTimestamp_gt: BigInt
+    addedToContractRegistryAtBlockTimestamp_gte: BigInt
+    addedToContractRegistryAtBlockTimestamp_in: [BigInt!]
+    addedToContractRegistryAtBlockTimestamp_lt: BigInt
+    addedToContractRegistryAtBlockTimestamp_lte: BigInt
+    addedToContractRegistryAtBlockTimestamp_not: BigInt
+    addedToContractRegistryAtBlockTimestamp_not_in: [BigInt!]
+    addedToContractRegistryAtTransactionHash: String
+    addedToContractRegistryAtTransactionHash_contains: String
+    addedToContractRegistryAtTransactionHash_ends_with: String
+    addedToContractRegistryAtTransactionHash_gt: String
+    addedToContractRegistryAtTransactionHash_gte: String
+    addedToContractRegistryAtTransactionHash_in: [String!]
+    addedToContractRegistryAtTransactionHash_lt: String
+    addedToContractRegistryAtTransactionHash_lte: String
+    addedToContractRegistryAtTransactionHash_not: String
+    addedToContractRegistryAtTransactionHash_not_contains: String
+    addedToContractRegistryAtTransactionHash_not_ends_with: String
+    addedToContractRegistryAtTransactionHash_not_in: [String!]
+    addedToContractRegistryAtTransactionHash_not_starts_with: String
+    addedToContractRegistryAtTransactionHash_starts_with: String
+    connectorTokens: [String!]
+    connectorTokens_contains: [String!]
+    connectorTokens_not: [String!]
+    connectorTokens_not_contains: [String!]
+    converters: [String!]
+    converters_contains: [String!]
+    converters_not: [String!]
+    converters_not_contains: [String!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    lastUsedAtBlockNumber: BigInt
+    lastUsedAtBlockNumber_gt: BigInt
+    lastUsedAtBlockNumber_gte: BigInt
+    lastUsedAtBlockNumber_in: [BigInt!]
+    lastUsedAtBlockNumber_lt: BigInt
+    lastUsedAtBlockNumber_lte: BigInt
+    lastUsedAtBlockNumber_not: BigInt
+    lastUsedAtBlockNumber_not_in: [BigInt!]
+    lastUsedAtBlockTimestamp: BigInt
+    lastUsedAtBlockTimestamp_gt: BigInt
+    lastUsedAtBlockTimestamp_gte: BigInt
+    lastUsedAtBlockTimestamp_in: [BigInt!]
+    lastUsedAtBlockTimestamp_lt: BigInt
+    lastUsedAtBlockTimestamp_lte: BigInt
+    lastUsedAtBlockTimestamp_not: BigInt
+    lastUsedAtBlockTimestamp_not_in: [BigInt!]
+    lastUsedAtTransactionHash: String
+    lastUsedAtTransactionHash_contains: String
+    lastUsedAtTransactionHash_ends_with: String
+    lastUsedAtTransactionHash_gt: String
+    lastUsedAtTransactionHash_gte: String
+    lastUsedAtTransactionHash_in: [String!]
+    lastUsedAtTransactionHash_lt: String
+    lastUsedAtTransactionHash_lte: String
+    lastUsedAtTransactionHash_not: String
+    lastUsedAtTransactionHash_not_contains: String
+    lastUsedAtTransactionHash_not_ends_with: String
+    lastUsedAtTransactionHash_not_in: [String!]
+    lastUsedAtTransactionHash_not_starts_with: String
+    lastUsedAtTransactionHash_starts_with: String
+    numConverters: BigInt
+    numConverters_gt: BigInt
+    numConverters_gte: BigInt
+    numConverters_in: [BigInt!]
+    numConverters_lt: BigInt
+    numConverters_lte: BigInt
+    numConverters_not: BigInt
+    numConverters_not_in: [BigInt!]
+    owner: String
+    owner_contains: String
+    owner_ends_with: String
+    owner_gt: String
+    owner_gte: String
+    owner_in: [String!]
+    owner_lt: String
+    owner_lte: String
+    owner_not: String
+    owner_not_contains: String
+    owner_not_ends_with: String
+    owner_not_in: [String!]
+    owner_not_starts_with: String
+    owner_starts_with: String
+    smartTokens: [String!]
+    smartTokens_contains: [String!]
+    smartTokens_not: [String!]
+    smartTokens_not_contains: [String!]
+}
+
+input ConverterTokenBalance_filter {
+    balance: BigInt
+    balance_gt: BigInt
+    balance_gte: BigInt
+    balance_in: [BigInt!]
+    balance_lt: BigInt
+    balance_lte: BigInt
+    balance_not: BigInt
+    balance_not_in: [BigInt!]
+    converter: String
+    converter_contains: String
+    converter_ends_with: String
+    converter_gt: String
+    converter_gte: String
+    converter_in: [String!]
+    converter_lt: String
+    converter_lte: String
+    converter_not: String
+    converter_not_contains: String
+    converter_not_ends_with: String
+    converter_not_in: [String!]
+    converter_not_starts_with: String
+    converter_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    token: String
+    token_contains: String
+    token_ends_with: String
+    token_gt: String
+    token_gte: String
+    token_in: [String!]
+    token_lt: String
+    token_lte: String
+    token_not: String
+    token_not_contains: String
+    token_not_ends_with: String
+    token_not_in: [String!]
+    token_not_starts_with: String
+    token_starts_with: String
+}
+
+input ConverterTokenSwapTotal_filter {
+    converter: String
+    converter_contains: String
+    converter_ends_with: String
+    converter_gt: String
+    converter_gte: String
+    converter_in: [String!]
+    converter_lt: String
+    converter_lte: String
+    converter_not: String
+    converter_not_contains: String
+    converter_not_ends_with: String
+    converter_not_in: [String!]
+    converter_not_starts_with: String
+    converter_starts_with: String
+    fromToken: String
+    fromToken_contains: String
+    fromToken_ends_with: String
+    fromToken_gt: String
+    fromToken_gte: String
+    fromToken_in: [String!]
+    fromToken_lt: String
+    fromToken_lte: String
+    fromToken_not: String
+    fromToken_not_contains: String
+    fromToken_not_ends_with: String
+    fromToken_not_in: [String!]
+    fromToken_not_starts_with: String
+    fromToken_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    toToken: String
+    toToken_contains: String
+    toToken_ends_with: String
+    toToken_gt: String
+    toToken_gte: String
+    toToken_in: [String!]
+    toToken_lt: String
+    toToken_lte: String
+    toToken_not: String
+    toToken_not_contains: String
+    toToken_not_ends_with: String
+    toToken_not_in: [String!]
+    toToken_not_starts_with: String
+    toToken_starts_with: String
+    totalAmountPurchased: BigInt
+    totalAmountPurchased_gt: BigInt
+    totalAmountPurchased_gte: BigInt
+    totalAmountPurchased_in: [BigInt!]
+    totalAmountPurchased_lt: BigInt
+    totalAmountPurchased_lte: BigInt
+    totalAmountPurchased_not: BigInt
+    totalAmountPurchased_not_in: [BigInt!]
+    totalAmountReturned: BigInt
+    totalAmountReturned_gt: BigInt
+    totalAmountReturned_gte: BigInt
+    totalAmountReturned_in: [BigInt!]
+    totalAmountReturned_lt: BigInt
+    totalAmountReturned_lte: BigInt
+    totalAmountReturned_not: BigInt
+    totalAmountReturned_not_in: [BigInt!]
+}
+
+input Converter_filter {
+    connectorTokens: [String!]
+    connectorTokens_contains: [String!]
+    connectorTokens_not: [String!]
+    connectorTokens_not_contains: [String!]
+    conversionFee: BigInt
+    conversionFee_gt: BigInt
+    conversionFee_gte: BigInt
+    conversionFee_in: [BigInt!]
+    conversionFee_lt: BigInt
+    conversionFee_lte: BigInt
+    conversionFee_not: BigInt
+    conversionFee_not_in: [BigInt!]
+    currentContractRegistry: String
+    currentContractRegistry_contains: String
+    currentContractRegistry_ends_with: String
+    currentContractRegistry_gt: String
+    currentContractRegistry_gte: String
+    currentContractRegistry_in: [String!]
+    currentContractRegistry_lt: String
+    currentContractRegistry_lte: String
+    currentContractRegistry_not: String
+    currentContractRegistry_not_contains: String
+    currentContractRegistry_not_ends_with: String
+    currentContractRegistry_not_in: [String!]
+    currentContractRegistry_not_starts_with: String
+    currentContractRegistry_starts_with: String
+    currentConverterRegistry: String
+    currentConverterRegistry_contains: String
+    currentConverterRegistry_ends_with: String
+    currentConverterRegistry_gt: String
+    currentConverterRegistry_gte: String
+    currentConverterRegistry_in: [String!]
+    currentConverterRegistry_lt: String
+    currentConverterRegistry_lte: String
+    currentConverterRegistry_not: String
+    currentConverterRegistry_not_contains: String
+    currentConverterRegistry_not_ends_with: String
+    currentConverterRegistry_not_in: [String!]
+    currentConverterRegistry_not_starts_with: String
+    currentConverterRegistry_starts_with: String
+    firstAddedToRegistryBlockNumber: BigInt
+    firstAddedToRegistryBlockNumber_gt: BigInt
+    firstAddedToRegistryBlockNumber_gte: BigInt
+    firstAddedToRegistryBlockNumber_in: [BigInt!]
+    firstAddedToRegistryBlockNumber_lt: BigInt
+    firstAddedToRegistryBlockNumber_lte: BigInt
+    firstAddedToRegistryBlockNumber_not: BigInt
+    firstAddedToRegistryBlockNumber_not_in: [BigInt!]
+    firstAddedToRegistryBlockTimestamp: BigInt
+    firstAddedToRegistryBlockTimestamp_gt: BigInt
+    firstAddedToRegistryBlockTimestamp_gte: BigInt
+    firstAddedToRegistryBlockTimestamp_in: [BigInt!]
+    firstAddedToRegistryBlockTimestamp_lt: BigInt
+    firstAddedToRegistryBlockTimestamp_lte: BigInt
+    firstAddedToRegistryBlockTimestamp_not: BigInt
+    firstAddedToRegistryBlockTimestamp_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    lastResetBlockNumber: BigInt
+    lastResetBlockNumber_gt: BigInt
+    lastResetBlockNumber_gte: BigInt
+    lastResetBlockNumber_in: [BigInt!]
+    lastResetBlockNumber_lt: BigInt
+    lastResetBlockNumber_lte: BigInt
+    lastResetBlockNumber_not: BigInt
+    lastResetBlockNumber_not_in: [BigInt!]
+    lastResetTimestamp: BigInt
+    lastResetTimestamp_gt: BigInt
+    lastResetTimestamp_gte: BigInt
+    lastResetTimestamp_in: [BigInt!]
+    lastResetTimestamp_lt: BigInt
+    lastResetTimestamp_lte: BigInt
+    lastResetTimestamp_not: BigInt
+    lastResetTimestamp_not_in: [BigInt!]
+    manager: String
+    manager_contains: String
+    manager_ends_with: String
+    manager_gt: String
+    manager_gte: String
+    manager_in: [String!]
+    manager_lt: String
+    manager_lte: String
+    manager_not: String
+    manager_not_contains: String
+    manager_not_ends_with: String
+    manager_not_in: [String!]
+    manager_not_starts_with: String
+    manager_starts_with: String
+    maxConversionFee: BigInt
+    maxConversionFee_gt: BigInt
+    maxConversionFee_gte: BigInt
+    maxConversionFee_in: [BigInt!]
+    maxConversionFee_lt: BigInt
+    maxConversionFee_lte: BigInt
+    maxConversionFee_not: BigInt
+    maxConversionFee_not_in: [BigInt!]
+    owner: String
+    owner_contains: String
+    owner_ends_with: String
+    owner_gt: String
+    owner_gte: String
+    owner_in: [String!]
+    owner_lt: String
+    owner_lte: String
+    owner_not: String
+    owner_not_contains: String
+    owner_not_ends_with: String
+    owner_not_in: [String!]
+    owner_not_starts_with: String
+    owner_starts_with: String
+    quickBuyPath: [String!]
+    quickBuyPathLength: Int
+    quickBuyPathLength_gt: Int
+    quickBuyPathLength_gte: Int
+    quickBuyPathLength_in: [Int!]
+    quickBuyPathLength_lt: Int
+    quickBuyPathLength_lte: Int
+    quickBuyPathLength_not: Int
+    quickBuyPathLength_not_in: [Int!]
+    quickBuyPath_contains: [String!]
+    quickBuyPath_not: [String!]
+    quickBuyPath_not_contains: [String!]
+    smartToken: String
+    smartToken_contains: String
+    smartToken_ends_with: String
+    smartToken_gt: String
+    smartToken_gte: String
+    smartToken_in: [String!]
+    smartToken_lt: String
+    smartToken_lte: String
+    smartToken_not: String
+    smartToken_not_contains: String
+    smartToken_not_ends_with: String
+    smartToken_not_in: [String!]
+    smartToken_not_starts_with: String
+    smartToken_starts_with: String
+    type: String
+    type_contains: String
+    type_ends_with: String
+    type_gt: String
+    type_gte: String
+    type_in: [String!]
+    type_lt: String
+    type_lte: String
+    type_not: String
+    type_not_contains: String
+    type_not_ends_with: String
+    type_not_in: [String!]
+    type_not_starts_with: String
+    type_starts_with: String
+    version: String
+    version_contains: String
+    version_ends_with: String
+    version_gt: String
+    version_gte: String
+    version_in: [String!]
+    version_lt: String
+    version_lte: String
+    version_not: String
+    version_not_contains: String
+    version_not_ends_with: String
+    version_not_in: [String!]
+    version_not_starts_with: String
+    version_starts_with: String
+    weight: BigInt
+    weight_gt: BigInt
+    weight_gte: BigInt
+    weight_in: [BigInt!]
+    weight_lt: BigInt
+    weight_lte: BigInt
+    weight_not: BigInt
+    weight_not_in: [BigInt!]
+}
+
+input QuickBuyPathMember_filter {
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    index: Int
+    index_gt: Int
+    index_gte: Int
+    index_in: [Int!]
+    index_lt: Int
+    index_lte: Int
+    index_not: Int
+    index_not_in: [Int!]
+    token: String
+    token_contains: String
+    token_ends_with: String
+    token_gt: String
+    token_gte: String
+    token_in: [String!]
+    token_lt: String
+    token_lte: String
+    token_not: String
+    token_not_contains: String
+    token_not_ends_with: String
+    token_not_in: [String!]
+    token_not_starts_with: String
+    token_starts_with: String
+}
+
+input Swap_filter {
+    amountPurchased: BigInt
+    amountPurchased_gt: BigInt
+    amountPurchased_gte: BigInt
+    amountPurchased_in: [BigInt!]
+    amountPurchased_lt: BigInt
+    amountPurchased_lte: BigInt
+    amountPurchased_not: BigInt
+    amountPurchased_not_in: [BigInt!]
+    amountReturned: BigInt
+    amountReturned_gt: BigInt
+    amountReturned_gte: BigInt
+    amountReturned_in: [BigInt!]
+    amountReturned_lt: BigInt
+    amountReturned_lte: BigInt
+    amountReturned_not: BigInt
+    amountReturned_not_in: [BigInt!]
+    conversionFee: BigInt
+    conversionFee_gt: BigInt
+    conversionFee_gte: BigInt
+    conversionFee_in: [BigInt!]
+    conversionFee_lt: BigInt
+    conversionFee_lte: BigInt
+    conversionFee_not: BigInt
+    conversionFee_not_in: [BigInt!]
+    converterFromTokenBalanceAfterSwap: BigInt
+    converterFromTokenBalanceAfterSwap_gt: BigInt
+    converterFromTokenBalanceAfterSwap_gte: BigInt
+    converterFromTokenBalanceAfterSwap_in: [BigInt!]
+    converterFromTokenBalanceAfterSwap_lt: BigInt
+    converterFromTokenBalanceAfterSwap_lte: BigInt
+    converterFromTokenBalanceAfterSwap_not: BigInt
+    converterFromTokenBalanceAfterSwap_not_in: [BigInt!]
+    converterFromTokenBalanceBeforeSwap: BigInt
+    converterFromTokenBalanceBeforeSwap_gt: BigInt
+    converterFromTokenBalanceBeforeSwap_gte: BigInt
+    converterFromTokenBalanceBeforeSwap_in: [BigInt!]
+    converterFromTokenBalanceBeforeSwap_lt: BigInt
+    converterFromTokenBalanceBeforeSwap_lte: BigInt
+    converterFromTokenBalanceBeforeSwap_not: BigInt
+    converterFromTokenBalanceBeforeSwap_not_in: [BigInt!]
+    converterToTokenBalanceAfterSwap: BigInt
+    converterToTokenBalanceAfterSwap_gt: BigInt
+    converterToTokenBalanceAfterSwap_gte: BigInt
+    converterToTokenBalanceAfterSwap_in: [BigInt!]
+    converterToTokenBalanceAfterSwap_lt: BigInt
+    converterToTokenBalanceAfterSwap_lte: BigInt
+    converterToTokenBalanceAfterSwap_not: BigInt
+    converterToTokenBalanceAfterSwap_not_in: [BigInt!]
+    converterToTokenBalanceBeforeSwap: BigInt
+    converterToTokenBalanceBeforeSwap_gt: BigInt
+    converterToTokenBalanceBeforeSwap_gte: BigInt
+    converterToTokenBalanceBeforeSwap_in: [BigInt!]
+    converterToTokenBalanceBeforeSwap_lt: BigInt
+    converterToTokenBalanceBeforeSwap_lte: BigInt
+    converterToTokenBalanceBeforeSwap_not: BigInt
+    converterToTokenBalanceBeforeSwap_not_in: [BigInt!]
+    converterUsed: String
+    converterUsed_contains: String
+    converterUsed_ends_with: String
+    converterUsed_gt: String
+    converterUsed_gte: String
+    converterUsed_in: [String!]
+    converterUsed_lt: String
+    converterUsed_lte: String
+    converterUsed_not: String
+    converterUsed_not_contains: String
+    converterUsed_not_ends_with: String
+    converterUsed_not_in: [String!]
+    converterUsed_not_starts_with: String
+    converterUsed_starts_with: String
+    converterWeight: BigInt
+    converterWeight_gt: BigInt
+    converterWeight_gte: BigInt
+    converterWeight_in: [BigInt!]
+    converterWeight_lt: BigInt
+    converterWeight_lte: BigInt
+    converterWeight_not: BigInt
+    converterWeight_not_in: [BigInt!]
+    fromToken: String
+    fromToken_contains: String
+    fromToken_ends_with: String
+    fromToken_gt: String
+    fromToken_gte: String
+    fromToken_in: [String!]
+    fromToken_lt: String
+    fromToken_lte: String
+    fromToken_not: String
+    fromToken_not_contains: String
+    fromToken_not_ends_with: String
+    fromToken_not_in: [String!]
+    fromToken_not_starts_with: String
+    fromToken_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    inversePrice: BigDecimal
+    inversePrice_gt: BigDecimal
+    inversePrice_gte: BigDecimal
+    inversePrice_in: [BigDecimal!]
+    inversePrice_lt: BigDecimal
+    inversePrice_lte: BigDecimal
+    inversePrice_not: BigDecimal
+    inversePrice_not_in: [BigDecimal!]
+    logIndex: Int
+    logIndex_gt: Int
+    logIndex_gte: Int
+    logIndex_in: [Int!]
+    logIndex_lt: Int
+    logIndex_lte: Int
+    logIndex_not: Int
+    logIndex_not_in: [Int!]
+    price: BigDecimal
+    price_gt: BigDecimal
+    price_gte: BigDecimal
+    price_in: [BigDecimal!]
+    price_lt: BigDecimal
+    price_lte: BigDecimal
+    price_not: BigDecimal
+    price_not_in: [BigDecimal!]
+    slippage: BigDecimal
+    slippage_gt: BigDecimal
+    slippage_gte: BigDecimal
+    slippage_in: [BigDecimal!]
+    slippage_lt: BigDecimal
+    slippage_lte: BigDecimal
+    slippage_not: BigDecimal
+    slippage_not_in: [BigDecimal!]
+    timestamp: BigInt
+    timestamp_gt: BigInt
+    timestamp_gte: BigInt
+    timestamp_in: [BigInt!]
+    timestamp_lt: BigInt
+    timestamp_lte: BigInt
+    timestamp_not: BigInt
+    timestamp_not_in: [BigInt!]
+    toToken: String
+    toToken_contains: String
+    toToken_ends_with: String
+    toToken_gt: String
+    toToken_gte: String
+    toToken_in: [String!]
+    toToken_lt: String
+    toToken_lte: String
+    toToken_not: String
+    toToken_not_contains: String
+    toToken_not_ends_with: String
+    toToken_not_in: [String!]
+    toToken_not_starts_with: String
+    toToken_starts_with: String
+    trader: String
+    trader_contains: String
+    trader_ends_with: String
+    trader_gt: String
+    trader_gte: String
+    trader_in: [String!]
+    trader_lt: String
+    trader_lte: String
+    trader_not: String
+    trader_not_contains: String
+    trader_not_ends_with: String
+    trader_not_in: [String!]
+    trader_not_starts_with: String
+    trader_starts_with: String
+    transaction: String
+    transaction_contains: String
+    transaction_ends_with: String
+    transaction_gt: String
+    transaction_gte: String
+    transaction_in: [String!]
+    transaction_lt: String
+    transaction_lte: String
+    transaction_not: String
+    transaction_not_contains: String
+    transaction_not_ends_with: String
+    transaction_not_in: [String!]
+    transaction_not_starts_with: String
+    transaction_starts_with: String
+}
+
+input TokenSwapTotal_filter {
+    fromToken: String
+    fromToken_contains: String
+    fromToken_ends_with: String
+    fromToken_gt: String
+    fromToken_gte: String
+    fromToken_in: [String!]
+    fromToken_lt: String
+    fromToken_lte: String
+    fromToken_not: String
+    fromToken_not_contains: String
+    fromToken_not_ends_with: String
+    fromToken_not_in: [String!]
+    fromToken_not_starts_with: String
+    fromToken_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    toToken: String
+    toToken_contains: String
+    toToken_ends_with: String
+    toToken_gt: String
+    toToken_gte: String
+    toToken_in: [String!]
+    toToken_lt: String
+    toToken_lte: String
+    toToken_not: String
+    toToken_not_contains: String
+    toToken_not_ends_with: String
+    toToken_not_in: [String!]
+    toToken_not_starts_with: String
+    toToken_starts_with: String
+    totalAmountPurchased: BigInt
+    totalAmountPurchased_gt: BigInt
+    totalAmountPurchased_gte: BigInt
+    totalAmountPurchased_in: [BigInt!]
+    totalAmountPurchased_lt: BigInt
+    totalAmountPurchased_lte: BigInt
+    totalAmountPurchased_not: BigInt
+    totalAmountPurchased_not_in: [BigInt!]
+    totalAmountReturned: BigInt
+    totalAmountReturned_gt: BigInt
+    totalAmountReturned_gte: BigInt
+    totalAmountReturned_in: [BigInt!]
+    totalAmountReturned_lt: BigInt
+    totalAmountReturned_lte: BigInt
+    totalAmountReturned_not: BigInt
+    totalAmountReturned_not_in: [BigInt!]
+}
+
+input Token_filter {
+    addedToRegistryBlockNumber: BigInt
+    addedToRegistryBlockNumber_gt: BigInt
+    addedToRegistryBlockNumber_gte: BigInt
+    addedToRegistryBlockNumber_in: [BigInt!]
+    addedToRegistryBlockNumber_lt: BigInt
+    addedToRegistryBlockNumber_lte: BigInt
+    addedToRegistryBlockNumber_not: BigInt
+    addedToRegistryBlockNumber_not_in: [BigInt!]
+    addedToRegistryTransactionHash: String
+    addedToRegistryTransactionHash_contains: String
+    addedToRegistryTransactionHash_ends_with: String
+    addedToRegistryTransactionHash_gt: String
+    addedToRegistryTransactionHash_gte: String
+    addedToRegistryTransactionHash_in: [String!]
+    addedToRegistryTransactionHash_lt: String
+    addedToRegistryTransactionHash_lte: String
+    addedToRegistryTransactionHash_not: String
+    addedToRegistryTransactionHash_not_contains: String
+    addedToRegistryTransactionHash_not_ends_with: String
+    addedToRegistryTransactionHash_not_in: [String!]
+    addedToRegistryTransactionHash_not_starts_with: String
+    addedToRegistryTransactionHash_starts_with: String
+    connectorTokens: [String!]
+    connectorTokens_contains: [String!]
+    connectorTokens_not: [String!]
+    connectorTokens_not_contains: [String!]
+    converterWithShortestQuickBuyPath: String
+    converterWithShortestQuickBuyPath_contains: String
+    converterWithShortestQuickBuyPath_ends_with: String
+    converterWithShortestQuickBuyPath_gt: String
+    converterWithShortestQuickBuyPath_gte: String
+    converterWithShortestQuickBuyPath_in: [String!]
+    converterWithShortestQuickBuyPath_lt: String
+    converterWithShortestQuickBuyPath_lte: String
+    converterWithShortestQuickBuyPath_not: String
+    converterWithShortestQuickBuyPath_not_contains: String
+    converterWithShortestQuickBuyPath_not_ends_with: String
+    converterWithShortestQuickBuyPath_not_in: [String!]
+    converterWithShortestQuickBuyPath_not_starts_with: String
+    converterWithShortestQuickBuyPath_starts_with: String
+    converters: [String!]
+    converters_contains: [String!]
+    converters_not: [String!]
+    converters_not_contains: [String!]
+    currentConverterRegistry: String
+    currentConverterRegistry_contains: String
+    currentConverterRegistry_ends_with: String
+    currentConverterRegistry_gt: String
+    currentConverterRegistry_gte: String
+    currentConverterRegistry_in: [String!]
+    currentConverterRegistry_lt: String
+    currentConverterRegistry_lte: String
+    currentConverterRegistry_not: String
+    currentConverterRegistry_not_contains: String
+    currentConverterRegistry_not_ends_with: String
+    currentConverterRegistry_not_in: [String!]
+    currentConverterRegistry_not_starts_with: String
+    currentConverterRegistry_starts_with: String
+    decimals: Int
+    decimals_gt: Int
+    decimals_gte: Int
+    decimals_in: [Int!]
+    decimals_lt: Int
+    decimals_lte: Int
+    decimals_not: Int
+    decimals_not_in: [Int!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    isSmartToken: Boolean
+    isSmartToken_in: [Boolean!]
+    isSmartToken_not: Boolean
+    isSmartToken_not_in: [Boolean!]
+    name: String
+    name_contains: String
+    name_ends_with: String
+    name_gt: String
+    name_gte: String
+    name_in: [String!]
+    name_lt: String
+    name_lte: String
+    name_not: String
+    name_not_contains: String
+    name_not_ends_with: String
+    name_not_in: [String!]
+    name_not_starts_with: String
+    name_starts_with: String
+    owner: String
+    owner_contains: String
+    owner_ends_with: String
+    owner_gt: String
+    owner_gte: String
+    owner_in: [String!]
+    owner_lt: String
+    owner_lte: String
+    owner_not: String
+    owner_not_contains: String
+    owner_not_ends_with: String
+    owner_not_in: [String!]
+    owner_not_starts_with: String
+    owner_starts_with: String
+    shortestQuickBuyPath: [String!]
+    shortestQuickBuyPath_contains: [String!]
+    shortestQuickBuyPath_not: [String!]
+    shortestQuickBuyPath_not_contains: [String!]
+    smartTokenType: String
+    smartTokenType_contains: String
+    smartTokenType_ends_with: String
+    smartTokenType_gt: String
+    smartTokenType_gte: String
+    smartTokenType_in: [String!]
+    smartTokenType_lt: String
+    smartTokenType_lte: String
+    smartTokenType_not: String
+    smartTokenType_not_contains: String
+    smartTokenType_not_ends_with: String
+    smartTokenType_not_in: [String!]
+    smartTokenType_not_starts_with: String
+    smartTokenType_starts_with: String
+    standard: String
+    standard_contains: String
+    standard_ends_with: String
+    standard_gt: String
+    standard_gte: String
+    standard_in: [String!]
+    standard_lt: String
+    standard_lte: String
+    standard_not: String
+    standard_not_contains: String
+    standard_not_ends_with: String
+    standard_not_in: [String!]
+    standard_not_starts_with: String
+    standard_starts_with: String
+    symbol: String
+    symbol_contains: String
+    symbol_ends_with: String
+    symbol_gt: String
+    symbol_gte: String
+    symbol_in: [String!]
+    symbol_lt: String
+    symbol_lte: String
+    symbol_not: String
+    symbol_not_contains: String
+    symbol_not_ends_with: String
+    symbol_not_in: [String!]
+    symbol_not_starts_with: String
+    symbol_starts_with: String
+    transfersEnabled: Boolean
+    transfersEnabled_in: [Boolean!]
+    transfersEnabled_not: Boolean
+    transfersEnabled_not_in: [Boolean!]
+    version: String
+    version_contains: String
+    version_ends_with: String
+    version_gt: String
+    version_gte: String
+    version_in: [String!]
+    version_lt: String
+    version_lte: String
+    version_not: String
+    version_not_contains: String
+    version_not_ends_with: String
+    version_not_in: [String!]
+    version_not_starts_with: String
+    version_starts_with: String
+}
+
+input Transaction_filter {
+    blockNumber: BigInt
+    blockNumber_gt: BigInt
+    blockNumber_gte: BigInt
+    blockNumber_in: [BigInt!]
+    blockNumber_lt: BigInt
+    blockNumber_lte: BigInt
+    blockNumber_not: BigInt
+    blockNumber_not_in: [BigInt!]
+    blockTimestamp: BigInt
+    blockTimestamp_gt: BigInt
+    blockTimestamp_gte: BigInt
+    blockTimestamp_in: [BigInt!]
+    blockTimestamp_lt: BigInt
+    blockTimestamp_lte: BigInt
+    blockTimestamp_not: BigInt
+    blockTimestamp_not_in: [BigInt!]
+    gasPrice: BigInt
+    gasPrice_gt: BigInt
+    gasPrice_gte: BigInt
+    gasPrice_in: [BigInt!]
+    gasPrice_lt: BigInt
+    gasPrice_lte: BigInt
+    gasPrice_not: BigInt
+    gasPrice_not_in: [BigInt!]
+    gasUsed: BigInt
+    gasUsed_gt: BigInt
+    gasUsed_gte: BigInt
+    gasUsed_in: [BigInt!]
+    gasUsed_lt: BigInt
+    gasUsed_lte: BigInt
+    gasUsed_not: BigInt
+    gasUsed_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+}
+
+input UserSmartTokenBalance_filter {
+    balance: BigInt
+    balance_gt: BigInt
+    balance_gte: BigInt
+    balance_in: [BigInt!]
+    balance_lt: BigInt
+    balance_lte: BigInt
+    balance_not: BigInt
+    balance_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    smartToken: String
+    smartToken_contains: String
+    smartToken_ends_with: String
+    smartToken_gt: String
+    smartToken_gte: String
+    smartToken_in: [String!]
+    smartToken_lt: String
+    smartToken_lte: String
+    smartToken_not: String
+    smartToken_not_contains: String
+    smartToken_not_ends_with: String
+    smartToken_not_in: [String!]
+    smartToken_not_starts_with: String
+    smartToken_starts_with: String
+    user: String
+    user_contains: String
+    user_ends_with: String
+    user_gt: String
+    user_gte: String
+    user_in: [String!]
+    user_lt: String
+    user_lte: String
+    user_not: String
+    user_not_contains: String
+    user_not_ends_with: String
+    user_not_in: [String!]
+    user_not_starts_with: String
+    user_starts_with: String
+}
+
+input UserTokenSwapTotal_filter {
+    fromToken: String
+    fromToken_contains: String
+    fromToken_ends_with: String
+    fromToken_gt: String
+    fromToken_gte: String
+    fromToken_in: [String!]
+    fromToken_lt: String
+    fromToken_lte: String
+    fromToken_not: String
+    fromToken_not_contains: String
+    fromToken_not_ends_with: String
+    fromToken_not_in: [String!]
+    fromToken_not_starts_with: String
+    fromToken_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    toToken: String
+    toToken_contains: String
+    toToken_ends_with: String
+    toToken_gt: String
+    toToken_gte: String
+    toToken_in: [String!]
+    toToken_lt: String
+    toToken_lte: String
+    toToken_not: String
+    toToken_not_contains: String
+    toToken_not_ends_with: String
+    toToken_not_in: [String!]
+    toToken_not_starts_with: String
+    toToken_starts_with: String
+    totalAmountPurchased: BigInt
+    totalAmountPurchased_gt: BigInt
+    totalAmountPurchased_gte: BigInt
+    totalAmountPurchased_in: [BigInt!]
+    totalAmountPurchased_lt: BigInt
+    totalAmountPurchased_lte: BigInt
+    totalAmountPurchased_not: BigInt
+    totalAmountPurchased_not_in: [BigInt!]
+    totalAmountReturned: BigInt
+    totalAmountReturned_gt: BigInt
+    totalAmountReturned_gte: BigInt
+    totalAmountReturned_in: [BigInt!]
+    totalAmountReturned_lt: BigInt
+    totalAmountReturned_lte: BigInt
+    totalAmountReturned_not: BigInt
+    totalAmountReturned_not_in: [BigInt!]
+    user: String
+    user_contains: String
+    user_ends_with: String
+    user_gt: String
+    user_gte: String
+    user_in: [String!]
+    user_lt: String
+    user_lte: String
+    user_not: String
+    user_not_contains: String
+    user_not_ends_with: String
+    user_not_in: [String!]
+    user_not_starts_with: String
+    user_starts_with: String
+}
+
+input User_filter {
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    numSwaps: BigInt
+    numSwaps_gt: BigInt
+    numSwaps_gte: BigInt
+    numSwaps_in: [BigInt!]
+    numSwaps_lt: BigInt
+    numSwaps_lte: BigInt
+    numSwaps_not: BigInt
+    numSwaps_not_in: [BigInt!]
+}
+
+
+scalar BigDecimal
+
+scalar BigInt
+
+scalar Bytes

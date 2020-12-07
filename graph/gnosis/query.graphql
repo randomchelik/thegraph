@@ -1,0 +1,70 @@
+{
+    prices (first: 1000) {
+        id
+        createEpoch
+        priceInOwlDenominator
+        priceInOwlNumerator
+        token {
+            address
+            createEpoch
+            decimals
+            fromBatchId
+            id
+            name
+            symbol
+            txHash
+        }
+        txHash
+        volume
+    }
+    users (first: 1000) {
+        id
+        createEpoch
+        deposits (first: 1000) {
+            amount
+        }
+        fromBatchId
+        orders (first: 1000) {
+            id
+            boughtVolume
+            buyToken {
+                name
+                symbol
+            }
+            orderId
+            maxSellAmount
+            minReceiveAmount
+            priceNumerator
+            priceDenominator
+            sellToken {
+                name
+                symbol
+            }
+            soldVolume
+        }
+        withdrawals (first: 1000) {
+            amount
+        }
+    }
+    trades (first: 1000) {
+        id
+        buyToken {
+            name
+            symbol
+        }
+        buyVolume
+        createEpoch
+        order {
+            id
+        }
+        owner {
+            id
+        }
+        sellToken {
+            name
+            symbol
+        }
+        sellVolume
+        tradeEpoch
+    }
+}

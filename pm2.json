@@ -1,0 +1,12 @@
+
+{
+  "apps" : [
+    {
+      "name" : "graph",
+      "script" : "./bin/www",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}

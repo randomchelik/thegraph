@@ -1,0 +1,1681 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    subscription: Subscription
+}
+
+interface OnChainTransactionEvent {
+    account: Account!
+    amount: BigInt!
+    exchange: Exchange!
+    id: ID!
+    token: Token!
+}
+
+type Account {
+    "List of balances for this account within the exchange"
+    balances(first: Int = 100, orderBy: AccountTokenBalance_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: AccountTokenBalance_filter): [AccountTokenBalance!]!
+    exchange: Exchange!
+    "Exchange address + internal ID"
+    id: ID!
+    "Internal ID of the account within the Exchange scope"
+    internalId: Int!
+    "User that owns the account"
+    owner: User!
+    "X Value of the public key"
+    pubKeyX: BigInt!
+    "Y Value of the public key"
+    pubKeyY: BigInt!
+    transactionEvents(first: Int = 100, orderBy: OnChainTransactionEvent_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: OnChainTransactionEvent_filter): [OnChainTransactionEvent!]!
+}
+
+type AccountTokenBalance {
+    account: Account!
+    exchange: Exchange!
+    "Exchange address + Account internal ID + token internal ID. Withdrawn amounts can be greater than deposits since tokens will be exchanged. We can't track trades as they are not part of the L1."
+    id: ID!
+    token: Token!
+    "Total amount of this token deposited to the account"
+    totalDeposited: BigDecimal!
+    totalDepositedRaw: BigInt!
+    "Total amount of this token withdrawn from the account"
+    totalWithdrawn: BigDecimal!
+    totalWithdrawnRaw: BigInt!
+}
+
+type Block {
+    blockFeeWithdrawn: Boolean
+    blockSize: Int
+    blockType: BlockType
+    blockTypeRaw: Int
+    exchange: Exchange!
+    feesWithdrawn: BigInt!
+    "Exchange ID + Block number"
+    id: ID!
+    merkleRoot: Bytes
+    numDepositRequestsCommitted: BigInt
+    numWithdrawalRequestsCommitted: BigInt
+    numWithdrawalsDistributed: Int
+    publicDataHash: Bytes!
+    status: BlockStatus!
+    timestamp: BigInt
+}
+
+type Circuit {
+    blockSize: Int!
+    blockType: BlockType!
+    blockTypeRaw: Int!
+    blockVersion: Int!
+    enabled: Boolean!
+    id: ID!
+    onchainDataAvailability: Boolean!
+}
+
+type DepositRequestedEvent implements OnChainTransactionEvent {
+    account: Account!
+    amount: BigInt!
+    exchange: Exchange!
+    id: ID!
+    pubKeyX: BigInt!
+    pubKeyY: BigInt!
+    token: Token!
+}
+
+type Exchange {
+    accountCreationFee: BigInt!
+    accountUpdateFee: BigInt!
+    accounts(first: Int = 100, orderBy: Account_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Account_filter): [Account!]!
+    "AddressWhitelist contract address"
+    addressWhitelist: Bytes
+    blocks(first: Int = 100, orderBy: Block_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Block_filter): [Block!]!
+    depositFee: BigInt!
+    exchangeStake: BigDecimal!
+    exchangeStakeRaw: BigInt!
+    "Address of the exchange"
+    id: ID!
+    "Address of the implementation contract"
+    implementationAddress: Bytes
+    "Internal ID of the exchange in the loopring protocol"
+    internalId: BigInt!
+    makerFeeBips: Int!
+    "Whether or not this exchange has on chain data"
+    onChainDataAvailability: Boolean!
+    "Ethereum address of the operator"
+    operator: Bytes!
+    "Ethereum address of the owner"
+    owner: Bytes!
+    protocolStake: BigDecimal!
+    protocolStakeRaw: BigInt!
+    "Address of the proxy. It matches with the ID since exchanges use a proxy structure for upgrades"
+    proxyAddress: Bytes!
+    takerFeeBips: Int!
+    tokens(first: Int = 100, orderBy: Token_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Token_filter): [Token!]!
+    totalExchangeStakeBurned: BigDecimal!
+    totalExchangeStakeBurnedRaw: BigInt!
+    totalExchangeStakeDeposited: BigDecimal!
+    totalExchangeStakeDepositedRaw: BigInt!
+    totalExchangeStakeWithdrawn: BigDecimal!
+    totalExchangeStakeWithdrawnRaw: BigInt!
+    totalProtocolStakeDeposited: BigDecimal!
+    totalProtocolStakeDepositedRaw: BigInt!
+    totalProtocolStakeWithdrawn: BigDecimal!
+    totalProtocolStakeWithdrawnRaw: BigInt!
+    transactionEvents(first: Int = 100, orderBy: OnChainTransactionEvent_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: OnChainTransactionEvent_filter): [OnChainTransactionEvent!]!
+    withdrawalFee: BigInt!
+}
+
+type Query {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
+    account(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Account
+    accountTokenBalance(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): AccountTokenBalance
+    accountTokenBalances(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: AccountTokenBalance_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: AccountTokenBalance_filter
+    ): [AccountTokenBalance!]!
+    accounts(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Account_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Account_filter
+    ): [Account!]!
+    block(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Block
+    blocks(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Block_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Block_filter
+    ): [Block!]!
+    circuit(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Circuit
+    circuits(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Circuit_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Circuit_filter
+    ): [Circuit!]!
+    depositRequestedEvent(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): DepositRequestedEvent
+    depositRequestedEvents(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: DepositRequestedEvent_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: DepositRequestedEvent_filter
+    ): [DepositRequestedEvent!]!
+    exchange(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Exchange
+    exchanges(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Exchange_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Exchange_filter
+    ): [Exchange!]!
+    onChainTransactionEvent(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): OnChainTransactionEvent
+    onChainTransactionEvents(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: OnChainTransactionEvent_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: OnChainTransactionEvent_filter
+    ): [OnChainTransactionEvent!]!
+    token(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Token
+    tokens(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Token_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Token_filter
+    ): [Token!]!
+    user(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): User
+    users(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: User_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: User_filter
+    ): [User!]!
+    withdrawalCompletedEvent(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): WithdrawalCompletedEvent
+    withdrawalCompletedEvents(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: WithdrawalCompletedEvent_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: WithdrawalCompletedEvent_filter
+    ): [WithdrawalCompletedEvent!]!
+    withdrawalFailedEvent(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): WithdrawalFailedEvent
+    withdrawalFailedEvents(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: WithdrawalFailedEvent_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: WithdrawalFailedEvent_filter
+    ): [WithdrawalFailedEvent!]!
+    withdrawalRequestedEvent(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): WithdrawalRequestedEvent
+    withdrawalRequestedEvents(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: WithdrawalRequestedEvent_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: WithdrawalRequestedEvent_filter
+    ): [WithdrawalRequestedEvent!]!
+}
+
+type Subscription {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
+    account(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Account
+    accountTokenBalance(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): AccountTokenBalance
+    accountTokenBalances(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: AccountTokenBalance_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: AccountTokenBalance_filter
+    ): [AccountTokenBalance!]!
+    accounts(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Account_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Account_filter
+    ): [Account!]!
+    block(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Block
+    blocks(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Block_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Block_filter
+    ): [Block!]!
+    circuit(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Circuit
+    circuits(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Circuit_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Circuit_filter
+    ): [Circuit!]!
+    depositRequestedEvent(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): DepositRequestedEvent
+    depositRequestedEvents(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: DepositRequestedEvent_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: DepositRequestedEvent_filter
+    ): [DepositRequestedEvent!]!
+    exchange(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Exchange
+    exchanges(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Exchange_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Exchange_filter
+    ): [Exchange!]!
+    onChainTransactionEvent(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): OnChainTransactionEvent
+    onChainTransactionEvents(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: OnChainTransactionEvent_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: OnChainTransactionEvent_filter
+    ): [OnChainTransactionEvent!]!
+    token(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Token
+    tokens(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Token_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Token_filter
+    ): [Token!]!
+    user(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): User
+    users(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: User_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: User_filter
+    ): [User!]!
+    withdrawalCompletedEvent(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): WithdrawalCompletedEvent
+    withdrawalCompletedEvents(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: WithdrawalCompletedEvent_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: WithdrawalCompletedEvent_filter
+    ): [WithdrawalCompletedEvent!]!
+    withdrawalFailedEvent(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): WithdrawalFailedEvent
+    withdrawalFailedEvents(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: WithdrawalFailedEvent_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: WithdrawalFailedEvent_filter
+    ): [WithdrawalFailedEvent!]!
+    withdrawalRequestedEvent(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): WithdrawalRequestedEvent
+    withdrawalRequestedEvents(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: WithdrawalRequestedEvent_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: WithdrawalRequestedEvent_filter
+    ): [WithdrawalRequestedEvent!]!
+}
+
+type Token {
+    address: Bytes!
+    decimals: Int!
+    exchange: Exchange!
+    "Exchange Address + internal ID"
+    id: ID!
+    "Internal ID of the token within the exchange"
+    internalId: Int!
+    name: String!
+    symbol: String!
+    transactionEvents(first: Int = 100, orderBy: OnChainTransactionEvent_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: OnChainTransactionEvent_filter): [OnChainTransactionEvent!]!
+}
+
+type User {
+    "Related Loopring account. Might not exist if the user only traded LRC but never used loopring."
+    account: Account
+    "Ethereum address"
+    id: ID!
+    lrcBalance: BigDecimal!
+    lrcBalanceRaw: BigInt!
+    lrcBurned: BigDecimal!
+    lrcBurnedRaw: BigInt!
+}
+
+type WithdrawalCompletedEvent implements OnChainTransactionEvent {
+    account: Account!
+    amount: BigInt!
+    exchange: Exchange!
+    id: ID!
+    to: Bytes!
+    token: Token!
+}
+
+type WithdrawalFailedEvent implements OnChainTransactionEvent {
+    account: Account!
+    amount: BigInt!
+    exchange: Exchange!
+    id: ID!
+    to: Bytes!
+    token: Token!
+}
+
+type WithdrawalRequestedEvent implements OnChainTransactionEvent {
+    account: Account!
+    amount: BigInt!
+    exchange: Exchange!
+    id: ID!
+    token: Token!
+}
+
+type _Block_ {
+    "The hash of the block"
+    hash: Bytes
+    "The block number"
+    number: Int!
+}
+
+"The type for the top-level _meta field"
+type _Meta_ {
+    """
+
+    Information about a specific subgraph block. The hash of the block
+    will be null if the _meta field has a block constraint that asks for
+    a block number. It will be filled if the _meta field has no block constraint
+    and therefore asks for the latest  block
+    """
+    block: _Block_!
+    "The deployment ID"
+    deployment: String!
+}
+
+enum AccountTokenBalance_orderBy {
+    account
+    exchange
+    id
+    token
+    totalDeposited
+    totalDepositedRaw
+    totalWithdrawn
+    totalWithdrawnRaw
+}
+
+enum Account_orderBy {
+    balances
+    exchange
+    id
+    internalId
+    owner
+    pubKeyX
+    pubKeyY
+    transactionEvents
+}
+
+enum BlockStatus {
+    Committed
+    Reverted
+    Verified
+}
+
+enum BlockType {
+    DEPOSIT
+    OFFCHAIN_WITHDRAWAL
+    ONCHAIN_WITHDRAWAL
+    ORDER_CANCELLATION
+    RING_SETTLEMENT
+    TRANSFER
+}
+
+enum Block_orderBy {
+    blockFeeWithdrawn
+    blockSize
+    blockType
+    blockTypeRaw
+    exchange
+    feesWithdrawn
+    id
+    merkleRoot
+    numDepositRequestsCommitted
+    numWithdrawalRequestsCommitted
+    numWithdrawalsDistributed
+    publicDataHash
+    status
+    timestamp
+}
+
+enum Circuit_orderBy {
+    blockSize
+    blockType
+    blockTypeRaw
+    blockVersion
+    enabled
+    id
+    onchainDataAvailability
+}
+
+enum DepositRequestedEvent_orderBy {
+    account
+    amount
+    exchange
+    id
+    pubKeyX
+    pubKeyY
+    token
+}
+
+enum Exchange_orderBy {
+    accountCreationFee
+    accountUpdateFee
+    accounts
+    addressWhitelist
+    blocks
+    depositFee
+    exchangeStake
+    exchangeStakeRaw
+    id
+    implementationAddress
+    internalId
+    makerFeeBips
+    onChainDataAvailability
+    operator
+    owner
+    protocolStake
+    protocolStakeRaw
+    proxyAddress
+    takerFeeBips
+    tokens
+    totalExchangeStakeBurned
+    totalExchangeStakeBurnedRaw
+    totalExchangeStakeDeposited
+    totalExchangeStakeDepositedRaw
+    totalExchangeStakeWithdrawn
+    totalExchangeStakeWithdrawnRaw
+    totalProtocolStakeDeposited
+    totalProtocolStakeDepositedRaw
+    totalProtocolStakeWithdrawn
+    totalProtocolStakeWithdrawnRaw
+    transactionEvents
+    withdrawalFee
+}
+
+enum OnChainTransactionEvent_orderBy {
+    account
+    amount
+    exchange
+    id
+    token
+}
+
+enum OrderDirection {
+    asc
+    desc
+}
+
+enum Token_orderBy {
+    address
+    decimals
+    exchange
+    id
+    internalId
+    name
+    symbol
+    transactionEvents
+}
+
+enum User_orderBy {
+    account
+    id
+    lrcBalance
+    lrcBalanceRaw
+    lrcBurned
+    lrcBurnedRaw
+}
+
+enum WithdrawalCompletedEvent_orderBy {
+    account
+    amount
+    exchange
+    id
+    to
+    token
+}
+
+enum WithdrawalFailedEvent_orderBy {
+    account
+    amount
+    exchange
+    id
+    to
+    token
+}
+
+enum WithdrawalRequestedEvent_orderBy {
+    account
+    amount
+    exchange
+    id
+    token
+}
+
+input AccountTokenBalance_filter {
+    account: String
+    account_contains: String
+    account_ends_with: String
+    account_gt: String
+    account_gte: String
+    account_in: [String!]
+    account_lt: String
+    account_lte: String
+    account_not: String
+    account_not_contains: String
+    account_not_ends_with: String
+    account_not_in: [String!]
+    account_not_starts_with: String
+    account_starts_with: String
+    exchange: String
+    exchange_contains: String
+    exchange_ends_with: String
+    exchange_gt: String
+    exchange_gte: String
+    exchange_in: [String!]
+    exchange_lt: String
+    exchange_lte: String
+    exchange_not: String
+    exchange_not_contains: String
+    exchange_not_ends_with: String
+    exchange_not_in: [String!]
+    exchange_not_starts_with: String
+    exchange_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    token: String
+    token_contains: String
+    token_ends_with: String
+    token_gt: String
+    token_gte: String
+    token_in: [String!]
+    token_lt: String
+    token_lte: String
+    token_not: String
+    token_not_contains: String
+    token_not_ends_with: String
+    token_not_in: [String!]
+    token_not_starts_with: String
+    token_starts_with: String
+    totalDeposited: BigDecimal
+    totalDepositedRaw: BigInt
+    totalDepositedRaw_gt: BigInt
+    totalDepositedRaw_gte: BigInt
+    totalDepositedRaw_in: [BigInt!]
+    totalDepositedRaw_lt: BigInt
+    totalDepositedRaw_lte: BigInt
+    totalDepositedRaw_not: BigInt
+    totalDepositedRaw_not_in: [BigInt!]
+    totalDeposited_gt: BigDecimal
+    totalDeposited_gte: BigDecimal
+    totalDeposited_in: [BigDecimal!]
+    totalDeposited_lt: BigDecimal
+    totalDeposited_lte: BigDecimal
+    totalDeposited_not: BigDecimal
+    totalDeposited_not_in: [BigDecimal!]
+    totalWithdrawn: BigDecimal
+    totalWithdrawnRaw: BigInt
+    totalWithdrawnRaw_gt: BigInt
+    totalWithdrawnRaw_gte: BigInt
+    totalWithdrawnRaw_in: [BigInt!]
+    totalWithdrawnRaw_lt: BigInt
+    totalWithdrawnRaw_lte: BigInt
+    totalWithdrawnRaw_not: BigInt
+    totalWithdrawnRaw_not_in: [BigInt!]
+    totalWithdrawn_gt: BigDecimal
+    totalWithdrawn_gte: BigDecimal
+    totalWithdrawn_in: [BigDecimal!]
+    totalWithdrawn_lt: BigDecimal
+    totalWithdrawn_lte: BigDecimal
+    totalWithdrawn_not: BigDecimal
+    totalWithdrawn_not_in: [BigDecimal!]
+}
+
+input Account_filter {
+    exchange: String
+    exchange_contains: String
+    exchange_ends_with: String
+    exchange_gt: String
+    exchange_gte: String
+    exchange_in: [String!]
+    exchange_lt: String
+    exchange_lte: String
+    exchange_not: String
+    exchange_not_contains: String
+    exchange_not_ends_with: String
+    exchange_not_in: [String!]
+    exchange_not_starts_with: String
+    exchange_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    internalId: Int
+    internalId_gt: Int
+    internalId_gte: Int
+    internalId_in: [Int!]
+    internalId_lt: Int
+    internalId_lte: Int
+    internalId_not: Int
+    internalId_not_in: [Int!]
+    owner: String
+    owner_contains: String
+    owner_ends_with: String
+    owner_gt: String
+    owner_gte: String
+    owner_in: [String!]
+    owner_lt: String
+    owner_lte: String
+    owner_not: String
+    owner_not_contains: String
+    owner_not_ends_with: String
+    owner_not_in: [String!]
+    owner_not_starts_with: String
+    owner_starts_with: String
+    pubKeyX: BigInt
+    pubKeyX_gt: BigInt
+    pubKeyX_gte: BigInt
+    pubKeyX_in: [BigInt!]
+    pubKeyX_lt: BigInt
+    pubKeyX_lte: BigInt
+    pubKeyX_not: BigInt
+    pubKeyX_not_in: [BigInt!]
+    pubKeyY: BigInt
+    pubKeyY_gt: BigInt
+    pubKeyY_gte: BigInt
+    pubKeyY_in: [BigInt!]
+    pubKeyY_lt: BigInt
+    pubKeyY_lte: BigInt
+    pubKeyY_not: BigInt
+    pubKeyY_not_in: [BigInt!]
+}
+
+input Block_filter {
+    blockFeeWithdrawn: Boolean
+    blockFeeWithdrawn_in: [Boolean!]
+    blockFeeWithdrawn_not: Boolean
+    blockFeeWithdrawn_not_in: [Boolean!]
+    blockSize: Int
+    blockSize_gt: Int
+    blockSize_gte: Int
+    blockSize_in: [Int!]
+    blockSize_lt: Int
+    blockSize_lte: Int
+    blockSize_not: Int
+    blockSize_not_in: [Int!]
+    blockType: BlockType
+    blockTypeRaw: Int
+    blockTypeRaw_gt: Int
+    blockTypeRaw_gte: Int
+    blockTypeRaw_in: [Int!]
+    blockTypeRaw_lt: Int
+    blockTypeRaw_lte: Int
+    blockTypeRaw_not: Int
+    blockTypeRaw_not_in: [Int!]
+    blockType_not: BlockType
+    exchange: String
+    exchange_contains: String
+    exchange_ends_with: String
+    exchange_gt: String
+    exchange_gte: String
+    exchange_in: [String!]
+    exchange_lt: String
+    exchange_lte: String
+    exchange_not: String
+    exchange_not_contains: String
+    exchange_not_ends_with: String
+    exchange_not_in: [String!]
+    exchange_not_starts_with: String
+    exchange_starts_with: String
+    feesWithdrawn: BigInt
+    feesWithdrawn_gt: BigInt
+    feesWithdrawn_gte: BigInt
+    feesWithdrawn_in: [BigInt!]
+    feesWithdrawn_lt: BigInt
+    feesWithdrawn_lte: BigInt
+    feesWithdrawn_not: BigInt
+    feesWithdrawn_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    merkleRoot: Bytes
+    merkleRoot_contains: Bytes
+    merkleRoot_in: [Bytes!]
+    merkleRoot_not: Bytes
+    merkleRoot_not_contains: Bytes
+    merkleRoot_not_in: [Bytes!]
+    numDepositRequestsCommitted: BigInt
+    numDepositRequestsCommitted_gt: BigInt
+    numDepositRequestsCommitted_gte: BigInt
+    numDepositRequestsCommitted_in: [BigInt!]
+    numDepositRequestsCommitted_lt: BigInt
+    numDepositRequestsCommitted_lte: BigInt
+    numDepositRequestsCommitted_not: BigInt
+    numDepositRequestsCommitted_not_in: [BigInt!]
+    numWithdrawalRequestsCommitted: BigInt
+    numWithdrawalRequestsCommitted_gt: BigInt
+    numWithdrawalRequestsCommitted_gte: BigInt
+    numWithdrawalRequestsCommitted_in: [BigInt!]
+    numWithdrawalRequestsCommitted_lt: BigInt
+    numWithdrawalRequestsCommitted_lte: BigInt
+    numWithdrawalRequestsCommitted_not: BigInt
+    numWithdrawalRequestsCommitted_not_in: [BigInt!]
+    numWithdrawalsDistributed: Int
+    numWithdrawalsDistributed_gt: Int
+    numWithdrawalsDistributed_gte: Int
+    numWithdrawalsDistributed_in: [Int!]
+    numWithdrawalsDistributed_lt: Int
+    numWithdrawalsDistributed_lte: Int
+    numWithdrawalsDistributed_not: Int
+    numWithdrawalsDistributed_not_in: [Int!]
+    publicDataHash: Bytes
+    publicDataHash_contains: Bytes
+    publicDataHash_in: [Bytes!]
+    publicDataHash_not: Bytes
+    publicDataHash_not_contains: Bytes
+    publicDataHash_not_in: [Bytes!]
+    status: BlockStatus
+    status_not: BlockStatus
+    timestamp: BigInt
+    timestamp_gt: BigInt
+    timestamp_gte: BigInt
+    timestamp_in: [BigInt!]
+    timestamp_lt: BigInt
+    timestamp_lte: BigInt
+    timestamp_not: BigInt
+    timestamp_not_in: [BigInt!]
+}
+
+input Block_height {
+    hash: Bytes
+    number: Int
+}
+
+input Circuit_filter {
+    blockSize: Int
+    blockSize_gt: Int
+    blockSize_gte: Int
+    blockSize_in: [Int!]
+    blockSize_lt: Int
+    blockSize_lte: Int
+    blockSize_not: Int
+    blockSize_not_in: [Int!]
+    blockType: BlockType
+    blockTypeRaw: Int
+    blockTypeRaw_gt: Int
+    blockTypeRaw_gte: Int
+    blockTypeRaw_in: [Int!]
+    blockTypeRaw_lt: Int
+    blockTypeRaw_lte: Int
+    blockTypeRaw_not: Int
+    blockTypeRaw_not_in: [Int!]
+    blockType_not: BlockType
+    blockVersion: Int
+    blockVersion_gt: Int
+    blockVersion_gte: Int
+    blockVersion_in: [Int!]
+    blockVersion_lt: Int
+    blockVersion_lte: Int
+    blockVersion_not: Int
+    blockVersion_not_in: [Int!]
+    enabled: Boolean
+    enabled_in: [Boolean!]
+    enabled_not: Boolean
+    enabled_not_in: [Boolean!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    onchainDataAvailability: Boolean
+    onchainDataAvailability_in: [Boolean!]
+    onchainDataAvailability_not: Boolean
+    onchainDataAvailability_not_in: [Boolean!]
+}
+
+input DepositRequestedEvent_filter {
+    account: String
+    account_contains: String
+    account_ends_with: String
+    account_gt: String
+    account_gte: String
+    account_in: [String!]
+    account_lt: String
+    account_lte: String
+    account_not: String
+    account_not_contains: String
+    account_not_ends_with: String
+    account_not_in: [String!]
+    account_not_starts_with: String
+    account_starts_with: String
+    amount: BigInt
+    amount_gt: BigInt
+    amount_gte: BigInt
+    amount_in: [BigInt!]
+    amount_lt: BigInt
+    amount_lte: BigInt
+    amount_not: BigInt
+    amount_not_in: [BigInt!]
+    exchange: String
+    exchange_contains: String
+    exchange_ends_with: String
+    exchange_gt: String
+    exchange_gte: String
+    exchange_in: [String!]
+    exchange_lt: String
+    exchange_lte: String
+    exchange_not: String
+    exchange_not_contains: String
+    exchange_not_ends_with: String
+    exchange_not_in: [String!]
+    exchange_not_starts_with: String
+    exchange_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    pubKeyX: BigInt
+    pubKeyX_gt: BigInt
+    pubKeyX_gte: BigInt
+    pubKeyX_in: [BigInt!]
+    pubKeyX_lt: BigInt
+    pubKeyX_lte: BigInt
+    pubKeyX_not: BigInt
+    pubKeyX_not_in: [BigInt!]
+    pubKeyY: BigInt
+    pubKeyY_gt: BigInt
+    pubKeyY_gte: BigInt
+    pubKeyY_in: [BigInt!]
+    pubKeyY_lt: BigInt
+    pubKeyY_lte: BigInt
+    pubKeyY_not: BigInt
+    pubKeyY_not_in: [BigInt!]
+    token: String
+    token_contains: String
+    token_ends_with: String
+    token_gt: String
+    token_gte: String
+    token_in: [String!]
+    token_lt: String
+    token_lte: String
+    token_not: String
+    token_not_contains: String
+    token_not_ends_with: String
+    token_not_in: [String!]
+    token_not_starts_with: String
+    token_starts_with: String
+}
+
+input Exchange_filter {
+    accountCreationFee: BigInt
+    accountCreationFee_gt: BigInt
+    accountCreationFee_gte: BigInt
+    accountCreationFee_in: [BigInt!]
+    accountCreationFee_lt: BigInt
+    accountCreationFee_lte: BigInt
+    accountCreationFee_not: BigInt
+    accountCreationFee_not_in: [BigInt!]
+    accountUpdateFee: BigInt
+    accountUpdateFee_gt: BigInt
+    accountUpdateFee_gte: BigInt
+    accountUpdateFee_in: [BigInt!]
+    accountUpdateFee_lt: BigInt
+    accountUpdateFee_lte: BigInt
+    accountUpdateFee_not: BigInt
+    accountUpdateFee_not_in: [BigInt!]
+    addressWhitelist: Bytes
+    addressWhitelist_contains: Bytes
+    addressWhitelist_in: [Bytes!]
+    addressWhitelist_not: Bytes
+    addressWhitelist_not_contains: Bytes
+    addressWhitelist_not_in: [Bytes!]
+    depositFee: BigInt
+    depositFee_gt: BigInt
+    depositFee_gte: BigInt
+    depositFee_in: [BigInt!]
+    depositFee_lt: BigInt
+    depositFee_lte: BigInt
+    depositFee_not: BigInt
+    depositFee_not_in: [BigInt!]
+    exchangeStake: BigDecimal
+    exchangeStakeRaw: BigInt
+    exchangeStakeRaw_gt: BigInt
+    exchangeStakeRaw_gte: BigInt
+    exchangeStakeRaw_in: [BigInt!]
+    exchangeStakeRaw_lt: BigInt
+    exchangeStakeRaw_lte: BigInt
+    exchangeStakeRaw_not: BigInt
+    exchangeStakeRaw_not_in: [BigInt!]
+    exchangeStake_gt: BigDecimal
+    exchangeStake_gte: BigDecimal
+    exchangeStake_in: [BigDecimal!]
+    exchangeStake_lt: BigDecimal
+    exchangeStake_lte: BigDecimal
+    exchangeStake_not: BigDecimal
+    exchangeStake_not_in: [BigDecimal!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    implementationAddress: Bytes
+    implementationAddress_contains: Bytes
+    implementationAddress_in: [Bytes!]
+    implementationAddress_not: Bytes
+    implementationAddress_not_contains: Bytes
+    implementationAddress_not_in: [Bytes!]
+    internalId: BigInt
+    internalId_gt: BigInt
+    internalId_gte: BigInt
+    internalId_in: [BigInt!]
+    internalId_lt: BigInt
+    internalId_lte: BigInt
+    internalId_not: BigInt
+    internalId_not_in: [BigInt!]
+    makerFeeBips: Int
+    makerFeeBips_gt: Int
+    makerFeeBips_gte: Int
+    makerFeeBips_in: [Int!]
+    makerFeeBips_lt: Int
+    makerFeeBips_lte: Int
+    makerFeeBips_not: Int
+    makerFeeBips_not_in: [Int!]
+    onChainDataAvailability: Boolean
+    onChainDataAvailability_in: [Boolean!]
+    onChainDataAvailability_not: Boolean
+    onChainDataAvailability_not_in: [Boolean!]
+    operator: Bytes
+    operator_contains: Bytes
+    operator_in: [Bytes!]
+    operator_not: Bytes
+    operator_not_contains: Bytes
+    operator_not_in: [Bytes!]
+    owner: Bytes
+    owner_contains: Bytes
+    owner_in: [Bytes!]
+    owner_not: Bytes
+    owner_not_contains: Bytes
+    owner_not_in: [Bytes!]
+    protocolStake: BigDecimal
+    protocolStakeRaw: BigInt
+    protocolStakeRaw_gt: BigInt
+    protocolStakeRaw_gte: BigInt
+    protocolStakeRaw_in: [BigInt!]
+    protocolStakeRaw_lt: BigInt
+    protocolStakeRaw_lte: BigInt
+    protocolStakeRaw_not: BigInt
+    protocolStakeRaw_not_in: [BigInt!]
+    protocolStake_gt: BigDecimal
+    protocolStake_gte: BigDecimal
+    protocolStake_in: [BigDecimal!]
+    protocolStake_lt: BigDecimal
+    protocolStake_lte: BigDecimal
+    protocolStake_not: BigDecimal
+    protocolStake_not_in: [BigDecimal!]
+    proxyAddress: Bytes
+    proxyAddress_contains: Bytes
+    proxyAddress_in: [Bytes!]
+    proxyAddress_not: Bytes
+    proxyAddress_not_contains: Bytes
+    proxyAddress_not_in: [Bytes!]
+    takerFeeBips: Int
+    takerFeeBips_gt: Int
+    takerFeeBips_gte: Int
+    takerFeeBips_in: [Int!]
+    takerFeeBips_lt: Int
+    takerFeeBips_lte: Int
+    takerFeeBips_not: Int
+    takerFeeBips_not_in: [Int!]
+    totalExchangeStakeBurned: BigDecimal
+    totalExchangeStakeBurnedRaw: BigInt
+    totalExchangeStakeBurnedRaw_gt: BigInt
+    totalExchangeStakeBurnedRaw_gte: BigInt
+    totalExchangeStakeBurnedRaw_in: [BigInt!]
+    totalExchangeStakeBurnedRaw_lt: BigInt
+    totalExchangeStakeBurnedRaw_lte: BigInt
+    totalExchangeStakeBurnedRaw_not: BigInt
+    totalExchangeStakeBurnedRaw_not_in: [BigInt!]
+    totalExchangeStakeBurned_gt: BigDecimal
+    totalExchangeStakeBurned_gte: BigDecimal
+    totalExchangeStakeBurned_in: [BigDecimal!]
+    totalExchangeStakeBurned_lt: BigDecimal
+    totalExchangeStakeBurned_lte: BigDecimal
+    totalExchangeStakeBurned_not: BigDecimal
+    totalExchangeStakeBurned_not_in: [BigDecimal!]
+    totalExchangeStakeDeposited: BigDecimal
+    totalExchangeStakeDepositedRaw: BigInt
+    totalExchangeStakeDepositedRaw_gt: BigInt
+    totalExchangeStakeDepositedRaw_gte: BigInt
+    totalExchangeStakeDepositedRaw_in: [BigInt!]
+    totalExchangeStakeDepositedRaw_lt: BigInt
+    totalExchangeStakeDepositedRaw_lte: BigInt
+    totalExchangeStakeDepositedRaw_not: BigInt
+    totalExchangeStakeDepositedRaw_not_in: [BigInt!]
+    totalExchangeStakeDeposited_gt: BigDecimal
+    totalExchangeStakeDeposited_gte: BigDecimal
+    totalExchangeStakeDeposited_in: [BigDecimal!]
+    totalExchangeStakeDeposited_lt: BigDecimal
+    totalExchangeStakeDeposited_lte: BigDecimal
+    totalExchangeStakeDeposited_not: BigDecimal
+    totalExchangeStakeDeposited_not_in: [BigDecimal!]
+    totalExchangeStakeWithdrawn: BigDecimal
+    totalExchangeStakeWithdrawnRaw: BigInt
+    totalExchangeStakeWithdrawnRaw_gt: BigInt
+    totalExchangeStakeWithdrawnRaw_gte: BigInt
+    totalExchangeStakeWithdrawnRaw_in: [BigInt!]
+    totalExchangeStakeWithdrawnRaw_lt: BigInt
+    totalExchangeStakeWithdrawnRaw_lte: BigInt
+    totalExchangeStakeWithdrawnRaw_not: BigInt
+    totalExchangeStakeWithdrawnRaw_not_in: [BigInt!]
+    totalExchangeStakeWithdrawn_gt: BigDecimal
+    totalExchangeStakeWithdrawn_gte: BigDecimal
+    totalExchangeStakeWithdrawn_in: [BigDecimal!]
+    totalExchangeStakeWithdrawn_lt: BigDecimal
+    totalExchangeStakeWithdrawn_lte: BigDecimal
+    totalExchangeStakeWithdrawn_not: BigDecimal
+    totalExchangeStakeWithdrawn_not_in: [BigDecimal!]
+    totalProtocolStakeDeposited: BigDecimal
+    totalProtocolStakeDepositedRaw: BigInt
+    totalProtocolStakeDepositedRaw_gt: BigInt
+    totalProtocolStakeDepositedRaw_gte: BigInt
+    totalProtocolStakeDepositedRaw_in: [BigInt!]
+    totalProtocolStakeDepositedRaw_lt: BigInt
+    totalProtocolStakeDepositedRaw_lte: BigInt
+    totalProtocolStakeDepositedRaw_not: BigInt
+    totalProtocolStakeDepositedRaw_not_in: [BigInt!]
+    totalProtocolStakeDeposited_gt: BigDecimal
+    totalProtocolStakeDeposited_gte: BigDecimal
+    totalProtocolStakeDeposited_in: [BigDecimal!]
+    totalProtocolStakeDeposited_lt: BigDecimal
+    totalProtocolStakeDeposited_lte: BigDecimal
+    totalProtocolStakeDeposited_not: BigDecimal
+    totalProtocolStakeDeposited_not_in: [BigDecimal!]
+    totalProtocolStakeWithdrawn: BigDecimal
+    totalProtocolStakeWithdrawnRaw: BigInt
+    totalProtocolStakeWithdrawnRaw_gt: BigInt
+    totalProtocolStakeWithdrawnRaw_gte: BigInt
+    totalProtocolStakeWithdrawnRaw_in: [BigInt!]
+    totalProtocolStakeWithdrawnRaw_lt: BigInt
+    totalProtocolStakeWithdrawnRaw_lte: BigInt
+    totalProtocolStakeWithdrawnRaw_not: BigInt
+    totalProtocolStakeWithdrawnRaw_not_in: [BigInt!]
+    totalProtocolStakeWithdrawn_gt: BigDecimal
+    totalProtocolStakeWithdrawn_gte: BigDecimal
+    totalProtocolStakeWithdrawn_in: [BigDecimal!]
+    totalProtocolStakeWithdrawn_lt: BigDecimal
+    totalProtocolStakeWithdrawn_lte: BigDecimal
+    totalProtocolStakeWithdrawn_not: BigDecimal
+    totalProtocolStakeWithdrawn_not_in: [BigDecimal!]
+    withdrawalFee: BigInt
+    withdrawalFee_gt: BigInt
+    withdrawalFee_gte: BigInt
+    withdrawalFee_in: [BigInt!]
+    withdrawalFee_lt: BigInt
+    withdrawalFee_lte: BigInt
+    withdrawalFee_not: BigInt
+    withdrawalFee_not_in: [BigInt!]
+}
+
+input OnChainTransactionEvent_filter {
+    account: String
+    account_contains: String
+    account_ends_with: String
+    account_gt: String
+    account_gte: String
+    account_in: [String!]
+    account_lt: String
+    account_lte: String
+    account_not: String
+    account_not_contains: String
+    account_not_ends_with: String
+    account_not_in: [String!]
+    account_not_starts_with: String
+    account_starts_with: String
+    amount: BigInt
+    amount_gt: BigInt
+    amount_gte: BigInt
+    amount_in: [BigInt!]
+    amount_lt: BigInt
+    amount_lte: BigInt
+    amount_not: BigInt
+    amount_not_in: [BigInt!]
+    exchange: String
+    exchange_contains: String
+    exchange_ends_with: String
+    exchange_gt: String
+    exchange_gte: String
+    exchange_in: [String!]
+    exchange_lt: String
+    exchange_lte: String
+    exchange_not: String
+    exchange_not_contains: String
+    exchange_not_ends_with: String
+    exchange_not_in: [String!]
+    exchange_not_starts_with: String
+    exchange_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    token: String
+    token_contains: String
+    token_ends_with: String
+    token_gt: String
+    token_gte: String
+    token_in: [String!]
+    token_lt: String
+    token_lte: String
+    token_not: String
+    token_not_contains: String
+    token_not_ends_with: String
+    token_not_in: [String!]
+    token_not_starts_with: String
+    token_starts_with: String
+}
+
+input Token_filter {
+    address: Bytes
+    address_contains: Bytes
+    address_in: [Bytes!]
+    address_not: Bytes
+    address_not_contains: Bytes
+    address_not_in: [Bytes!]
+    decimals: Int
+    decimals_gt: Int
+    decimals_gte: Int
+    decimals_in: [Int!]
+    decimals_lt: Int
+    decimals_lte: Int
+    decimals_not: Int
+    decimals_not_in: [Int!]
+    exchange: String
+    exchange_contains: String
+    exchange_ends_with: String
+    exchange_gt: String
+    exchange_gte: String
+    exchange_in: [String!]
+    exchange_lt: String
+    exchange_lte: String
+    exchange_not: String
+    exchange_not_contains: String
+    exchange_not_ends_with: String
+    exchange_not_in: [String!]
+    exchange_not_starts_with: String
+    exchange_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    internalId: Int
+    internalId_gt: Int
+    internalId_gte: Int
+    internalId_in: [Int!]
+    internalId_lt: Int
+    internalId_lte: Int
+    internalId_not: Int
+    internalId_not_in: [Int!]
+    name: String
+    name_contains: String
+    name_ends_with: String
+    name_gt: String
+    name_gte: String
+    name_in: [String!]
+    name_lt: String
+    name_lte: String
+    name_not: String
+    name_not_contains: String
+    name_not_ends_with: String
+    name_not_in: [String!]
+    name_not_starts_with: String
+    name_starts_with: String
+    symbol: String
+    symbol_contains: String
+    symbol_ends_with: String
+    symbol_gt: String
+    symbol_gte: String
+    symbol_in: [String!]
+    symbol_lt: String
+    symbol_lte: String
+    symbol_not: String
+    symbol_not_contains: String
+    symbol_not_ends_with: String
+    symbol_not_in: [String!]
+    symbol_not_starts_with: String
+    symbol_starts_with: String
+}
+
+input User_filter {
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    lrcBalance: BigDecimal
+    lrcBalanceRaw: BigInt
+    lrcBalanceRaw_gt: BigInt
+    lrcBalanceRaw_gte: BigInt
+    lrcBalanceRaw_in: [BigInt!]
+    lrcBalanceRaw_lt: BigInt
+    lrcBalanceRaw_lte: BigInt
+    lrcBalanceRaw_not: BigInt
+    lrcBalanceRaw_not_in: [BigInt!]
+    lrcBalance_gt: BigDecimal
+    lrcBalance_gte: BigDecimal
+    lrcBalance_in: [BigDecimal!]
+    lrcBalance_lt: BigDecimal
+    lrcBalance_lte: BigDecimal
+    lrcBalance_not: BigDecimal
+    lrcBalance_not_in: [BigDecimal!]
+    lrcBurned: BigDecimal
+    lrcBurnedRaw: BigInt
+    lrcBurnedRaw_gt: BigInt
+    lrcBurnedRaw_gte: BigInt
+    lrcBurnedRaw_in: [BigInt!]
+    lrcBurnedRaw_lt: BigInt
+    lrcBurnedRaw_lte: BigInt
+    lrcBurnedRaw_not: BigInt
+    lrcBurnedRaw_not_in: [BigInt!]
+    lrcBurned_gt: BigDecimal
+    lrcBurned_gte: BigDecimal
+    lrcBurned_in: [BigDecimal!]
+    lrcBurned_lt: BigDecimal
+    lrcBurned_lte: BigDecimal
+    lrcBurned_not: BigDecimal
+    lrcBurned_not_in: [BigDecimal!]
+}
+
+input WithdrawalCompletedEvent_filter {
+    account: String
+    account_contains: String
+    account_ends_with: String
+    account_gt: String
+    account_gte: String
+    account_in: [String!]
+    account_lt: String
+    account_lte: String
+    account_not: String
+    account_not_contains: String
+    account_not_ends_with: String
+    account_not_in: [String!]
+    account_not_starts_with: String
+    account_starts_with: String
+    amount: BigInt
+    amount_gt: BigInt
+    amount_gte: BigInt
+    amount_in: [BigInt!]
+    amount_lt: BigInt
+    amount_lte: BigInt
+    amount_not: BigInt
+    amount_not_in: [BigInt!]
+    exchange: String
+    exchange_contains: String
+    exchange_ends_with: String
+    exchange_gt: String
+    exchange_gte: String
+    exchange_in: [String!]
+    exchange_lt: String
+    exchange_lte: String
+    exchange_not: String
+    exchange_not_contains: String
+    exchange_not_ends_with: String
+    exchange_not_in: [String!]
+    exchange_not_starts_with: String
+    exchange_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    to: Bytes
+    to_contains: Bytes
+    to_in: [Bytes!]
+    to_not: Bytes
+    to_not_contains: Bytes
+    to_not_in: [Bytes!]
+    token: String
+    token_contains: String
+    token_ends_with: String
+    token_gt: String
+    token_gte: String
+    token_in: [String!]
+    token_lt: String
+    token_lte: String
+    token_not: String
+    token_not_contains: String
+    token_not_ends_with: String
+    token_not_in: [String!]
+    token_not_starts_with: String
+    token_starts_with: String
+}
+
+input WithdrawalFailedEvent_filter {
+    account: String
+    account_contains: String
+    account_ends_with: String
+    account_gt: String
+    account_gte: String
+    account_in: [String!]
+    account_lt: String
+    account_lte: String
+    account_not: String
+    account_not_contains: String
+    account_not_ends_with: String
+    account_not_in: [String!]
+    account_not_starts_with: String
+    account_starts_with: String
+    amount: BigInt
+    amount_gt: BigInt
+    amount_gte: BigInt
+    amount_in: [BigInt!]
+    amount_lt: BigInt
+    amount_lte: BigInt
+    amount_not: BigInt
+    amount_not_in: [BigInt!]
+    exchange: String
+    exchange_contains: String
+    exchange_ends_with: String
+    exchange_gt: String
+    exchange_gte: String
+    exchange_in: [String!]
+    exchange_lt: String
+    exchange_lte: String
+    exchange_not: String
+    exchange_not_contains: String
+    exchange_not_ends_with: String
+    exchange_not_in: [String!]
+    exchange_not_starts_with: String
+    exchange_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    to: Bytes
+    to_contains: Bytes
+    to_in: [Bytes!]
+    to_not: Bytes
+    to_not_contains: Bytes
+    to_not_in: [Bytes!]
+    token: String
+    token_contains: String
+    token_ends_with: String
+    token_gt: String
+    token_gte: String
+    token_in: [String!]
+    token_lt: String
+    token_lte: String
+    token_not: String
+    token_not_contains: String
+    token_not_ends_with: String
+    token_not_in: [String!]
+    token_not_starts_with: String
+    token_starts_with: String
+}
+
+input WithdrawalRequestedEvent_filter {
+    account: String
+    account_contains: String
+    account_ends_with: String
+    account_gt: String
+    account_gte: String
+    account_in: [String!]
+    account_lt: String
+    account_lte: String
+    account_not: String
+    account_not_contains: String
+    account_not_ends_with: String
+    account_not_in: [String!]
+    account_not_starts_with: String
+    account_starts_with: String
+    amount: BigInt
+    amount_gt: BigInt
+    amount_gte: BigInt
+    amount_in: [BigInt!]
+    amount_lt: BigInt
+    amount_lte: BigInt
+    amount_not: BigInt
+    amount_not_in: [BigInt!]
+    exchange: String
+    exchange_contains: String
+    exchange_ends_with: String
+    exchange_gt: String
+    exchange_gte: String
+    exchange_in: [String!]
+    exchange_lt: String
+    exchange_lte: String
+    exchange_not: String
+    exchange_not_contains: String
+    exchange_not_ends_with: String
+    exchange_not_in: [String!]
+    exchange_not_starts_with: String
+    exchange_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    token: String
+    token_contains: String
+    token_ends_with: String
+    token_gt: String
+    token_gte: String
+    token_in: [String!]
+    token_lt: String
+    token_lte: String
+    token_not: String
+    token_not_contains: String
+    token_not_ends_with: String
+    token_not_in: [String!]
+    token_not_starts_with: String
+    token_starts_with: String
+}
+
+
+scalar BigDecimal
+
+scalar BigInt
+
+scalar Bytes

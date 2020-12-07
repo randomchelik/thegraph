@@ -1,0 +1,21 @@
+{
+    most_swaps_1000: swaps (first: 1000, orderBy: timestamp, orderDirection: desc) {
+        pair {
+            toToken {
+                symbol
+                tradeCount
+                tradeVolume
+            }
+        }
+    }
+    last_swaps_20: swaps (first: 20, orderBy: timestamp, orderDirection: desc) {
+        sender { id }
+        toAmount
+        fromAmount
+        pair {
+            toToken { symbol }
+            fromToken { symbol }
+        }
+        timestamp
+    }
+}

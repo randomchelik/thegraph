@@ -1,0 +1,60 @@
+{
+    uniswapFactories {
+        id
+        pairCount
+        totalLiquidityETH
+        totalLiquidityUSD
+        totalVolumeETH
+        totalVolumeUSD
+        txCount
+        untrackedVolumeUSD
+    }
+#    tokens (first: 1000) {
+#        decimals
+#        derivedETH
+#        id
+#        name
+#        symbol
+#        totalLiquidity
+#        totalSupply
+#        tradeVolume
+#        tradeVolumeUSD
+#        txCount
+#        untrackedVolumeUSD
+#    }
+#    liquidityPositionSnapshots (first: 1000) {
+#        block
+#        id
+#        liquidityPosition {
+#            id
+#            liquidityTokenBalance
+#            pair {
+#                id
+#                token0 {
+#                    id
+#                    name
+#                    symbol
+#                }
+#                token1 {
+#                    id
+#                    name
+#                    symbol
+#                }
+#            }
+#            user {
+#                id
+#                usdSwapped
+#            }
+#        }
+#        liquidityTokenBalance
+#        liquidityTokenTotalSupply
+#        #pair
+#        reserve0
+#        reserve1
+#        reserveUSD
+#        timestamp
+#        token0PriceUSD
+#        token1PriceUSD
+#        #user
+#    }
+}

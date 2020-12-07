@@ -1,0 +1,127 @@
+{
+    converterTokenSwapTotals (first: 100) {
+        converter {
+            #connectorTokens(first
+            #connectors(first
+            conversionFee
+            #currentContractRegistry
+            #currentConverterRegistry
+            firstAddedToRegistryBlockNumber
+            firstAddedToRegistryBlockTimestamp
+            id
+            lastResetBlockNumber
+            lastResetTimestamp
+            manager
+            maxConversionFee
+            owner
+            #quickBuyPath(first
+            #quickBuyPathLength
+            smartToken {
+                decimals
+                id
+                isSmartToken
+                name
+                owner
+                smartTokenType
+                standard
+                symbol
+                transfersEnabled
+                version
+            }
+            #tokenBalances(first
+            #tokenSwapTotals(first
+            type
+            version
+            weight
+        }
+        fromToken {
+            decimals
+            id
+            isSmartToken
+            name
+            owner
+            smartTokenType
+            standard
+            symbol
+            transfersEnabled
+            version
+        }
+        id
+        toToken {
+            decimals
+            id
+            isSmartToken
+            name
+            owner
+            smartTokenType
+            standard
+            symbol
+            transfersEnabled
+            version
+        }
+        totalAmountPurchased
+        totalAmountReturned
+    }
+    tokenSwapTotals (first: 100) {
+        fromToken {
+            decimals
+            id
+            isSmartToken
+            name
+            owner
+            smartTokenType
+            standard
+            symbol
+            transfersEnabled
+            version
+        }
+        id
+        toToken {
+            decimals
+            id
+            isSmartToken
+            name
+            owner
+            smartTokenType
+            standard
+            symbol
+            transfersEnabled
+            version
+        }
+        totalAmountPurchased
+        totalAmountReturned
+    }
+    userTokenSwapTotals (first: 100) {
+        fromToken {
+            decimals
+            id
+            isSmartToken
+            name
+            owner
+            smartTokenType
+            standard
+            symbol
+            transfersEnabled
+            version
+        }
+        id
+        toToken {
+            decimals
+            id
+            isSmartToken
+            name
+            owner
+            smartTokenType
+            standard
+            symbol
+            transfersEnabled
+            version
+        }
+        totalAmountPurchased
+        totalAmountReturned
+        user {
+            id
+            numSwaps
+        }
+    }
+}

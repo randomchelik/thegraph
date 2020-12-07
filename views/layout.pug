@@ -1,0 +1,219 @@
+doctype html
+html
+  head
+    title Thegraph Dashboard
+    link(rel="icon" href="/icons/favicon.ico" type="image/x-icon")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+
+    link(rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css")
+    link(rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css")
+    link(rel="stylesheet" href="/assets/vendor/animate-css/vivify.min.css")
+
+    link(rel="stylesheet" href="/assets/vendor/c3/c3.min.css")
+    link(rel="stylesheet" href="/assets/vendor/chartist/css/chartist.min.css")
+    link(rel="stylesheet" href="/assets/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css")
+
+    link(rel='stylesheet', href='/css/site.min.css')
+
+  body(class="theme-blue")
+
+    // Overlay For Sidebars
+    .overlay
+    #wrapper
+      nav.navbar.navbar-fixed-top
+        .container-fluid
+          .navbar-left
+            .navbar-brand
+              a.small_menu_btn(href='javascript:void(0);')
+                i.fa.fa-align-left
+              a(href='/')
+                span Thegraph Dashboard
+          .navbar-right
+            #navbar-menu
+              ul.nav.navbar-nav
+                li
+                  a.icon-menu.reports(href='/eth2dep') Ethereum 2.0 Deposits
+                li
+                  a.icon-menu.settings(href='/curve') Curve Finance
+                li
+                  a.icon-menu.project(href='/1inch') 1inch.exchange
+                li
+                  a.icon-menu.reports(href='/loopring') Loopring
+                li
+                  a.icon-menu.project(href='/uniswap') Uniswap v2
+                li
+                  a.icon-menu.settings(href='/gnosis') Gnosis
+                li
+                  a.icon-menu.reports(href='/balancer') Balancer
+                li
+                  a.icon-menu.project(href='/bancor') Bancor
+                li
+                  a.icon-menu.settings(href='/synthetix') Synthetix
+      #left-sidebar.sidebar
+        .sidebar_list
+          #main-menu.tab-content
+            #Home-icon.tab-pane.active
+              nav.sidebar-nav.sidebar-scroll
+                ul.metismenu
+                  li.active
+                    a(href='/')
+                      i.icon-speedometer
+                      span Dashboard
+
+                  li.header DODO LEND USDC
+                  li
+                    a(href='/dodo')
+                      i.icon-graph
+                      span Analytics page
+                  li
+                    a(href='/dodo/pre')
+                      i.icon-wrench
+                      span Debug page
+                  li
+                    a(href='/api/dodo')
+                      i.icon-settings
+                      span Api Link
+
+                  li.header Ethereum 2.0 Deposits
+                  li
+                    a(href='/eth2dep')
+                      i.icon-graph
+                      span Analytics page
+                  li
+                    a(href='/eth2dep/pre')
+                      i.icon-wrench
+                      span Debug page
+                  li
+                    a(href='/api/eth2dep')
+                      i.icon-settings
+                      span Api Link
+
+                  li.header Curve Finance
+                  li
+                    a(href='/curve')
+                      i.icon-graph
+                      span Analytics page
+                  li
+                    a(href='/curve/pre')
+                      i.icon-wrench
+                      span Debug page
+                  li
+                    a(href='/api/curve')
+                      i.icon-settings
+                      span Api Link
+
+                  li.header 1inch.exchange
+                  li
+                    a(href='/1inch')
+                      i.icon-graph
+                      span Analytics page
+                  li
+                    a(href='/1inch/pre')
+                      i.icon-wrench
+                      span Debug page
+                  li
+                    a(href='/api/1inch')
+                      i.icon-settings
+                      span Api Link
+
+                  li.header Loopring
+                  li
+                    a(href='/loopring')
+                      i.icon-graph
+                      span Analytics page
+                  li
+                    a(href='/loopring/pre')
+                      i.icon-wrench
+                      span Debug page
+                  li
+                    a(href='/api/loopring')
+                      i.icon-settings
+                      span Api Link
+
+
+                  li.header Uniswap v2
+                  li
+                    a(href='/uniswap')
+                      i.icon-graph
+                      span Analytics page
+                  li
+                    a(href='/uniswap/pre')
+                      i.icon-wrench
+                      span Debug page
+                  li
+                    a(href='/api/uniswap')
+                      i.icon-settings
+                      span Api Link
+
+                  li.header Gnosis
+                  li
+                    a(href='/gnosis')
+                      i.icon-graph
+                      span Analytics page
+                  li
+                    a(href='/gnosis/pre')
+                      i.icon-wrench
+                      span Debug page
+                  li
+                    a(href='/api/gnosis')
+                      i.icon-settings
+                      span Api Link
+                  li.header Balancer
+                  li
+                    a(href='/balancer')
+                      i.icon-graph
+                      span Analytics page
+                  li
+                    a(href='/balancer/pre')
+                      i.icon-wrench
+                      span Debug page
+                  li
+                    a(href='/api/balancer')
+                      i.icon-settings
+                      span Api Link
+
+                  li.header Bancor
+                  li
+                    a(href='/bancor')
+                      i.icon-graph
+                      span Analytics page
+                  li
+                    a(href='/bancor/pre')
+                      i.icon-wrench
+                      span Debug page
+                  li
+                    a(href='/api/bancor')
+                      i.icon-settings
+                      span Api Link
+
+                  li.header Synthetix
+                  li
+                    a(href='/synthetix')
+                      i.icon-graph
+                      span Analytics page
+                  li
+                    a(href='/synthetix/pre')
+                      i.icon-wrench
+                      span Debug page
+                  li
+                    a(href='/api/synthetix')
+                      i.icon-settings
+                      span Api Link
+
+      #main-content
+        block content
+
+  script(src="/assets/vendor/jquery/jquery-3.3.1.min.js")
+  script(src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js")
+  script(src="/bundles/vendorscripts.bundle.js")
+  script(src="/bundles/chartist.bundle.js")
+  script(src="/bundles/c3.bundle.js")
+  script(src="/bundles/flotscripts.bundle.js")
+  script(src="/bundles/knob.bundle.js")
+
+  script(src="/js/common.js")
+  script(src="/js/index.js")
+  script(src="/js/pages/widgets.js")
+
+

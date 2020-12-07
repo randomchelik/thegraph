@@ -1,0 +1,73 @@
+{
+    unique_tokens: tokens (first: 1000) {
+        symbol
+    }
+    pools (first: 1000) {
+        #A
+        #addedAt
+        #addedAtBlock
+        #addedAtTransaction
+        address
+        #adminFee
+        #balances
+        coinCount
+        coins (first: 1000) {
+            #address
+            #decimals
+            #id
+            #name
+            symbol
+        }
+        events (first: 1000) {
+            #block
+            #timestamp
+            transaction
+        }
+        exchanges (first: 1000) {
+            #block
+            #boughtId
+            #buyer
+            #soldId
+            #timestamp
+            tokensBought
+            tokensSold
+            transaction
+        }
+        #fee
+        #id
+        #owner
+        poolToken {
+            #address
+            #decimals
+            #id
+            #name
+            symbol
+        }
+        #rateMethodId
+        #removedAt
+        #removedAtBlock
+        #removedAtTransaction
+        underlyingCoins (first: 1000) {
+            #address
+            #decimals
+            #id
+            #name
+            symbol
+        }
+        virtualPrice
+    }
+    tokenExchanges (first: 1000) {
+        #block
+        #boughtId
+        #buyer
+        #id
+        pool {
+            id
+        }
+        #soldId
+        timestamp
+        tokensBought
+        tokensSold
+        transaction
+    }
+}

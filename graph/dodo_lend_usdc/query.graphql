@@ -1,0 +1,30 @@
+{
+    tokens(first: 3) {
+        id
+        symbol
+        name
+        decimals
+        totalLiquidity
+        totalSupply
+    }
+    pairs(first: 3) {
+        id
+        baseToken {
+            id
+            symbol
+            name
+        }
+        quoteToken {
+            id
+            symbol
+            name
+        }
+        midPrice
+        fee
+        volumeBaseToken
+        volumeQuoteToken
+        txCount
+        createdAtTimestamp
+        createdAtBlockNumber
+    }
+}

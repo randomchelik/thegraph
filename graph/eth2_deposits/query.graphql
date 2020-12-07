@@ -1,0 +1,48 @@
+{
+    top_20: depositors (first: 20, orderBy: totalAmountDeposited, orderDirection: desc) {
+        id
+        depositCount
+        totalAmountDeposited
+    }
+    last_20: deposits (first: 20, orderBy: timestamp, orderDirection: desc) {
+        id
+        amount
+        public_Key
+        timestamp
+        depositor {
+            id
+        }
+    }
+    last_1000: deposits (first: 1000, orderBy: timestamp, orderDirection: desc) {
+        amount
+        depositor {
+            id
+        }
+    }
+
+#    chart: deposits (where: { timestamp_in: [1234, 5678] }) {
+#        amount
+#    }
+
+#    deposits (first: 1000) {
+#        id
+#        public_Key
+#        timestamp
+#        amount
+#        depositor {
+#            id
+#            depositCount
+#            totalAmountDeposited
+#        }
+#    }
+
+#    statuses (first: 1000) {
+#        id
+#        genesisTime
+#        genesisTimeValid
+#        totalAmountDeposited
+#        totalDepositors
+#        totalDeposits
+#    }
+
+}

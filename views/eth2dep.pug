@@ -1,0 +1,79 @@
+extends layout
+
+block content
+    .block-header
+        .row.clearfix
+            .col-md-6.col-sm-12
+                h1 Ethereum 2.0 Deposits
+                nav(aria-label='breadcrumb')
+                    ol.breadcrumb
+                        li.breadcrumb-item
+                            a(href='/')
+                                i.fa.fa-cube
+                        li.breadcrumb-item.active(aria-current='page') Dashboard
+
+
+        .row.clearfix
+            .col-lg-4.col-md-6
+                .card
+                    .body
+                        div Sum last 1000
+                        .py-4.m-0.text-center.h1.text-success #{data.last_1000.sum_deposits}
+                        .d-flex
+                            small.text-muted Uniq deposits
+                            .ml-auto #{data.last_1000.uniq_deposits}
+
+        .row.clearfix
+            .col-lg-12.col-md-12
+                .card
+                    .header
+                        h2 Deposit pool
+                    .body
+                        .card-value.float-right.text-blue Count
+                    .card-chart-bg
+                        span#linecustom
+                            for cha in data.chart
+                                | #{cha.count},
+                        .card-value.float-right.text-red Amount
+                    .card-chart-bg
+                        span#linecustome
+                            for cha in data.chart
+                                | #{cha.amount},
+
+
+        .row.clearfix
+            .col-12.col-lg-6.col-md-12
+                .card
+                    .header
+                        h2 Top 20 ethereum Deposits (Based on last 1000 requests)
+                    .table-responsive
+                        table.table.table-custom.spacing5.mb-0
+                            thead
+                                tr
+                                    th Depositor
+                                    th Deposit count
+                                    th Total amount
+
+                            tbody
+                            for top in data.top_20
+                                tr
+                                    td #{top.id}
+                                    td #{top.depositCount}
+                                    td #{top.totalAmountDeposited}
+            .col-12.col-lg-6.col-md-12
+                .card
+                    .header
+                        h2 Last 20 ethereum Deposits
+                    .table-responsive
+                        table.table.table-custom.spacing5.mb-0
+                            thead
+                                tr
+                                    th Deposit
+                                    th Amount
+                                    th Depositor
+                            tbody
+                            for last in data.last_20
+                                tr
+                                    td #{last.id}
+                                    td #{last.amount}
+                                    td #{last.depositor.id}

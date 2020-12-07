@@ -1,0 +1,389 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    subscription: Subscription
+}
+
+type Deposit {
+    "Amount"
+    amount: BigInt!
+    "Depositor"
+    depositor: Depositor
+    id: ID!
+    "User public address"
+    public_Key: Bytes!
+    "Timestamp"
+    timestamp: BigInt!
+}
+
+type DepositDayData {
+    "Deposits triggered on this day"
+    dailyDeposits: BigInt!
+    "Date"
+    date: BigInt!
+    id: ID!
+}
+
+type Depositor {
+    "Deposits this user has triggered"
+    depositCount: BigInt
+    "List of deposits for this depositor"
+    deposits(first: Int = 100, orderBy: Deposit_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Deposit_filter): [Deposit!]
+    "Public Key"
+    id: ID!
+    "Total Eth deposited by this depositor"
+    totalAmountDeposited: BigInt
+}
+
+type Query {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
+    deposit(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Deposit
+    depositDayData(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): DepositDayData
+    depositDayDatas(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: DepositDayData_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: DepositDayData_filter
+    ): [DepositDayData!]!
+    depositor(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Depositor
+    depositors(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Depositor_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Depositor_filter
+    ): [Depositor!]!
+    deposits(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Deposit_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Deposit_filter
+    ): [Deposit!]!
+    status(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Status
+    statuses(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Status_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Status_filter
+    ): [Status!]!
+}
+
+type Status {
+    "Genesis time of eth2.0 Phase 0"
+    genesisTime: BigInt!
+    "Validation of genesis_time (When 16384 validator deposits is reached)"
+    genesisTimeValid: Boolean!
+    id: ID!
+    "Total worth of deposits"
+    totalAmountDeposited: BigInt
+    "Total amount of depositors"
+    totalDepositors: BigInt!
+    "Total deposits since v1.0 release"
+    totalDeposits: BigInt!
+}
+
+type Subscription {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
+    deposit(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Deposit
+    depositDayData(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): DepositDayData
+    depositDayDatas(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: DepositDayData_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: DepositDayData_filter
+    ): [DepositDayData!]!
+    depositor(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Depositor
+    depositors(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Depositor_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Depositor_filter
+    ): [Depositor!]!
+    deposits(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Deposit_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Deposit_filter
+    ): [Deposit!]!
+    status(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Status
+    statuses(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Status_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Status_filter
+    ): [Status!]!
+}
+
+type _Block_ {
+    "The hash of the block"
+    hash: Bytes
+    "The block number"
+    number: Int!
+}
+
+"The type for the top-level _meta field"
+type _Meta_ {
+    """
+
+    Information about a specific subgraph block. The hash of the block
+    will be null if the _meta field has a block constraint that asks for
+    a block number. It will be filled if the _meta field has no block constraint
+    and therefore asks for the latest  block
+    """
+    block: _Block_!
+    "The deployment ID"
+    deployment: String!
+}
+
+enum DepositDayData_orderBy {
+    dailyDeposits
+    date
+    id
+}
+
+enum Deposit_orderBy {
+    amount
+    depositor
+    id
+    public_Key
+    timestamp
+}
+
+enum Depositor_orderBy {
+    depositCount
+    deposits
+    id
+    totalAmountDeposited
+}
+
+enum OrderDirection {
+    asc
+    desc
+}
+
+enum Status_orderBy {
+    genesisTime
+    genesisTimeValid
+    id
+    totalAmountDeposited
+    totalDepositors
+    totalDeposits
+}
+
+input Block_height {
+    hash: Bytes
+    number: Int
+}
+
+input DepositDayData_filter {
+    dailyDeposits: BigInt
+    dailyDeposits_gt: BigInt
+    dailyDeposits_gte: BigInt
+    dailyDeposits_in: [BigInt!]
+    dailyDeposits_lt: BigInt
+    dailyDeposits_lte: BigInt
+    dailyDeposits_not: BigInt
+    dailyDeposits_not_in: [BigInt!]
+    date: BigInt
+    date_gt: BigInt
+    date_gte: BigInt
+    date_in: [BigInt!]
+    date_lt: BigInt
+    date_lte: BigInt
+    date_not: BigInt
+    date_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+}
+
+input Deposit_filter {
+    amount: BigInt
+    amount_gt: BigInt
+    amount_gte: BigInt
+    amount_in: [BigInt!]
+    amount_lt: BigInt
+    amount_lte: BigInt
+    amount_not: BigInt
+    amount_not_in: [BigInt!]
+    depositor: String
+    depositor_contains: String
+    depositor_ends_with: String
+    depositor_gt: String
+    depositor_gte: String
+    depositor_in: [String!]
+    depositor_lt: String
+    depositor_lte: String
+    depositor_not: String
+    depositor_not_contains: String
+    depositor_not_ends_with: String
+    depositor_not_in: [String!]
+    depositor_not_starts_with: String
+    depositor_starts_with: String
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    public_Key: Bytes
+    public_Key_contains: Bytes
+    public_Key_in: [Bytes!]
+    public_Key_not: Bytes
+    public_Key_not_contains: Bytes
+    public_Key_not_in: [Bytes!]
+    timestamp: BigInt
+    timestamp_gt: BigInt
+    timestamp_gte: BigInt
+    timestamp_in: [BigInt!]
+    timestamp_lt: BigInt
+    timestamp_lte: BigInt
+    timestamp_not: BigInt
+    timestamp_not_in: [BigInt!]
+}
+
+input Depositor_filter {
+    depositCount: BigInt
+    depositCount_gt: BigInt
+    depositCount_gte: BigInt
+    depositCount_in: [BigInt!]
+    depositCount_lt: BigInt
+    depositCount_lte: BigInt
+    depositCount_not: BigInt
+    depositCount_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    totalAmountDeposited: BigInt
+    totalAmountDeposited_gt: BigInt
+    totalAmountDeposited_gte: BigInt
+    totalAmountDeposited_in: [BigInt!]
+    totalAmountDeposited_lt: BigInt
+    totalAmountDeposited_lte: BigInt
+    totalAmountDeposited_not: BigInt
+    totalAmountDeposited_not_in: [BigInt!]
+}
+
+input Status_filter {
+    genesisTime: BigInt
+    genesisTimeValid: Boolean
+    genesisTimeValid_in: [Boolean!]
+    genesisTimeValid_not: Boolean
+    genesisTimeValid_not_in: [Boolean!]
+    genesisTime_gt: BigInt
+    genesisTime_gte: BigInt
+    genesisTime_in: [BigInt!]
+    genesisTime_lt: BigInt
+    genesisTime_lte: BigInt
+    genesisTime_not: BigInt
+    genesisTime_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    totalAmountDeposited: BigInt
+    totalAmountDeposited_gt: BigInt
+    totalAmountDeposited_gte: BigInt
+    totalAmountDeposited_in: [BigInt!]
+    totalAmountDeposited_lt: BigInt
+    totalAmountDeposited_lte: BigInt
+    totalAmountDeposited_not: BigInt
+    totalAmountDeposited_not_in: [BigInt!]
+    totalDepositors: BigInt
+    totalDepositors_gt: BigInt
+    totalDepositors_gte: BigInt
+    totalDepositors_in: [BigInt!]
+    totalDepositors_lt: BigInt
+    totalDepositors_lte: BigInt
+    totalDepositors_not: BigInt
+    totalDepositors_not_in: [BigInt!]
+    totalDeposits: BigInt
+    totalDeposits_gt: BigInt
+    totalDeposits_gte: BigInt
+    totalDeposits_in: [BigInt!]
+    totalDeposits_lt: BigInt
+    totalDeposits_lte: BigInt
+    totalDeposits_not: BigInt
+    totalDeposits_not_in: [BigInt!]
+}
+
+
+scalar BigDecimal
+
+scalar BigInt
+
+scalar Bytes
